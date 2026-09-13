@@ -5,99 +5,347 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Academic Analytics — Khóa 2022 CNTT</title>
 <link rel="icon" type="image/svg+xml"
-          href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%234f46e5' d='M8 24L32 12L56 24L32 36L8 24Z'/%3E%3Cpath fill='%234f46e5' opacity='.75' d='M18 29V38C18 43 25 47 32 47C39 47 46 43 46 38V29L32 36L18 29Z'/%3E%3Cpath stroke='%234f46e5' stroke-width='3' stroke-linecap='round' d='M54 25V38'/%3E%3Ccircle fill='%234f46e5' cx='54' cy='41' r='3'/%3E%3C/svg%3E">
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%234f46e5' d='M8 24L32 12L56 24L32 36L8 24Z'/%3E%3Cpath fill='%234f46e5' opacity='.75' d='M18 29V38C18 43 25 47 32 47C39 47 46 43 46 38V29L32 36L18 29Z'/%3E%3Cpath stroke='%234f46e5' stroke-width='3' stroke-linecap='round' d='M54 25V38'/%3E%3Ccircle fill='%234f46e5' cx='54' cy='41' r='3'/%3E%3C/svg%3E">
 <style>
 :root{
-  --bg:#f5f7fb;--surface:#fff;--ink:#18212f;--muted:#687386;--line:#e6eaf0;
-  --accent:#315efb;--good:#15803d;--warn:#c26a00;--bad:#c23b3b;--shadow:0 8px 28px rgba(26,39,68,.07);
+  --bg:#f5f7fb;
+  --surface:#fff;
+  --ink:#18212f;
+  --muted:#687386;
+  --line:#e6eaf0;
+  --accent:#315efb;
+  --good:#15803d;
+  --warn:#c26a00;
+  --bad:#c23b3b;
+  --shadow:0 8px 28px rgba(26,39,68,.07);
   --radius:16px;
+  --content-max:1540px;
 }
+
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-width:320px;
+  overflow-x:hidden;
+  background:var(--bg);
+  color:var(--ink);
+  font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  -webkit-text-size-adjust:100%;
+}
 button,input,select{font:inherit}
 button{cursor:pointer}
-.app{max-width:1500px;margin:auto;padding:24px}
-.header{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:18px}
-.eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
-h1{margin:5px 0 3px;font-size:30px;line-height:1.15}
-.subtitle{color:var(--muted)}
+button,input,select{max-width:100%}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(49,94,251,.22);outline-offset:1px}
+
+.app{
+  width:min(100%,var(--content-max));
+  margin-inline:auto;
+  padding:clamp(14px,2.2vw,28px);
+}
+
+.header{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:clamp(14px,3vw,32px);
+  align-items:end;
+  margin-bottom:clamp(14px,2vw,20px);
+}
+.header > *{min-width:0}
+.eyebrow{
+  font-size:clamp(10px,.72vw,12px);
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+h1{
+  margin:5px 0 4px;
+  font-size:clamp(23px,2.1vw,32px);
+  line-height:1.14;
+  letter-spacing:-.025em;
+  overflow-wrap:anywhere;
+}
+.subtitle{color:var(--muted);font-size:clamp(12px,1vw,14px)}
 .actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 12px;border-radius:10px;font-weight:700}
+.btn{
+  min-height:42px;
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--ink);
+  padding:9px 13px;
+  border-radius:10px;
+  font-weight:700;
+  transition:background .15s ease,border-color .15s ease,transform .15s ease;
+}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn:hover{filter:brightness(.98)}
-.filters{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr 1.6fr auto;gap:9px;background:var(--surface);padding:12px;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);margin-bottom:16px}
+.btn:active{transform:translateY(1px)}
+
+.filters{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:10px;
+  background:var(--surface);
+  padding:clamp(11px,1.4vw,14px);
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+  margin-bottom:16px;
+}
 .control{min-width:0}
-.control label{display:block;font-size:11px;font-weight:800;color:var(--muted);margin:0 0 5px}
-input,select{width:100%;height:38px;border:1px solid var(--line);border-radius:9px;background:#fff;padding:0 10px;outline:none}
+.control label{
+  display:block;
+  min-height:16px;
+  font-size:11px;
+  font-weight:800;
+  color:var(--muted);
+  margin:0 0 5px;
+}
+input,select{
+  width:100%;
+  min-width:0;
+  height:42px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:#fff;
+  padding:0 10px;
+  outline:none;
+}
 input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(49,94,251,.10)}
-.range{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.range{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+
+.kpis{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:16px;
+}
+.card{
+  min-width:0;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
 .kpi{padding:16px;min-height:116px}
-.kpi-label{color:var(--muted);font-size:12px;font-weight:700}
-.kpi-value{font-size:28px;font-weight:850;margin:7px 0 3px;letter-spacing:-.03em}
-.kpi-note{font-size:11px;color:var(--muted)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-.grid-wide{display:grid;grid-template-columns:1.35fr .85fr;gap:16px;margin-bottom:16px}
-.section{padding:18px}
-.section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
-.section-title{font-weight:850;font-size:16px}
-.section-sub{font-size:12px;color:var(--muted);margin-top:2px}
-.metric-pill{font-size:12px;font-weight:800;padding:6px 9px;background:#f2f5ff;color:var(--accent);border-radius:999px;white-space:nowrap}
+.kpi-label{color:var(--muted);font-size:12px;font-weight:700;overflow-wrap:anywhere}
+.kpi-value{font-size:clamp(22px,2vw,29px);font-weight:850;margin:7px 0 3px;letter-spacing:-.03em}
+.kpi-note{font-size:11px;color:var(--muted);overflow-wrap:anywhere}
+
+.grid2{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(12px,1.4vw,16px);
+  margin-bottom:16px;
+}
+.grid-wide{
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(300px,.85fr);
+  gap:clamp(12px,1.4vw,16px);
+  margin-bottom:16px;
+}
+.grid2 > *, .grid-wide > *{min-width:0}
+.section{padding:clamp(14px,1.5vw,19px)}
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:12px;
+}
+.section-head > *{min-width:0}
+.section-title{font-weight:850;font-size:16px;overflow-wrap:anywhere}
+.section-sub{font-size:12px;color:var(--muted);margin-top:2px;overflow-wrap:anywhere}
+.metric-pill{
+  flex:0 0 auto;
+  font-size:12px;
+  font-weight:800;
+  padding:6px 9px;
+  background:#f2f5ff;
+  color:var(--accent);
+  border-radius:999px;
+  white-space:nowrap;
+}
 .chart{min-height:265px}
+
 .bars{display:flex;flex-direction:column;gap:11px;padding:7px 0}
-.bar-row{display:grid;grid-template-columns:100px 1fr 55px;gap:10px;align-items:center}
+.bar-row{
+  display:grid;
+  grid-template-columns:minmax(70px,100px) minmax(0,1fr) 55px;
+  gap:10px;
+  align-items:center;
+  min-width:0;
+}
 .bar-label{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bar-track{height:12px;background:#eef1f6;border-radius:99px;overflow:hidden}
-.bar-fill{height:100%;border-radius:99px;background:var(--accent)}
-.bar-value{text-align:right;font-weight:800;font-size:12px}
-.hist{display:flex;align-items:flex-end;height:220px;gap:10px;padding:20px 4px 25px;border-bottom:1px solid var(--line)}
-.hist-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px}
+.bar-track{height:12px;background:#eef1f6;border-radius:99px;overflow:hidden;min-width:0}
+.bar-fill{height:100%;border-radius:99px;background:var(--accent);transition:width .25s ease}
+.bar-value{text-align:right;font-weight:800;font-size:12px;white-space:nowrap}
+
+.hist{
+  display:flex;
+  align-items:flex-end;
+  height:clamp(190px,24vw,220px);
+  gap:clamp(5px,1vw,10px);
+  padding:20px 4px 25px;
+  border-bottom:1px solid var(--line);
+}
+.hist-col{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px}
 .hist-bar{width:min(58px,75%);background:#315efb;border-radius:7px 7px 2px 2px;min-height:2px}
 .hist-n{font-size:11px;font-weight:800}
 .hist-label{font-size:10px;color:var(--muted);white-space:nowrap}
-.scatter-wrap{position:relative;height:290px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(#fff,#fbfcff);overflow:hidden}
-.scatter{width:100%;height:100%}
+
+.scatter-wrap{
+  position:relative;
+  width:100%;
+  height:clamp(230px,32vw,310px);
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:linear-gradient(#fff,#fbfcff);
+  overflow:hidden;
+}
+.scatter{display:block;width:100%;height:100%;max-width:100%}
 .axis-label{font-size:11px;fill:#687386}
 .dot{cursor:pointer;opacity:.72;stroke:#fff;stroke-width:1}
 .dot:hover{opacity:1;stroke:#18212f}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:8px}
 .legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
-table{width:100%;border-collapse:collapse;min-width:760px}
+
+.table-wrap{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  border:1px solid var(--line);
+  border-radius:12px;
+}
+table{width:100%;border-collapse:collapse;min-width:680px}
 th,td{padding:10px 11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
-th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;background:#fafbfc;position:sticky;top:0;z-index:1}
+th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;background:#fafbfc;position:sticky;top:0;z-index:1;white-space:nowrap}
 td{font-size:12px}
 tr:last-child td{border-bottom:0}
 .rank{font-weight:900;width:35px}
 .name{font-weight:800}
 .num{font-variant-numeric:tabular-nums}
-.tag{display:inline-flex;align-items:center;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:800;background:#f0f3f7;color:#495568}
+.tag{display:inline-flex;align-items:center;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:800;background:#f0f3f7;color:#495568;white-space:nowrap}
 .tag.warn{background:#fff3df;color:#9b5900}
 .tag.good{background:#eaf7ef;color:#14743a}
 .tag.bad{background:#fdecec;color:#a72d2d}
-.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.insight{padding:13px;border:1px solid var(--line);border-radius:12px;background:#fbfcfe}
-.insight strong{display:block;margin-bottom:4px}
-.small{font-size:12px;color:var(--muted)}
-.quality{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
-.q{padding:12px;border:1px solid var(--line);border-radius:12px}
+
+.insights{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.insight{padding:13px;border:1px solid var(--line);border-radius:12px;background:#fbfcfe;min-width:0}
+.insight strong{display:block;margin-bottom:4px;overflow-wrap:anywhere}
+.small{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.quality{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.q{padding:12px;border:1px solid var(--line);border-radius:12px;min-width:0}
 .q .v{font-size:22px;font-weight:850;margin-top:3px}
-.footer{color:var(--muted);font-size:11px;text-align:center;padding:20px 0}
+.footer{color:var(--muted);font-size:11px;text-align:center;padding:20px 0;overflow-wrap:anywhere}
 .empty{padding:40px;text-align:center;color:var(--muted)}
-.modal{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:flex-end;justify-content:center;z-index:20}
+
+.modal{
+  position:fixed;
+  inset:0;
+  padding:12px;
+  background:rgba(15,23,42,.45);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:20;
+}
 .modal.show{display:flex}
-.drawer{width:min(680px,100%);max-height:88vh;background:#fff;border-radius:20px 20px 0 0;padding:20px;overflow:auto;box-shadow:0 -10px 40px rgba(0,0,0,.18)}
-.drawer-head{display:flex;justify-content:space-between;align-items:flex-start}
-.close{border:0;background:#f1f3f7;border-radius:50%;width:34px;height:34px;font-size:20px}
-.profile{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:15px 0}
-.profile .p{padding:11px;background:#f7f8fb;border-radius:11px}
+.drawer{
+  width:min(760px,100%);
+  max-width:100%;
+  max-height:min(760px,92vh);
+  background:#fff;
+  border-radius:20px;
+  padding:clamp(15px,2vw,22px);
+  overflow:auto;
+  overscroll-behavior:contain;
+  box-shadow:0 18px 50px rgba(0,0,0,.18);
+}
+.drawer-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.drawer-head > div{min-width:0}
+.close{
+  flex:0 0 auto;
+  border:0;
+  background:#f1f3f7;
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  font-size:20px;
+}
+.profile{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:15px 0}
+.profile .p{padding:11px;background:#f7f8fb;border-radius:11px;min-width:0}
 .p .lab{font-size:10px;color:var(--muted);font-weight:800}
-.p .val{font-weight:850;margin-top:3px}
-.note{padding:12px;border-left:3px solid var(--accent);background:#f5f7ff;border-radius:7px;font-size:12px}
-@media(max-width:1150px){.filters{grid-template-columns:repeat(3,1fr)}.kpis{grid-template-columns:repeat(3,1fr)}.grid-wide{grid-template-columns:1fr}}
-@media(max-width:800px){.app{padding:14px}.header{align-items:flex-start;flex-direction:column}.actions{justify-content:flex-start}.filters{grid-template-columns:1fr 1fr}.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.insights{grid-template-columns:1fr}.quality{grid-template-columns:1fr 1fr}h1{font-size:23px}}
-@media(max-width:520px){.filters{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr;gap:8px}.kpi{min-height:100px;padding:13px}.kpi-value{font-size:23px}.section{padding:14px}.profile{grid-template-columns:1fr 1fr}.grid2{gap:10px}.bar-row{grid-template-columns:82px 1fr 42px}.hist{gap:4px}.hist-label{font-size:9px}.actions{width:100%}.actions .btn{flex:1}.quality{grid-template-columns:1fr 1fr}}
+.p .val{font-weight:850;margin-top:3px;overflow-wrap:anywhere}
+.note{padding:12px;border-left:3px solid var(--accent);background:#f5f7ff;border-radius:7px;font-size:12px;overflow-wrap:anywhere}
+
+ .full-btn{width:100%}
+.section-spaced{margin-bottom:16px}
+.grid-wide-tight{margin-bottom:0}
+.legend-dot{background:#315efb}
+#mName{margin:4px 0}
+
+/* Large laptop / desktop */
+@media (max-width:1200px){
+  .filters{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .grid-wide{grid-template-columns:minmax(0,1fr)}
+}
+
+/* Tablet */
+@media (max-width:900px){
+  .app{padding:clamp(12px,2vw,18px)}
+  .header{grid-template-columns:1fr;align-items:start}
+  .actions{justify-content:flex-start}
+  .filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid2{grid-template-columns:1fr}
+  .quality{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .profile{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* Mobile */
+@media (max-width:600px){
+  .app{padding:12px}
+  h1{font-size:clamp(22px,7vw,26px)}
+  .actions{width:100%}
+  .actions .btn{flex:1 1 0;min-width:0}
+  .filters{grid-template-columns:1fr;gap:9px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .kpi{min-height:100px;padding:13px}
+  .kpi-value{font-size:clamp(21px,7vw,25px)}
+  .section{padding:14px}
+  .section-head{gap:8px}
+  .metric-pill{font-size:11px;padding:5px 8px}
+  .bar-row{grid-template-columns:minmax(68px,82px) minmax(0,1fr) 42px;gap:7px}
+  .bar-label{font-size:11px}
+  .hist{gap:4px}
+  .hist-label{font-size:9px}
+  .insights{grid-template-columns:1fr}
+  .quality{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .profile{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .modal{padding:0;align-items:flex-end}
+  .drawer{width:100%;max-height:92vh;border-radius:20px 20px 0 0;padding:16px}
+}
+
+/* Very small phones */
+@media (max-width:380px){
+  .app{padding:10px}
+  .kpis{grid-template-columns:1fr}
+  .kpi{min-height:auto}
+  .actions{flex-direction:column}
+  .actions .btn{width:100%}
+  .section{padding:12px}
+  .profile{grid-template-columns:1fr}
+  .section-head{flex-direction:column}
+  .metric-pill{align-self:flex-start}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:0.01ms!important;animation-duration:0.01ms!important;animation-iteration-count:1!important}
+}
 </style>
 </head>
 <body>
@@ -120,7 +368,7 @@ tr:last-child td{border-bottom:0}
     <div class="control"><label>Tình trạng môn nợ</label><select id="debtFilter"><option value="">Tất cả</option><option value="yes">Có môn nợ</option><option value="no">Không môn nợ</option></select></div>
     <div class="control"><label>Xếp loại</label><select id="gradeFilter"><option value="">Tất cả</option><option value="excellent">Xuất sắc</option><option value="good">Giỏi</option><option value="fair">Khá</option><option value="average">Trung bình</option><option value="weak">Yếu</option></select></div>
     <div class="control"><label>Khoảng TBCHT</label><div class="range"><input id="minGpa" type="number" step=".01" min="0" max="4" placeholder="Min"><input id="maxGpa" type="number" step=".01" min="0" max="4" placeholder="Max"></div></div>
-    <div class="control"><label>&nbsp;</label><button class="btn" style="width:100%" id="apply">Áp dụng</button></div>
+    <div class="control"><label>&nbsp;</label><button class="btn full-btn" id="apply">Áp dụng</button></div>
   </section>
 
   <section class="kpis" id="kpis"></section>
@@ -136,9 +384,9 @@ tr:last-child td{border-bottom:0}
     </div>
   </section>
 
-  <section class="card section" style="margin-bottom:16px">
+  <section class="card section section-spaced">
     <div class="section-head"><div><div class="section-title">So sánh kết quả theo lớp</div><div class="section-sub">Xếp hạng theo TBCHT trung bình; click một lớp để lọc toàn dashboard</div></div></div>
-    <div class="grid-wide" style="margin-bottom:0">
+    <div class="grid-wide grid-wide-tight">
       <div id="classChart"></div>
       <div class="table-wrap"><table><thead><tr><th>Lớp</th><th>SV</th><th>TBCHT</th><th>TBC10</th><th>RL TB</th><th>SV nợ</th></tr></thead><tbody id="classTable"></tbody></table></div>
     </div>
@@ -148,7 +396,7 @@ tr:last-child td{border-bottom:0}
     <div class="card section">
       <div class="section-head"><div><div class="section-title">TBCHT ↔ Điểm rèn luyện</div><div class="section-sub">Mỗi điểm là một sinh viên · click điểm để xem chi tiết</div></div><div class="metric-pill" id="corr"></div></div>
       <div class="scatter-wrap"><svg class="scatter" id="scatter" viewBox="0 0 700 300" preserveAspectRatio="none"></svg></div>
-      <div class="legend"><span><i style="background:#315efb"></i>Điểm sinh viên</span><span>Đường tham chiếu: TBCHT 2.50 · RL 80</span></div>
+      <div class="legend"><span><i class="legend-dot"></i>Điểm sinh viên</span><span>Đường tham chiếu: TBCHT 2.50 · RL 80</span></div>
     </div>
     <div class="card section">
       <div class="section-head"><div><div class="section-title">Top 10 sinh viên</div><div class="section-sub">Xếp theo TBCHT giảm dần</div></div></div>
@@ -156,7 +404,7 @@ tr:last-child td{border-bottom:0}
     </div>
   </section>
 
-  <section class="card section" style="margin-bottom:16px">
+  <section class="card section section-spaced">
     <div class="section-head"><div><div class="section-title">⚠ Sinh viên cần lưu ý</div><div class="section-sub">Các sinh viên có số môn nợ &gt; 0, sắp xếp theo số môn nợ</div></div><div class="metric-pill" id="debtCount"></div></div>
     <div class="table-wrap"><table><thead><tr><th>Sinh viên</th><th>Mã SV</th><th>Lớp</th><th>TBCHT</th><th>TBC10</th><th>Môn nợ</th><th>Ghi chú</th></tr></thead><tbody id="debtTable"></tbody></table></div>
   </section>
@@ -178,7 +426,7 @@ tr:last-child td{border-bottom:0}
 
 <div class="modal" id="modal">
   <div class="drawer">
-    <div class="drawer-head"><div><div class="eyebrow">Student Detail</div><h2 id="mName" style="margin:4px 0"></h2><div class="small" id="mMeta"></div></div><button class="close" id="close">×</button></div>
+    <div class="drawer-head"><div><div class="eyebrow">Student Detail</div><h2 id="mName"></h2><div class="small" id="mMeta"></div></div><button class="close" id="close">×</button></div>
     <div class="profile" id="profile"></div>
     <div class="note" id="mNote"></div>
   </div>
@@ -204,11 +452,34 @@ const corr = (xs,ys) => {
 
 classes.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;$('classFilter').appendChild(o)});
 
+function normalizeNameText(value){
+  return String(value ?? '')
+    .toLowerCase()
+    .replace(/\s+/g,' ')
+    .trim();
+}
+
+function nameMatches(name, query){
+  const nameNorm=normalizeNameText(name);
+  const queryNorm=normalizeNameText(query);
+  if(!queryNorm) return true;
+
+  if(queryNorm.includes(' ')){
+    return nameNorm.includes(queryNorm);
+  }
+
+  const nameTokens=nameNorm.split(' ');
+  const lastName=nameTokens[nameTokens.length-1] || '';
+  return lastName === queryNorm;
+}
+
 function filtered(){
-  const q=$('search').value.trim().toLowerCase(), cls=$('classFilter').value, debt=$('debtFilter').value, gf=$('gradeFilter').value;
+  const q=$('search').value.trim(), qNorm=normalizeNameText(q), cls=$('classFilter').value, debt=$('debtFilter').value, gf=$('gradeFilter').value;
   const min=parseFloat($('minGpa').value), max=parseFloat($('maxGpa').value);
   return DATA.filter(s=>{
-    if(q && !(String(s['Họ và tên']).toLowerCase().includes(q)||String(s['Mã sinh viên']).toLowerCase().includes(q))) return false;
+    const nameHit=nameMatches(s['Họ và tên'],q);
+    const idHit=String(s['Mã sinh viên'] ?? '').toLowerCase().includes(qNorm);
+    if(q && !(nameHit||idHit)) return false;
     if(cls && s['Tên lớp']!==cls) return false;
     if(debt==='yes' && s['Số môn nợ']<=0) return false;
     if(debt==='no' && s['Số môn nợ']>0) return false;
