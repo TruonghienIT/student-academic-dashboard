@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://truonghienit.github.io/student-academic-dashboard/sitemap.xml
