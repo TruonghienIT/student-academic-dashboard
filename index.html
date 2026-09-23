@@ -193,6 +193,14 @@ h1{
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn:hover{filter:brightness(.98)}
 .btn:active{transform:translateY(1px)}
+.language-wrap{position:relative;display:inline-flex}
+.language-btn{min-width:92px}
+.language-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:1000;display:none;min-width:170px;padding:6px;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--modal-shadow)}
+.language-menu.show{display:grid;gap:3px}
+.language-menu button{display:flex;align-items:center;gap:9px;width:100%;padding:9px 10px;border:0;border-radius:8px;background:transparent;color:var(--ink);font:inherit;font-size:13px;text-align:left;cursor:pointer}
+.language-menu button:hover{background:var(--soft)}
+.language-menu button.active{background:var(--accent-soft);font-weight:700}
+
 
 .filters{
   display:grid;
@@ -482,14 +490,20 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
       </div>
       <h1>Báo cáo phân tích kết quả học tập sinh viên</h1>
       <div class="subtitle">Công nghệ thông tin · Đại học Kiến trúc Hà Nội</div>
-      <p class="seo-intro">
-        Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22
-        Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội.
-        Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập,
-        điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.
+      <p class="seo-intro" data-i18n-key="Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.">
+        Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.
       </p>
     </div>
     <div class="actions">
+      <div class="language-wrap" id="languageWrap">
+        <button class="btn language-btn" id="languageToggle" type="button" aria-haspopup="true" aria-expanded="false" title="Chọn ngôn ngữ">🌐 <span id="languageCode">VI</span></button>
+        <div class="language-menu" id="languageMenu" role="menu" aria-label="Language">
+          <button type="button" data-lang="vi" role="menuitem">🇻🇳 <span>Tiếng Việt</span></button>
+          <button type="button" data-lang="en" role="menuitem">🇬🇧 <span>English</span></button>
+          <button type="button" data-lang="ja" role="menuitem">🇯🇵 <span>日本語</span></button>
+          <button type="button" data-lang="fr" role="menuitem">🇫🇷 <span>Français</span></button>
+        </div>
+      </div>
       <button class="btn" id="themeToggle" type="button" aria-label="Chuyển chế độ sáng tối" title="Chuyển chế độ sáng / tối">🌙 <span>Dark</span></button>
       <button class="btn" id="reset">Reset filter</button>
       <button class="btn primary" id="export">Export CSV</button>
@@ -573,7 +587,7 @@ const classes = ["2022CN1", "2022CN2", "2022CN3", "2022CN4", "2022CN5"];
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const gradeOf = g => g >= 3.6 ? 'excellent' : g >= 3.2 ? 'good' : g >= 2.5 ? 'fair' : g >= 2 ? 'average' : 'weak';
-const gradeLabel = g => ({excellent:'Xuất sắc',good:'Giỏi',fair:'Khá',average:'Trung bình',weak:'Yếu'})[gradeOf(g)];
+const gradeLabel = g => tr(({excellent:'Xuất sắc',good:'Giỏi',fair:'Khá',average:'Trung bình',weak:'Yếu'})[gradeOf(g)]);
 const avg = a => a.length ? a.reduce((x,y)=>x+y,0)/a.length : 0;
 const fmt = (n,d=2) => Number(n||0).toFixed(d);
 const corr = (xs,ys) => {
@@ -627,17 +641,18 @@ function filtered(){
 function render(){
   const d=filtered();
   renderKpis(d); renderGrades(d); renderHist(d); renderClasses(d); renderScatter(d); renderTop(d); renderDebt(d); renderInsights(d); renderQuality();
+
 }
 
 function renderKpis(d){
   const debt=d.filter(s=>s['Số môn nợ']>0).length, high=d.filter(s=>s.TBCHT>=3.2).length;
   const cards=[
-    ['Tổng sinh viên',d.length,'Sau khi áp dụng bộ lọc'],
-    ['TBCHT trung bình',fmt(avg(d.map(s=>s.TBCHT))),'Hệ 4'],
-    ['TBC Hệ 10',fmt(avg(d.map(s=>s['TBC Hệ 10']))),'Trung bình'],
-    ['Điểm RL trung bình',fmt(avg(d.map(s=>s['Điểm RL'])),1),'Thang 100'],
-    ['Xuất sắc + Giỏi',high,`${d.length?fmt(high/d.length*100,1):'0.0'}% tập dữ liệu`],
-    ['Sinh viên còn môn nợ',debt,`${d.length?fmt(debt/d.length*100,1):'0.0'}% tập dữ liệu`]
+    [tr('Tổng sinh viên'),d.length,tr('Sau khi áp dụng bộ lọc')],
+    [tr('TBCHT trung bình'),fmt(avg(d.map(s=>s.TBCHT))),tr('Hệ 4')],
+    [tr('TBC Hệ 10'),fmt(avg(d.map(s=>s['TBC Hệ 10']))),tr('Trung bình')],
+    [tr('Điểm RL trung bình'),fmt(avg(d.map(s=>s['Điểm RL'])),1),tr('Thang 100')],
+    [tr('Xuất sắc + Giỏi'),high,`${d.length?fmt(high/d.length*100,1):'0.0'}% ${tr('tập dữ liệu')}`],
+    [tr('Sinh viên còn môn nợ'),debt,`${d.length?fmt(debt/d.length*100,1):'0.0'}% ${tr('tập dữ liệu')}`]
   ];
   $('kpis').innerHTML=cards.map((x,i)=>`<div class="card kpi"><div class="kpi-label">${x[0]}</div><div class="kpi-value">${x[1]}</div><div class="kpi-note">${x[2]}</div></div>`).join('');
 }
@@ -646,7 +661,7 @@ function renderGrades(d){
   const groups=['excellent','good','fair','average','weak'];
   const vals=groups.map(g=>({g,n:d.filter(s=>gradeOf(s.TBCHT)===g).length}));
   const mx=Math.max(1,...vals.map(x=>x.n));
-  $('gradeTotal').textContent=`${d.length} SV`;
+  $('gradeTotal').textContent=`${d.length} ${tr('SV')}`;
   $('gradeChart').innerHTML=`<div class="bars">${vals.map(x=>`<div class="bar-row"><div class="bar-label">${gradeLabel(x.g==='excellent'?3.6:x.g==='good'?3.2:x.g==='fair'?2.5:x.g==='average'?2:1)}</div><div class="bar-track"><div class="bar-fill" style="width:${x.n/mx*100}%"></div></div><div class="bar-value">${x.n}</div></div>`).join('')}</div>`;
 }
 
@@ -682,13 +697,13 @@ function renderScatter(d){
 
 function renderTop(d){
   const top=[...d].sort((a,b)=>b.TBCHT-a.TBCHT).slice(0,10);
-  $('topTable').innerHTML=top.length?top.map((s,i)=>`<tr onclick='openStudentById(${JSON.stringify(s["Mã sinh viên"])})' style="cursor:pointer"><td class="rank">${i+1}</td><td class="name">${esc(s['Họ và tên'])}</td><td>${esc(s['Tên lớp'])}</td><td class="num">${fmt(s.TBCHT)}</td><td class="num">${s['Điểm RL']}</td></tr>`).join(''):`<tr><td colspan="5" class="empty">Không có dữ liệu</td></tr>`;
+  $('topTable').innerHTML=top.length?top.map((s,i)=>`<tr onclick='openStudentById(${JSON.stringify(s["Mã sinh viên"])})' style="cursor:pointer"><td class="rank">${i+1}</td><td class="name">${esc(s['Họ và tên'])}</td><td>${esc(s['Tên lớp'])}</td><td class="num">${fmt(s.TBCHT)}</td><td class="num">${s['Điểm RL']}</td></tr>`).join(''):`<tr><td colspan="5" class="empty">${tr('Không có dữ liệu')}</td></tr>`;
 }
 
 function renderDebt(d){
   const debt=[...d].filter(s=>s['Số môn nợ']>0).sort((a,b)=>b['Số môn nợ']-a['Số môn nợ']||b.TBCHT-a.TBCHT);
-  $('debtCount').textContent=`${debt.length} SV`;
-  $('debtTable').innerHTML=debt.length?debt.slice(0,80).map(s=>`<tr onclick='openStudentById(${JSON.stringify(s["Mã sinh viên"])})' style="cursor:pointer"><td class="name">${esc(s['Họ và tên'])}</td><td>${esc(s['Mã sinh viên'])}</td><td>${esc(s['Tên lớp'])}</td><td>${fmt(s.TBCHT)}</td><td>${fmt(s['TBC Hệ 10'])}</td><td><span class="tag warn">${s['Số môn nợ']}</span></td><td title="${esc(s['Ghi chú'])}">${esc(s['Ghi chú']).slice(0,90)}${String(s['Ghi chú']).length>90?'…':''}</td></tr>`).join(''):`<tr><td colspan="7" class="empty">Không có sinh viên nợ môn trong bộ lọc hiện tại</td></tr>`;
+  $('debtCount').textContent=`${debt.length} ${tr('SV')}`;
+  $('debtTable').innerHTML=debt.length?debt.slice(0,80).map(s=>`<tr onclick='openStudentById(${JSON.stringify(s["Mã sinh viên"])})' style="cursor:pointer"><td class="name">${esc(s['Họ và tên'])}</td><td>${esc(s['Mã sinh viên'])}</td><td>${esc(s['Tên lớp'])}</td><td>${fmt(s.TBCHT)}</td><td>${fmt(s['TBC Hệ 10'])}</td><td><span class="tag warn">${s['Số môn nợ']}</span></td><td title="${esc(s['Ghi chú'])}">${esc(s['Ghi chú']).slice(0,90)}${String(s['Ghi chú']).length>90?'…':''}</td></tr>`).join(''):`<tr><td colspan="7" class="empty">${tr('Không có sinh viên nợ môn trong bộ lọc hiện tại')}</td></tr>`;
 }
 
 function renderInsights(d){
@@ -701,10 +716,10 @@ function renderInsights(d){
   const notes={}; debt.forEach(s=>{const m=String(s['Ghi chú']).match(/Môn chưa đạt:\s*([^;]+)/i);if(m)notes[m[1]]=(notes[m[1]]||0)+1});
   const topSubject=Object.entries(notes).sort((a,b)=>b[1]-a[1])[0];
   const cards=[
-    [`Lớp dẫn đầu`,`${best[0]} · TBCHT ${fmt(best[1])}`,'So sánh theo TBCHT trung bình trong bộ lọc.'],
-    [`Môn nợ nổi bật`,topSubject?`${topSubject[0]} · ${topSubject[1]} SV`:'Chưa đủ dữ liệu để tách môn','Lấy từ trường Ghi chú; không suy diễn nếu thiếu thông tin.'],
-    [`Tương quan TBCHT ↔ RL`,`r = ${fmt(r,2)}`,Math.abs(r)>=.7?'Tương quan mạnh theo dữ liệu hiện tại.':Math.abs(r)>=.4?'Tương quan mức vừa.':'Tương quan yếu.'],
-    [`Trường hợp cần lưu ý`,highDebt?`${highDebt['Họ và tên']} · ${fmt(highDebt.TBCHT)} · ${highDebt['Số môn nợ']} môn nợ`:'Không có','Sinh viên có TBCHT ≥ 3.20 nhưng vẫn còn môn nợ.']
+    [tr('Lớp dẫn đầu'),`${best[0]} · TBCHT ${fmt(best[1])}`,tr('So sánh theo TBCHT trung bình trong bộ lọc.')],
+    [tr('Môn nợ nổi bật'),topSubject?`${topSubject[0]} · ${topSubject[1]} ${tr('SV')}`:tr('Chưa đủ dữ liệu để tách môn'),tr('Lấy từ trường Ghi chú; không suy diễn nếu thiếu thông tin.')],
+    [tr('Tương quan TBCHT ↔ RL'),`r = ${fmt(r,2)}`,Math.abs(r)>=.7?tr('Tương quan mạnh theo dữ liệu hiện tại.'):Math.abs(r)>=.4?tr('Tương quan mức vừa.'):tr('Tương quan yếu.')],
+    [tr('Trường hợp cần lưu ý'),highDebt?`${highDebt['Họ và tên']} · ${fmt(highDebt.TBCHT)} · ${highDebt['Số môn nợ']} ${tr('Môn nợ')}`:tr('Không có'),tr('Sinh viên có TBCHT ≥ 3.20 nhưng vẫn còn môn nợ.')]
   ];
   $('insights').innerHTML=cards.map(c=>`<div class="insight"><strong>${esc(c[0])}</strong><div>${esc(c[1])}</div><div class="small">${esc(c[2])}</div></div>`).join('');
 }
@@ -715,20 +730,317 @@ function renderQuality(){
   const missing=d.filter(s=>['Mã sinh viên','Họ và tên','Tên lớp','TBCHT','TBC Hệ 10','Điểm RL','Số môn nợ'].some(k=>s[k]===''||s[k]==null)).length;
   const invalid=d.filter(s=>s.TBCHT<0||s.TBCHT>4||s['TBC Hệ 10']<0||s['TBC Hệ 10']>10||s['Điểm RL']<0||s['Điểm RL']>100).length;
   const noteErrors=d.filter(s=>s['Sai sót']&&String(s['Sai sót']).trim()).length;
-  const q=[['Tổng bản ghi',d.length],['Mã SV trùng',dup],['Thiếu trường chính',missing],['Sai sót được ghi nhận',noteErrors+invalid]];
-  $('quality').innerHTML=q.map(x=>`<div class="q"><div class="small">${x[0]}</div><div class="v">${x[1]}</div></div>`).join('');
+  const q=[[tr('Tổng bản ghi'),d.length],[tr('Mã SV trùng'),dup],[tr('Thiếu trường chính'),missing],[tr('Sai sót được ghi nhận'),noteErrors+invalid]];
+  $('quality').innerHTML=q.map(x=>`<div class="q"><div class="small">${esc(x[0])}</div><div class="v">${x[1]}</div></div>`).join('');
 }
 
 function openStudentById(id){const s=DATA.find(x=>String(x['Mã sinh viên'])===String(id));if(s)openStudent(s)}
 function openStudent(s){
   $('mName').textContent=s['Họ và tên'];
   $('mMeta').textContent=`${s['Mã sinh viên']} · ${s['Tên lớp']} · ${s['Ngày sinh']}`;
-  const p=[['TBCHT',fmt(s.TBCHT)],['TBC Hệ 10',fmt(s['TBC Hệ 10'])],['Điểm RL',s['Điểm RL']],['Số môn nợ',s['Số môn nợ']],['Xếp loại',gradeLabel(s.TBCHT)],['STT',s.STT]];
-  $('profile').innerHTML=p.map(x=>`<div class="p"><div class="lab">${x[0]}</div><div class="val">${esc(x[1])}</div></div>`).join('');
-  $('mNote').innerHTML=`<strong>Ghi chú</strong><br>${esc(s['Ghi chú']||'Không có')} ${s['Sai sót']?`<br><br><strong>Sai sót</strong><br>${esc(s['Sai sót'])}`:''}`;
+  const p=[[tr('TBCHT'),fmt(s.TBCHT)],[tr('TBC Hệ 10'),fmt(s['TBC Hệ 10'])],[tr('Điểm RL'),s['Điểm RL']],[tr('Số môn nợ'),s['Số môn nợ']],[tr('Xếp loại'),gradeLabel(s.TBCHT)],[tr('STT'),s.STT]];
+  $('profile').innerHTML=p.map(x=>`<div class="p"><div class="lab">${esc(x[0])}</div><div class="val">${esc(x[1])}</div></div>`).join('');
+  $('mNote').innerHTML=`<strong>${tr('Ghi chú')}</strong><br>${esc(s['Ghi chú']||tr('Không có'))} ${s['Sai sót']?`<br><br><strong>${tr('Sai sót')}</strong><br>${esc(s['Sai sót'])}`:''}`;
   $('modal').classList.add('show');
 }
 $('close').onclick=()=>$('modal').classList.remove('show');
+
+/* ===== Multilingual UI: Vietnamese / English / Japanese / French ===== */
+const LANGS = {
+  vi:{code:'VI',html:'vi'}, en:{code:'EN',html:'en'}, ja:{code:'JA',html:'ja'}, fr:{code:'FR',html:'fr'}
+};
+const I18N = {
+  vi:{
+    'Language':'Ngôn ngữ','Faculty of Information Technology · Hanoi Architectural University':'Khoa Công nghệ thông tin · Trường Đại học Kiến trúc Hà Nội','Cohort 2022':'Khóa 2022','Tổng sinh viên':'Tổng sinh viên','Sau khi áp dụng bộ lọc':'Sau khi áp dụng bộ lọc','Hệ 4':'Hệ 4','TBC Hệ 10':'TBC Hệ 10','Điểm RL trung bình':'Điểm RL trung bình','Xuất sắc + Giỏi':'Xuất sắc + Giỏi','Sinh viên còn môn nợ':'Sinh viên còn môn nợ','SV nợ':'SV nợ','STT':'STT','Số môn nợ':'Số môn nợ',
+    'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.':'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.',
+    'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình':'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình',
+    'Switch to light mode':'Chuyển sang chế độ sáng','Switch to dark mode':'Chuyển sang chế độ tối',
+    'Choose language':'Chọn ngôn ngữ','Reset filter':'Đặt lại bộ lọc','Export CSV':'Xuất CSV','Dark':'Tối','Light':'Sáng',
+    'Báo cáo phân tích kết quả học tập sinh viên':'Báo cáo phân tích kết quả học tập sinh viên',
+    'Công nghệ thông tin · Đại học Kiến trúc Hà Nội':'Công nghệ thông tin · Đại học Kiến trúc Hà Nội',
+    'Tìm sinh viên / mã SV':'Tìm sinh viên / mã SV','Nhập tên hoặc mã sinh viên':'Nhập tên hoặc mã sinh viên','Lớp':'Lớp',
+    'Tất cả lớp':'Tất cả lớp','Tình trạng môn nợ':'Tình trạng môn nợ','Tất cả':'Tất cả','Có môn nợ':'Có môn nợ','Không môn nợ':'Không môn nợ',
+    'Xếp loại':'Xếp loại','Xuất sắc':'Xuất sắc','Giỏi':'Giỏi','Khá':'Khá','Trung bình':'Trung bình','Yếu':'Yếu',
+    'Khoảng TBCHT':'Khoảng TBCHT','Áp dụng':'Áp dụng','Phân bố xếp loại':'Phân bố xếp loại','Phân bố TBCHT':'Phân bố TBCHT',
+    'Số sinh viên theo khoảng điểm hệ 4':'Số sinh viên theo khoảng điểm hệ 4','So sánh kết quả theo lớp':'So sánh kết quả theo lớp',
+    'Xếp hạng theo TBCHT trung bình; click một lớp để lọc toàn dashboard':'Xếp hạng theo TBCHT trung bình; click một lớp để lọc toàn dashboard',
+    'TBCHT ↔ Điểm rèn luyện':'TBCHT ↔ Điểm rèn luyện','Mỗi điểm là một sinh viên · click điểm để xem chi tiết':'Mỗi điểm là một sinh viên · click điểm để xem chi tiết',
+    'Điểm sinh viên':'Điểm sinh viên','Đường tham chiếu: TBCHT 2.50 · RL 80':'Đường tham chiếu: TBCHT 2.50 · RL 80',
+    'Top 10 sinh viên':'Top 10 sinh viên','Xếp theo TBCHT giảm dần':'Xếp theo TBCHT giảm dần','Sinh viên cần lưu ý':'Sinh viên cần lưu ý',
+    'Các sinh viên có số môn nợ > 0, sắp xếp theo số môn nợ':'Các sinh viên có số môn nợ > 0, sắp xếp theo số môn nợ',
+    'Key Insights':'Phân tích nổi bật','Tự động tính từ dữ liệu đang được lọc':'Tự động tính từ dữ liệu đang được lọc',
+    'Data Quality':'Chất lượng dữ liệu','Kiểm tra dữ liệu nền từ file Excel':'Kiểm tra dữ liệu nền từ file Excel',
+    'Nguồn: Book1.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'Nguồn: Book1.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model',
+    'Student Detail':'Chi tiết sinh viên','Ghi chú':'Ghi chú','Sai sót':'Sai sót','Không có':'Không có','Không có dữ liệu':'Không có dữ liệu',
+    'Không có dữ liệu phù hợp với bộ lọc.':'Không có dữ liệu phù hợp với bộ lọc.','Không có sinh viên nợ môn trong bộ lọc hiện tại':'Không có sinh viên nợ môn trong bộ lọc hiện tại',
+    'Tổng bản ghi':'Tổng bản ghi','Mã SV trùng':'Mã SV trùng','Thiếu trường chính':'Thiếu trường chính','Sai sót được ghi nhận':'Sai sót được ghi nhận',
+    'Lớp dẫn đầu':'Lớp dẫn đầu','Môn nợ nổi bật':'Môn nợ nổi bật','Tương quan TBCHT ↔ RL':'Tương quan TBCHT ↔ RL','Trường hợp cần lưu ý':'Trường hợp cần lưu ý',
+    'So sánh theo TBCHT trung bình trong bộ lọc.':'So sánh theo TBCHT trung bình trong bộ lọc.','Chưa đủ dữ liệu để tách môn':'Chưa đủ dữ liệu để tách môn',
+    'Lấy từ trường Ghi chú; không suy diễn nếu thiếu thông tin.':'Lấy từ trường Ghi chú; không suy diễn nếu thiếu thông tin.',
+    'Tương quan mạnh theo dữ liệu hiện tại.':'Tương quan mạnh theo dữ liệu hiện tại.','Tương quan mức vừa.':'Tương quan mức vừa.','Tương quan yếu.':'Tương quan yếu.',
+    'Sinh viên có TBCHT ≥ 3.20 nhưng vẫn còn môn nợ.':'Sinh viên có TBCHT ≥ 3.20 nhưng vẫn còn môn nợ.',
+    'SV':'SV','Môn nợ':'Môn nợ','TBC10':'TBC10','RL TB':'RL TB','Điểm RL':'Điểm RL','Xếp loại':'Xếp loại','Sinh viên':'Sinh viên','Mã SV':'Mã SV',
+    'TBCHT trung bình':'TBCHT trung bình','Thang 100':'Thang 100','tập dữ liệu':'tập dữ liệu','Môn chưa đạt':'Môn chưa đạt',
+    'Không tự tạo lỗi; chỉ hiển thị các bất thường có thể kiểm tra từ các trường hiện có.':'Không tự tạo lỗi; chỉ hiển thị các bất thường có thể kiểm tra từ các trường hiện có.',
+    'All':'Tất cả',
+    'Student':'Sinh viên',
+    'Students':'Sinh viên',
+    'Source':'Nguồn',
+    'Thresholds':'Ngưỡng',
+    'Outstanding':'Môn nợ',
+    'Average':'Trung bình',
+    'Good':'Giỏi',
+    'Excellent':'Xuất sắc',
+    'Fair':'Khá',
+    'Weak':'Yếu',
+    'No data':'Không có dữ liệu',
+    'Search student / ID':'Tìm sinh viên / mã SV',
+    'Class':'Lớp',
+
+  },
+  en:{
+    'Language':'Language','Faculty of Information Technology · Hanoi Architectural University':'Faculty of Information Technology · Hanoi Architectural University','Cohort 2022':'Cohort 2022','Tổng sinh viên':'Total students','Sau khi áp dụng bộ lọc':'After applying filters','Hệ 4':'4-point scale','TBC Hệ 10':'10-point GPA','Điểm RL trung bình':'Average conduct','Xuất sắc + Giỏi':'Excellent + Good','Sinh viên còn môn nợ':'Students with outstanding courses','SV nợ':'Students with outstanding courses','STT':'No.','Số môn nợ':'Outstanding courses',
+    'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.':'Dashboard for searching and analyzing academic performance of Cohort 22 students in the Faculty of Information Technology, Hanoi Architectural University. The system provides an overview of academic GPA, conduct scores, classifications, outstanding courses, and results by class.',
+    'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình':'Thresholds: ≥3.60 Excellent · ≥3.20 Good · ≥2.50 Fair · ≥2.00 Average',
+    'Switch to light mode':'Switch to light mode','Switch to dark mode':'Switch to dark mode',
+    'Choose language':'Choose language','Reset filter':'Reset filters','Export CSV':'Export CSV','Dark':'Dark','Light':'Light',
+    'Báo cáo phân tích kết quả học tập sinh viên':'Student Academic Performance Analytics','Công nghệ thông tin · Đại học Kiến trúc Hà Nội':'Information Technology · Hanoi Architectural University',
+    'Tìm sinh viên / mã SV':'Search student / ID','Nhập tên hoặc mã sinh viên':'Enter student name or ID','Lớp':'Class','Tất cả lớp':'All classes',
+    'Tình trạng môn nợ':'Outstanding courses','Tất cả':'All','Có môn nợ':'Has outstanding courses','Không môn nợ':'No outstanding courses',
+    'Xếp loại':'Classification','Xuất sắc':'Excellent','Giỏi':'Good','Khá':'Fair','Trung bình':'Average','Yếu':'Weak','Khoảng TBCHT':'GPA range','Áp dụng':'Apply',
+    'Phân bố xếp loại':'Grade distribution','Phân bố TBCHT':'GPA distribution','Số sinh viên theo khoảng điểm hệ 4':'Students by 4-point GPA range',
+    'So sánh kết quả theo lớp':'Results by class','Xếp hạng theo TBCHT trung bình; click một lớp để lọc toàn dashboard':'Ranked by average GPA; click a class to filter the dashboard',
+    'TBCHT ↔ Điểm rèn luyện':'GPA ↔ Conduct score','Mỗi điểm là một sinh viên · click điểm để xem chi tiết':'Each point is a student · click a point for details',
+    'Điểm sinh viên':'Student points','Đường tham chiếu: TBCHT 2.50 · RL 80':'Reference lines: GPA 2.50 · Conduct 80','Top 10 sinh viên':'Top 10 students','Xếp theo TBCHT giảm dần':'Sorted by descending GPA',
+    'Sinh viên cần lưu ý':'Students requiring attention','Các sinh viên có số môn nợ > 0, sắp xếp theo số môn nợ':'Students with outstanding courses, sorted by count',
+    'Key Insights':'Key Insights','Tự động tính từ dữ liệu đang được lọc':'Automatically calculated from filtered data','Data Quality':'Data Quality','Kiểm tra dữ liệu nền từ file Excel':'Checks based on the Excel data',
+    'Nguồn: Book1.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'Source: Book1.xlsx · Responsive dashboard · Shared semantic/data model across desktop and mobile',
+    'Student Detail':'Student Detail','Ghi chú':'Notes','Sai sót':'Errors','Không có':'None','Không có dữ liệu':'No data',
+    'Không có dữ liệu phù hợp với bộ lọc.':'No data matches the current filters.','Không có sinh viên nợ môn trong bộ lọc hiện tại':'No students with outstanding courses in the current filter',
+    'Tổng bản ghi':'Total records','Mã SV trùng':'Duplicate student IDs','Thiếu trường chính':'Missing key fields','Sai sót được ghi nhận':'Recorded issues',
+    'Lớp dẫn đầu':'Leading class','Môn nợ nổi bật':'Notable outstanding course','Tương quan TBCHT ↔ RL':'GPA ↔ Conduct correlation','Trường hợp cần lưu ý':'Case requiring attention',
+    'So sánh theo TBCHT trung bình trong bộ lọc.':'Compared by average GPA in the current filter.','Chưa đủ dữ liệu để tách môn':'Not enough data to identify a course',
+    'Lấy từ trường Ghi chú; không suy diễn nếu thiếu thông tin.':'Taken from the Notes field; no inference is made when information is missing.',
+    'Tương quan mạnh theo dữ liệu hiện tại.':'Strong correlation in the current data.','Tương quan mức vừa.':'Moderate correlation.','Tương quan yếu.':'Weak correlation.',
+    'Sinh viên có TBCHT ≥ 3.20 nhưng vẫn còn môn nợ.':'Students with GPA ≥ 3.20 who still have outstanding courses.',
+    'SV':'students','Môn nợ':'Outstanding','TBC10':'10-point GPA','RL TB':'Avg. conduct','Điểm RL':'Conduct','Xếp loại':'Classification','Sinh viên':'Student','Mã SV':'Student ID',
+    'TBCHT trung bình':'Average GPA','Thang 100':'Out of 100','tập dữ liệu':'of dataset','Môn chưa đạt':'Unpassed course',
+    'Không tự tạo lỗi; chỉ hiển thị các bất thường có thể kiểm tra từ các trường hiện có.':'No errors are created; only detectable anomalies from existing fields are shown.',
+    'All':'All',
+    'Student':'Student',
+    'Students':'Students',
+    'Source':'Source',
+    'Thresholds':'Thresholds',
+    'Outstanding':'Outstanding',
+    'Average':'Average',
+    'Good':'Good',
+    'Excellent':'Excellent',
+    'Fair':'Fair',
+    'Weak':'Weak',
+    'No data':'No data',
+    'Search student / ID':'Search student / ID',
+    'Class':'Class',
+
+  },
+  ja:{
+    'Language':'言語','Faculty of Information Technology · Hanoi Architectural University':'情報技術学部 · ハノイ建築大学','Cohort 2022':'2022年度入学','Tổng sinh viên':'総学生数','Sau khi áp dụng bộ lọc':'フィルター適用後','Hệ 4':'4段階','TBC Hệ 10':'10点GPA','Điểm RL trung bình':'行動評価平均','Xuất sắc + Giỏi':'優秀 + 良好','Sinh viên còn môn nợ':'未修得科目がある学生','SV nợ':'未修得科目あり','STT':'番号','Số môn nợ':'未修得科目数',
+    'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.':'ハノイ建築大学情報技術学部・2022年度学生の学業成績を検索・分析するダッシュボードです。GPA、行動評価、成績区分、未修得科目、クラス別の結果を確認できます。',
+    'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình':'基準: ≥3.60 優秀 · ≥3.20 良好 · ≥2.50 普通 · ≥2.00 平均',
+    'Switch to light mode':'ライトモードに切替','Switch to dark mode':'ダークモードに切替',
+    'Choose language':'言語を選択','Reset filter':'フィルターをリセット','Export CSV':'CSVを出力','Dark':'ダーク','Light':'ライト',
+    'Báo cáo phân tích kết quả học tập sinh viên':'学生の学業成績分析','Công nghệ thông tin · Đại học Kiến trúc Hà Nội':'情報技術 · ハノイ建築大学',
+    'Tìm sinh viên / mã SV':'学生名 / IDを検索','Nhập tên hoặc mã sinh viên':'学生名またはIDを入力','Lớp':'クラス','Tất cả lớp':'すべてのクラス',
+    'Tình trạng môn nợ':'未修得科目','Tất cả':'すべて','Có môn nợ':'未修得科目あり','Không môn nợ':'未修得科目なし','Xếp loại':'評価','Xuất sắc':'優秀','Giỏi':'良好','Khá':'普通','Trung bình':'平均','Yếu':'弱',
+    'Khoảng TBCHT':'GPA範囲','Áp dụng':'適用','Phân bố xếp loại':'評価分布','Phân bố TBCHT':'GPA分布','Số sinh viên theo khoảng điểm hệ 4':'4段階GPAの分布',
+    'So sánh kết quả theo lớp':'クラス別成績比較','Xếp hạng theo TBCHT trung bình; click một lớp để lọc toàn dashboard':'平均GPA順。クラスをクリックすると全体を絞り込みます',
+    'TBCHT ↔ Điểm rèn luyện':'GPA ↔ 行動評価','Mỗi điểm là một sinh viên · click điểm để xem chi tiết':'各点は1人の学生 · 点をクリックして詳細を表示',
+    'Điểm sinh viên':'学生データ','Đường tham chiếu: TBCHT 2.50 · RL 80':'基準線: GPA 2.50 · 行動評価 80','Top 10 sinh viên':'上位10名','Xếp theo TBCHT giảm dần':'GPAの降順',
+    'Sinh viên cần lưu ý':'注意が必要な学生','Các sinh viên có số môn nợ > 0, sắp xếp theo số môn nợ':'未修得科目がある学生を科目数順に表示',
+    'Key Insights':'主な分析','Tự động tính từ dữ liệu đang được lọc':'現在のフィルターから自動計算','Data Quality':'データ品質','Kiểm tra dữ liệu nền từ file Excel':'Excelデータの品質チェック',
+    'Nguồn: Book1.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'出典: Book1.xlsx · レスポンシブダッシュボード · PCとモバイルで共通のデータモデル',
+    'Student Detail':'学生詳細','Ghi chú':'備考','Sai sót':'エラー','Không có':'なし','Không có dữ liệu':'データなし',
+    'Không có dữ liệu phù hợp với bộ lọc.':'条件に一致するデータがありません。','Không có sinh viên nợ môn trong bộ lọc hiện tại':'現在の条件に未修得科目の学生はいません',
+    'Tổng bản ghi':'総レコード','Mã SV trùng':'重複学生ID','Thiếu trường chính':'必須項目不足','Sai sót được ghi nhận':'記録された問題',
+    'Lớp dẫn đầu':'上位クラス','Môn nợ nổi bật':'主な未修得科目','Tương quan TBCHT ↔ RL':'GPAと行動評価の相関','Trường hợp cần lưu ý':'注意が必要なケース',
+    'So sánh theo TBCHT trung bình trong bộ lọc.':'現在の条件で平均GPAを比較。','Chưa đủ dữ liệu để tách môn':'科目を特定するデータが不足しています',
+    'Lấy từ trường Ghi chú; không suy diễn nếu thiếu thông tin.':'備考欄から取得。情報がない場合は推測しません。','Tương quan mạnh theo dữ liệu hiện tại.':'現在のデータでは強い相関があります。','Tương quan mức vừa.':'中程度の相関です。','Tương quan yếu.':'弱い相関です。',
+    'Sinh viên có TBCHT ≥ 3.20 nhưng vẫn còn môn nợ.':'GPAが3.20以上でも未修得科目がある学生。','SV':'名','Môn nợ':'未修得','TBC10':'10点GPA','RL TB':'行動評価平均','Điểm RL':'行動評価','Sinh viên':'学生','Mã SV':'学生ID',
+    'TBCHT trung bình':'平均GPA','Thang 100':'100点満点','tập dữ liệu':'データセット','Môn chưa đạt':'未修得科目',
+    'Không tự tạo lỗi; chỉ hiển thị các bất thường có thể kiểm tra từ các trường hiện có.':'エラーを作成せず、既存項目から確認できる異常のみ表示します。',
+    'All':'すべて',
+    'Student':'学生',
+    'Students':'学生',
+    'Source':'出典',
+    'Thresholds':'基準',
+    'Outstanding':'未修得',
+    'Average':'平均',
+    'Good':'良好',
+    'Excellent':'優秀',
+    'Fair':'普通',
+    'Weak':'弱',
+    'No data':'データなし',
+    'Search student / ID':'学生名 / IDを検索',
+    'Class':'クラス',
+
+  },
+  fr:{
+    'Language':'Langue','Faculty of Information Technology · Hanoi Architectural University':'Faculté des technologies de l’information · Université d’architecture de Hanoï','Cohort 2022':'Promotion 2022','Tổng sinh viên':'Total des étudiants','Sau khi áp dụng bộ lọc':'Après application des filtres','Hệ 4':'Échelle sur 4','TBC Hệ 10':'GPA sur 10','Điểm RL trung bình':'Conduite moyenne','Xuất sắc + Giỏi':'Excellent + Bien','Sinh viên còn môn nợ':'Étudiants avec cours non validés','SV nợ':'Cours non validés','STT':'N°','Số môn nợ':'Cours non validés',
+    'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.':'Tableau de bord de recherche et d’analyse des résultats académiques des étudiants de la promotion 2022 de la Faculté des technologies de l’information de l’Université d’architecture de Hanoï. Il présente les GPA, les scores de conduite, les classements, les cours non validés et les résultats par classe.',
+    'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình':'Seuils : ≥3,60 Excellent · ≥3,20 Bien · ≥2,50 Assez bien · ≥2,00 Moyen',
+    'Switch to light mode':'Passer au mode clair','Switch to dark mode':'Passer au mode sombre',
+    'Choose language':'Choisir la langue','Reset filter':'Réinitialiser les filtres','Export CSV':'Exporter CSV','Dark':'Sombre','Light':'Clair',
+    'Báo cáo phân tích kết quả học tập sinh viên':'Analyse des résultats académiques','Công nghệ thông tin · Đại học Kiến trúc Hà Nội':'Technologies de l’information · Université d’architecture de Hanoï',
+    'Tìm sinh viên / mã SV':'Rechercher étudiant / ID','Nhập tên hoặc mã sinh viên':'Saisir le nom ou l’ID','Lớp':'Classe','Tất cả lớp':'Toutes les classes',
+    'Tình trạng môn nợ':'Cours non validés','Tất cả':'Tous','Có môn nợ':'Avec cours non validés','Không môn nợ':'Sans cours non validés','Xếp loại':'Classement','Xuất sắc':'Excellent','Giỏi':'Bien','Khá':'Assez bien','Trung bình':'Moyen','Yếu':'Faible',
+    'Khoảng TBCHT':'Plage de GPA','Áp dụng':'Appliquer','Phân bố xếp loại':'Répartition des classements','Phân bố TBCHT':'Répartition des GPA','Số sinh viên theo khoảng điểm hệ 4':'Étudiants par plage de GPA sur 4',
+    'So sánh kết quả theo lớp':'Résultats par classe','Xếp hạng theo TBCHT trung bình; click một lớp để lọc toàn dashboard':'Classé par GPA moyen ; cliquez sur une classe pour filtrer le tableau de bord',
+    'TBCHT ↔ Điểm rèn luyện':'GPA ↔ score de conduite','Mỗi điểm là một sinh viên · click điểm để xem chi tiết':'Chaque point représente un étudiant · cliquez pour voir les détails',
+    'Điểm sinh viên':'Points étudiants','Đường tham chiếu: TBCHT 2.50 · RL 80':'Repères : GPA 2,50 · conduite 80','Top 10 sinh viên':'Top 10 étudiants','Xếp theo TBCHT giảm dần':'Trié par GPA décroissant',
+    'Sinh viên cần lưu ý':'Étudiants à surveiller','Các sinh viên có số môn nợ > 0, sắp xếp theo số môn nợ':'Étudiants avec cours non validés, triés par nombre',
+    'Key Insights':'Analyses clés','Tự động tính từ dữ liệu đang được lọc':'Calculé automatiquement à partir des données filtrées','Data Quality':'Qualité des données','Kiểm tra dữ liệu nền từ file Excel':'Contrôles sur les données Excel',
+    'Nguồn: Book1.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'Source : Book1.xlsx · Tableau de bord responsive · Modèle de données commun sur ordinateur et mobile',
+    'Student Detail':'Détail de l’étudiant','Ghi chú':'Notes','Sai sót':'Erreurs','Không có':'Aucun','Không có dữ liệu':'Aucune donnée',
+    'Không có dữ liệu phù hợp với bộ lọc.':'Aucune donnée ne correspond aux filtres actuels.','Không có sinh viên nợ môn trong bộ lọc hiện tại':'Aucun étudiant avec cours non validés dans le filtre actuel',
+    'Tổng bản ghi':'Total des enregistrements','Mã SV trùng':'IDs étudiants en double','Thiếu trường chính':'Champs principaux manquants','Sai sót được ghi nhận':'Problèmes signalés',
+    'Lớp dẫn đầu':'Classe en tête','Môn nợ nổi bật':'Cours non validé notable','Tương quan TBCHT ↔ RL':'Corrélation GPA ↔ conduite','Trường hợp cần lưu ý':'Cas à surveiller',
+    'So sánh theo TBCHT trung bình trong bộ lọc.':'Comparaison selon le GPA moyen du filtre actuel.','Chưa đủ dữ liệu để tách môn':'Données insuffisantes pour identifier un cours',
+    'Lấy từ trường Ghi chú; không suy diễn nếu thiếu thông tin.':'Extrait du champ Notes ; aucune déduction si l’information manque.','Tương quan mạnh theo dữ liệu hiện tại.':'Forte corrélation dans les données actuelles.','Tương quan mức vừa.':'Corrélation modérée.','Tương quan yếu.':'Faible corrélation.',
+    'Sinh viên có TBCHT ≥ 3.20 nhưng vẫn còn môn nợ.':'Étudiants avec un GPA ≥ 3,20 ayant encore des cours non validés.',
+    'SV':'étudiants','Môn nợ':'Non validés','TBC10':'GPA /10','RL TB':'Conduite moy.','Điểm RL':'Conduite','Sinh viên':'Étudiant','Mã SV':'ID étudiant',
+    'TBCHT trung bình':'GPA moyen','Thang 100':'Sur 100','tập dữ liệu':'du jeu de données','Môn chưa đạt':'Cours non validé',
+    'Không tự tạo lỗi; chỉ hiển thị các bất thường có thể kiểm tra từ các trường hiện có.':'Aucune erreur n’est créée ; seuls les écarts vérifiables dans les champs existants sont affichés.',
+    'All':'Tous',
+    'Student':'Étudiant',
+    'Students':'Étudiants',
+    'Source':'Source',
+    'Thresholds':'Seuils',
+    'Outstanding':'Non validés',
+    'Average':'Moyen',
+    'Good':'Bien',
+    'Excellent':'Excellent',
+    'Fair':'Assez bien',
+    'Weak':'Faible',
+    'No data':'Aucune donnée',
+    'Search student / ID':'Rechercher étudiant / ID',
+    'Class':'Classe',
+
+  }
+};
+let currentLang=localStorage.getItem('academic-language')||'vi';
+if(!LANGS[currentLang]) currentLang='vi';
+function tr(text){const extra={en:{'Chuyển sang chế độ sáng':'Switch to light mode','Chuyển sang chế độ tối':'Switch to dark mode'},ja:{'Chuyển sang chế độ sáng':'ライトモードに切替','Chuyển sang chế độ tối':'ダークモードに切替'},fr:{'Chuyển sang chế độ sáng':'Passer au mode clair','Chuyển sang chế độ tối':'Passer au mode sombre'}};return (I18N[currentLang]&&I18N[currentLang][text])||((extra[currentLang]||{})[text])||text}
+const staticI18nNodes = new WeakMap();
+function translateTextNodes(root){
+  const vi=I18N.vi||{};
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){
+    if(!n.nodeValue.trim() || n.parentElement.closest('script,style,#languageMenu,input,textarea,select')) return NodeFilter.FILTER_REJECT;
+    if(n.parentElement.closest('.name')) return NodeFilter.FILTER_REJECT;
+    return NodeFilter.FILTER_ACCEPT;
+  }});
+  const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(n=>{
+    const raw=n.nodeValue;
+    let key=staticI18nNodes.get(n);
+    if(!key){
+      const exact=raw.trim();
+      if(Object.prototype.hasOwnProperty.call(vi,exact)) key=exact;
+      else if(exact.startsWith('⚠ ')){
+        const candidate=exact.slice(2).trim();
+        if(Object.prototype.hasOwnProperty.call(vi,candidate)) key=candidate;
+      }
+      if(key) staticI18nNodes.set(n,key);
+    }
+    if(key){
+      const translated=tr(key);
+      const leading=raw.match(/^\s*/)?.[0]||'';
+      const trailing=raw.match(/\s*$/)?.[0]||'';
+      const prefix=raw.trim().startsWith('⚠ ') ? '⚠ ' : '';
+      n.nodeValue=leading+prefix+translated+trailing;
+    }
+  });
+}
+function applyLanguage(lang){
+  if(!LANGS[lang]) return;
+  currentLang=lang;
+  localStorage.setItem('academic-language',lang);
+  document.documentElement.lang=LANGS[lang].html;
+
+  const code=$('languageCode');
+  if(code) code.textContent=LANGS[lang].code;
+
+  const menu=$('languageMenu');
+  if(menu) menu.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+
+  const input=$('search');
+  if(input) input.placeholder=tr('Nhập tên hoặc mã sinh viên');
+
+  const theme=$('themeToggle');
+  if(theme){
+    const dark=document.documentElement.dataset.theme==='dark';
+    theme.innerHTML=dark?`☀️ <span>${tr('Light')}</span>`:`🌙 <span>${tr('Dark')}</span>`;
+    theme.setAttribute('aria-label',dark?tr('Chuyển sang chế độ sáng'):tr('Chuyển sang chế độ tối'));
+    theme.title=dark?tr('Chuyển sang chế độ sáng'):tr('Chuyển sang chế độ tối');
+  }
+
+  const reset=$('reset'); if(reset) reset.textContent=tr('Reset filter');
+  const exportBtn=$('export'); if(exportBtn) exportBtn.textContent=tr('Export CSV');
+  const apply=$('apply'); if(apply) apply.textContent=tr('Áp dụng');
+
+  // Render first so every dynamic chart/table/KPI is present,
+  // then translate both static and generated text in one pass.
+  if(typeof render==='function') render();
+  translateTextNodes(document.body);
+
+  // The SEO introduction is a multi-line paragraph in the HTML, so it must
+  // be translated as one complete phrase instead of translating split text nodes.
+  const seoIntro=$('.seo-intro');
+  if(seoIntro){
+    const seoKey=seoIntro.dataset.i18nKey;
+    if(seoKey) seoIntro.textContent=tr(seoKey);
+  }
+
+  // Keep form placeholders/options synchronized with the selected language.
+  if(input) input.placeholder=tr('Nhập tên hoặc mã sinh viên');
+  const selects=[
+    ['classFilter',['Tất cả lớp']],
+    ['debtFilter',['Tất cả','Có môn nợ','Không môn nợ']],
+    ['gradeFilter',['Tất cả','Xuất sắc','Giỏi','Khá','Trung bình','Yếu']]
+  ];
+  selects.forEach(([id,keys])=>{
+    const el=$(id);
+    if(!el) return;
+    [...el.options].forEach(opt=>{
+      const base=opt.dataset.i18nBase || opt.textContent;
+      opt.dataset.i18nBase=base;
+      opt.textContent=tr(base);
+    });
+  });
+
+  // Browser tab title follows the selected language.
+  const titles={
+    vi:'Kết quả học tập sinh viên Khóa 22 CNTT - Đại học Kiến trúc Hà Nội',
+    en:'Student Academic Performance - Cohort 2022 IT',
+    ja:'2022年度 情報技術学部 学業成績分析',
+    fr:'Résultats académiques - Promotion 2022 TI'
+  };
+  document.title=titles[lang]||titles.vi;
+
+  if(menu) menu.classList.remove('show');
+  const toggle=$('languageToggle');
+  if(toggle){
+    toggle.setAttribute('aria-expanded','false');
+    toggle.setAttribute('aria-label',tr('Choose language'));
+    toggle.title=tr('Choose language');
+  }
+}
+
+const langToggle=$('languageToggle'), langMenu=$('languageMenu');
+if(langToggle&&langMenu){
+  langToggle.onclick=e=>{e.stopPropagation();const open=langMenu.classList.toggle('show');langToggle.setAttribute('aria-expanded',String(open))};
+  langMenu.querySelectorAll('[data-lang]').forEach(btn=>btn.onclick=e=>{e.stopPropagation();applyLanguage(btn.dataset.lang)});
+  document.addEventListener('click',()=>{langMenu.classList.remove('show');langToggle.setAttribute('aria-expanded','false')});
+}
+
 const savedTheme=localStorage.getItem('academic-theme');
 const initialTheme=savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 document.documentElement.dataset.theme=initialTheme;
@@ -736,9 +1048,9 @@ function updateThemeButton(){
   const dark=document.documentElement.dataset.theme==='dark';
   const btn=$('themeToggle');
   if(!btn) return;
-  btn.innerHTML=dark ? '☀️ <span>Light</span>' : '🌙 <span>Dark</span>';
-  btn.setAttribute('aria-label',dark?'Chuyển sang chế độ sáng':'Chuyển sang chế độ tối');
-  btn.title=dark?'Chuyển sang chế độ sáng':'Chuyển sang chế độ tối';
+  btn.innerHTML=dark ? `☀️ <span>${tr('Light')}</span>` : `🌙 <span>${tr('Dark')}</span>`;
+  btn.setAttribute('aria-label',dark?tr('Chuyển sang chế độ sáng'):tr('Chuyển sang chế độ tối'));
+  btn.title=dark?tr('Chuyển sang chế độ sáng'):tr('Chuyển sang chế độ tối');
 }
 $('themeToggle').onclick=()=>{
   const next=document.documentElement.dataset.theme==='dark'?'light':'dark';
@@ -759,6 +1071,7 @@ $('export').onclick=()=>{
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='student_dashboard_filtered.csv';a.click();URL.revokeObjectURL(a.href);
 };
 render();
+applyLanguage(currentLang);
 </script>
 </body>
 </html>
