@@ -52,6 +52,15 @@
   --accent-soft:#f2f5ff;
   --track:#eef1f6;
   --chart-bg:linear-gradient(#fff,#fbfcff);
+  --chart-indigo:#4f46e5;
+  --chart-blue:#315efb;
+  --chart-cyan:#0891b2;
+  --chart-violet:#7c3aed;
+  --chart-emerald:#059669;
+  --chart-amber:#d97706;
+  --chart-rose:#e11d48;
+  --chart-teal:#0f766e;
+  --chart-slate:#64748b;
   --overlay:rgba(15,23,42,.45);
   --modal-shadow:0 18px 50px rgba(0,0,0,.18);
 }
@@ -122,6 +131,15 @@ html[data-theme="dark"]{
   --accent-soft:#202d55;
   --track:#273349;
   --chart-bg:linear-gradient(#172033,#111a2b);
+  --chart-indigo:#818cf8;
+  --chart-blue:#6d8cff;
+  --chart-cyan:#22d3ee;
+  --chart-violet:#a78bfa;
+  --chart-emerald:#34d399;
+  --chart-amber:#fbbf24;
+  --chart-rose:#fb7185;
+  --chart-teal:#2dd4bf;
+  --chart-slate:#94a3b8;
   --overlay:rgba(2,6,23,.72);
   --modal-shadow:0 18px 50px rgba(0,0,0,.45);
 }
@@ -299,7 +317,13 @@ input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(49
 }
 .bar-label{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bar-track{height:12px;background:var(--track);border-radius:99px;overflow:hidden;min-width:0}
-.bar-fill{height:100%;border-radius:99px;background:var(--accent);transition:width .25s ease}
+.bar-fill{height:100%;border-radius:99px;background:var(--chart-indigo);transition:width .25s ease}
+#gradeChart .bar-row:nth-child(1) .bar-fill{background:var(--chart-indigo)}
+#gradeChart .bar-row:nth-child(2) .bar-fill{background:var(--chart-blue)}
+#gradeChart .bar-row:nth-child(3) .bar-fill{background:var(--chart-cyan)}
+#gradeChart .bar-row:nth-child(4) .bar-fill{background:var(--chart-amber)}
+#gradeChart .bar-row:nth-child(5) .bar-fill{background:var(--chart-slate)}
+#classChart .bar-fill{background:linear-gradient(90deg,var(--chart-indigo),var(--chart-blue))}
 .bar-value{text-align:right;font-weight:800;font-size:12px;white-space:nowrap}
 
 .hist{
@@ -311,10 +335,21 @@ input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(49
   border-bottom:1px solid var(--line);
 }
 .hist-col{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px}
-.hist-bar{width:min(58px,75%);background:#315efb;border-radius:7px 7px 2px 2px;min-height:2px}
+.hist-bar{width:min(58px,75%);background:var(--chart-cyan);border-radius:7px 7px 2px 2px;min-height:2px}
+.hist-col:nth-child(1) .hist-bar{background:var(--chart-slate)}
+.hist-col:nth-child(2) .hist-bar{background:var(--chart-cyan)}
+.hist-col:nth-child(3) .hist-bar{background:var(--chart-blue)}
+.hist-col:nth-child(4) .hist-bar{background:var(--chart-indigo)}
+.hist-col:nth-child(5) .hist-bar{background:var(--chart-violet)}
 .hist-n{font-size:11px;font-weight:800}
 .hist-label{font-size:10px;color:var(--muted);white-space:nowrap}
 
+.credit-progress{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding-top:4px}.credit-progress-card{padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--soft)}.credit-progress-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}.credit-program{font-size:17px;font-weight:850;letter-spacing:.01em}.credit-progress-value{font-size:15px;font-weight:850;color:var(--accent);white-space:nowrap}.credit-donut-wrap{display:grid;grid-template-columns:170px minmax(0,1fr);align-items:center;gap:20px;margin-top:12px}.credit-donut{width:170px;height:170px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--chart-indigo) calc(var(--progress) * 1%),var(--track) 0);position:relative}
+.credit-progress-card:nth-child(2) .credit-donut{background:conic-gradient(var(--chart-violet) calc(var(--progress) * 1%),var(--track) 0)}
+.credit-progress-card:nth-child(1) .credit-progress-value{color:var(--chart-indigo)}
+.credit-progress-card:nth-child(2) .credit-progress-value{color:var(--chart-violet)}
+.credit-progress-card:nth-child(1) .credit-dot{background:var(--chart-indigo)}
+.credit-progress-card:nth-child(2) .credit-dot{background:var(--chart-violet)}.credit-progress-card .credit-dot.remaining{background:var(--track)}.credit-donut::before{content:"";position:absolute;inset:20px;border-radius:50%;background:var(--surface)}.credit-donut-center{position:relative;z-index:1;text-align:center}.credit-donut-percent{font-size:26px;font-weight:900;letter-spacing:-.03em}.credit-donut-label{font-size:11px;color:var(--muted);font-weight:700;margin-top:2px}.credit-legend{display:grid;gap:10px}.credit-legend-row{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted);font-weight:700}.credit-legend-row strong{color:var(--ink);font-size:13px}.credit-dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px;background:var(--accent)}.credit-dot.remaining{background:var(--track)}.credit-progress-meta{display:flex;justify-content:space-between;gap:12px;margin-top:14px;font-size:12px;color:var(--muted);font-weight:700}.credit-progress-meta span:first-child{color:var(--ink)}
 .scatter-wrap{
   position:relative;
   width:100%;
@@ -326,7 +361,7 @@ input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(49
 }
 .scatter{display:block;width:100%;height:100%;max-width:100%}
 .axis-label{font-size:11px;fill:var(--muted)}
-.dot{cursor:pointer;opacity:.72;stroke:var(--surface);stroke-width:1}
+.dot{cursor:pointer;opacity:.78;stroke:var(--surface);stroke-width:1;fill:var(--chart-cyan)}
 .dot:hover{opacity:1;stroke:var(--ink)}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:8px}
 .legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}
@@ -409,18 +444,32 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
  .full-btn{width:100%}
 .section-spaced{margin-bottom:16px}
 .grid-wide-tight{margin-bottom:0}
-.legend-dot{background:#315efb}
+.legend-dot{background:var(--chart-cyan)}
 #mName{margin:4px 0}
 
-/* Large laptop / desktop */
+.footer a {
+  color: #6366f1;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.footer a:hover {
+  color: #818cf8;
+  text-decoration: underline;
+}
+
 @media (max-width:1200px){
   .filters{grid-template-columns:repeat(3,minmax(0,1fr))}
   .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
   .grid-wide{grid-template-columns:minmax(0,1fr)}
 }
 
-/* Tablet */
 @media (max-width:900px){
+  .credit-progress{grid-template-columns:1fr}
+  .credit-donut-wrap{grid-template-columns:150px minmax(0,1fr)}
+  .credit-donut{width:150px;height:150px}
+
   .app{padding:clamp(12px,2vw,18px)}
   .header{grid-template-columns:1fr;align-items:start}
   .actions{justify-content:flex-start}
@@ -430,7 +479,6 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
   .profile{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
-/* Mobile */
 @media (max-width:600px){
   .app{padding:12px}
   h1{font-size:clamp(22px,7vw,26px)}
@@ -443,6 +491,9 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
   .section{padding:14px}
   .section-head{gap:8px}
   .metric-pill{font-size:11px;padding:5px 8px}
+  .credit-donut-wrap{grid-template-columns:1fr;justify-items:center}
+  .credit-donut{width:160px;height:160px}
+  .credit-legend{width:100%}
   .bar-row{grid-template-columns:minmax(68px,82px) minmax(0,1fr) 42px;gap:7px}
   .bar-label{font-size:11px}
   .hist{gap:4px}
@@ -457,7 +508,6 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
   .eyebrow-cohort{margin-left:37px;}
 }
 
-/* Very small phones */
 @media (max-width:380px){
   .app{padding:10px}
   .kpis{grid-template-columns:1fr}
@@ -533,10 +583,18 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
   </section>
 
   <section class="card section section-spaced">
+    <div class="section-head">
+      <div><div class="section-title">Theo dõi tiến độ tích lũy</div><div class="section-sub">Theo dõi số tín chỉ đã hoàn thành so với tổng số tín chỉ cần học của từng chương trình</div></div>
+      <div class="metric-pill" id="creditRange"></div>
+    </div>
+    <div class="credit-progress" id="creditProgress"></div>
+  </section>
+
+  <section class="card section section-spaced">
     <div class="section-head"><div><div class="section-title">So sánh kết quả theo lớp</div><div class="section-sub">Xếp hạng theo TBCHT trung bình; click một lớp để lọc toàn dashboard</div></div></div>
     <div class="grid-wide grid-wide-tight">
       <div id="classChart"></div>
-      <div class="table-wrap"><table><thead><tr><th>Lớp</th><th>SV</th><th>TBCHT</th><th>TBC10</th><th>RL TB</th><th>SV nợ</th></tr></thead><tbody id="classTable"></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th>Lớp</th><th>SV</th><th>TBCHT</th><th>TBC10</th><th>RL TB</th><th>Tín chỉ TB</th><th>SV nợ</th></tr></thead><tbody id="classTable"></tbody></table></div>
     </div>
   </section>
 
@@ -569,7 +627,28 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
     </div>
   </section>
 
-  <div class="footer">Nguồn: Book1.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model</div>
+  <div class="footer">
+  <span>Nguồn:</span>
+  <a
+    href="https://docs.google.com/spreadsheets/d/1nPO2Gwcb0teVBygRXP9Hz371dI9VUinh/edit?pli=1&gid=919331212#gid=919331212"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Google Sheets
+  </a>
+  <span>· Design by:</span>
+  <a
+    href="https://github.com/TruonghienIT"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Trương Hiện IT
+  </a>
+  <span>· Contact to: </span>
+  <a href="mailto:truonghienthanh11092019@gmail.com">
+    truonghienthanh11092019@gmail.com
+  </a>
+</div>
 </div>
 
 <div class="modal" id="modal">
@@ -580,9 +659,10 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
   </div>
 </div>
 
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <script>
-const DATA = [{"STT": 167, "Mã sinh viên": "2255010184", "Họ và tên": "Phạm Thế Sang", "Ngày sinh": "13/07/2004", "Tên lớp": "2022CN4", "TBCHT": 3.84, "TBC Hệ 10": 8.88, "Điểm RL": 100, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 44, "Mã sinh viên": "2255010251", "Họ và tên": "Nguyễn Duy Việt", "Ngày sinh": "2004-08-07 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 3.79, "TBC Hệ 10": 8.94, "Điểm RL": 100, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 193, "Mã sinh viên": "2255010075", "Họ và tên": "Trương Công Hiện", "Ngày sinh": "19/02/2004", "Tên lớp": "2022CN5", "TBCHT": 3.75, "TBC Hệ 10": 8.86, "Điểm RL": 95, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 198, "Mã sinh viên": "2255010105", "Họ và tên": "Nguyễn Thị Thanh Huyền", "Ngày sinh": "30/08/2004", "Tên lớp": "2022CN5", "TBCHT": 3.73, "TBC Hệ 10": 8.82, "Điểm RL": 100, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 194, "Mã sinh viên": "2255010085", "Họ và tên": "Phạm Thị Hoa", "Ngày sinh": "2004-04-02 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 3.66, "TBC Hệ 10": 8.77, "Điểm RL": 99, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 149, "Mã sinh viên": "2255010054", "Họ và tên": "Nguyễn Hữu Đạt", "Ngày sinh": "14/12/2004", "Tên lớp": "2022CN4", "TBCHT": 3.65, "TBC Hệ 10": 8.81, "Điểm RL": 94, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 18, "Mã sinh viên": "2255010096", "Họ và tên": "Nguyễn Quang Hùng", "Ngày sinh": "28/07/2004", "Tên lớp": "2022CN1", "TBCHT": 3.64, "TBC Hệ 10": 8.68, "Điểm RL": 100, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 13, "Mã sinh viên": "2255010066", "Họ và tên": "Nguyễn Thị Hương Giang", "Ngày sinh": "2004-08-03 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 3.64, "TBC Hệ 10": 8.64, "Điểm RL": 96, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 74, "Mã sinh viên": "2255010152", "Họ và tên": "Trần Thị Bảo Ngọc", "Ngày sinh": "14/11/2004", "Tên lớp": "2022CN2", "TBCHT": 3.64, "TBC Hệ 10": 8.62, "Điểm RL": 97, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 202, "Mã sinh viên": "2255010125", "Họ và tên": "Trần Diệu Linh", "Ngày sinh": "13/08/2004", "Tên lớp": "2022CN5", "TBCHT": 3.63, "TBC Hệ 10": 8.57, "Điểm RL": 96, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 164, "Mã sinh viên": "2255010169", "Họ và tên": "Nguyễn Kim Quang", "Ngày sinh": "16/12/2004", "Tên lớp": "2022CN4", "TBCHT": 3.61, "TBC Hệ 10": 8.59, "Điểm RL": 98, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 224, "Mã sinh viên": "2255010255", "Họ và tên": "Hà Nguyên Vũ", "Ngày sinh": "15/05/2004", "Tên lớp": "2022CN5", "TBCHT": 3.61, "TBC Hệ 10": 8.58, "Điểm RL": 92, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 5, "Mã sinh viên": "2255010016", "Họ và tên": "Dương Quốc Bảo", "Ngày sinh": "20/01/2004", "Tên lớp": "2022CN1", "TBCHT": 3.57, "TBC Hệ 10": 8.51, "Điểm RL": 99, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 220, "Mã sinh viên": "2255010230", "Họ và tên": "Trần Thị Hồng Thương", "Ngày sinh": "2004-08-09 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 3.56, "TBC Hệ 10": 8.5, "Điểm RL": 89, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 218, "Mã sinh viên": "2255010220", "Họ và tên": "Nguyễn Hương Thảo", "Ngày sinh": "13/04/2004", "Tên lớp": "2022CN5", "TBCHT": 3.51, "TBC Hệ 10": 8.5, "Điểm RL": 99, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 20, "Mã sinh viên": "2255010106", "Họ và tên": "Nguyễn Thu Hường", "Ngày sinh": "18/01/2004", "Tên lớp": "2022CN1", "TBCHT": 3.5, "TBC Hệ 10": 8.3, "Điểm RL": 87, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 205, "Mã sinh viên": "2255010145", "Họ và tên": "Trương Thành Nam", "Ngày sinh": "23/10/2004", "Tên lớp": "2022CN5", "TBCHT": 3.49, "TBC Hệ 10": 8.36, "Điểm RL": 89, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 157, "Mã sinh viên": "2255010114", "Họ và tên": "Nguyễn Duy Khánh", "Ngày sinh": "2004-12-12 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 3.48, "TBC Hệ 10": 8.54, "Điểm RL": 99, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 93, "Mã sinh viên": "2255010257", "Họ và tên": "Lê Như Vũ", "Ngày sinh": "19/01/2004", "Tên lớp": "2022CN2", "TBCHT": 3.48, "TBC Hệ 10": 8.31, "Điểm RL": 93, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 206, "Mã sinh viên": "2255010150", "Họ và tên": "Nguyễn Thị Minh Ngọc", "Ngày sinh": "15/03/2003", "Tên lớp": "2022CN5", "TBCHT": 3.47, "TBC Hệ 10": 8.5, "Điểm RL": 88, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 195, "Mã sinh viên": "2255010090", "Họ và tên": "Nguyễn Việt Hoàng", "Ngày sinh": "21/07/2004", "Tên lớp": "2022CN5", "TBCHT": 3.47, "TBC Hệ 10": 8.37, "Điểm RL": 83, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 4, "Mã sinh viên": "2255010011", "Họ và tên": "Vũ Lan Anh", "Ngày sinh": "2004-10-06 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 3.47, "TBC Hệ 10": 8.33, "Điểm RL": 90, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 102, "Mã sinh viên": "2255010053", "Họ và tên": "Đỗ Tiến Đạt", "Ngày sinh": "20/09/2004", "Tên lớp": "2022CN3", "TBCHT": 3.43, "TBC Hệ 10": 8.23, "Điểm RL": 87, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 176, "Mã sinh viên": "2255010239", "Họ và tên": "Nguyễn Phú Trọng", "Ngày sinh": "24/10/2004", "Tên lớp": "2022CN4", "TBCHT": 3.42, "TBC Hệ 10": 8.4, "Điểm RL": 89, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 188, "Mã sinh viên": "2255010045", "Họ và tên": "Trần Thị Duyên", "Ngày sinh": "24/03/2004", "Tên lớp": "2022CN5", "TBCHT": 3.4, "TBC Hệ 10": 8.28, "Điểm RL": 98, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 111, "Mã sinh viên": "2255010103", "Họ và tên": "Nguyễn Mai Huyền", "Ngày sinh": "2004-12-10 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 3.39, "TBC Hệ 10": 8.25, "Điểm RL": 90, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 208, "Mã sinh viên": "2255010160", "Họ và tên": "Phan Như Nhật", "Ngày sinh": "2004-08-10 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 3.37, "TBC Hệ 10": 8.29, "Điểm RL": 84, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 216, "Mã sinh viên": "2255010210", "Họ và tên": "Trần Anh Tuấn", "Ngày sinh": "2004-10-02 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 3.36, "TBC Hệ 10": 8.19, "Điểm RL": 91, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 174, "Mã sinh viên": "2255010229", "Họ và tên": "Tạ Thị Thủy", "Ngày sinh": "2004-05-01 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 3.36, "TBC Hệ 10": 8.14, "Điểm RL": 86, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 203, "Mã sinh viên": "2255010135", "Họ và tên": "Âu Xuân Mạnh", "Ngày sinh": "2004-11-11 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 3.35, "TBC Hệ 10": 8.18, "Điểm RL": 80, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 51, "Mã sinh viên": "2255010027", "Họ và tên": "Phạm Thị Minh Châu", "Ngày sinh": "2004-08-10 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 3.33, "TBC Hệ 10": 8.15, "Điểm RL": 86, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 38, "Mã sinh viên": "2255010211", "Họ và tên": "Vũ Anh Tuấn", "Ngày sinh": "21/07/2004", "Tên lớp": "2022CN1", "TBCHT": 3.31, "TBC Hệ 10": 7.95, "Điểm RL": 85, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 82, "Mã sinh viên": "2255010197", "Họ và tên": "Nguyễn Thủy Tiên", "Ngày sinh": "21/06/2004", "Tên lớp": "2022CN2", "TBCHT": 3.3, "TBC Hệ 10": 8.18, "Điểm RL": 99, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 50, "Mã sinh viên": "2255010022", "Họ và tên": "Trần Thanh Bình", "Ngày sinh": "2004-11-07 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 3.28, "TBC Hệ 10": 8.07, "Điểm RL": 77, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 145, "Mã sinh viên": "2255010034", "Họ và tên": "Hoàng Bích Diệp", "Ngày sinh": "2004-02-04 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 3.27, "TBC Hệ 10": 8.15, "Điểm RL": 98, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 56, "Mã sinh viên": "2255010057", "Họ và tên": "Lê Bá Hải Đăng", "Ngày sinh": "2004-11-03 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 3.27, "TBC Hệ 10": 8.07, "Điểm RL": 71, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 43, "Mã sinh viên": "2255010246", "Họ và tên": "Lương Nhật Trường", "Ngày sinh": "2004-09-06 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 3.27, "TBC Hệ 10": 8.04, "Điểm RL": 88, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 125, "Mã sinh viên": "2255010178", "Họ và tên": "Nguyễn Hữu Quý", "Ngày sinh": "28/10/2004", "Tên lớp": "2022CN3", "TBCHT": 3.26, "TBC Hệ 10": 8.06, "Điểm RL": 78, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 114, "Mã sinh viên": "2255010118", "Họ và tên": "Nguyễn Thị Ngọc Lan", "Ngày sinh": "29/01/2004", "Tên lớp": "2022CN3", "TBCHT": 3.26, "TBC Hệ 10": 8.05, "Điểm RL": 88, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 158, "Mã sinh viên": "2255010129", "Họ và tên": "Nguyễn Văn Long", "Ngày sinh": "2004-05-01 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 3.26, "TBC Hệ 10": 8.04, "Điểm RL": 77, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 204, "Mã sinh viên": "2255010140", "Họ và tên": "Đinh Tuấn Nam", "Ngày sinh": "13/12/2004", "Tên lớp": "2022CN5", "TBCHT": 3.25, "TBC Hệ 10": 8.16, "Điểm RL": 78, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 107, "Mã sinh viên": "2255010083", "Họ và tên": "Cù Thị Mai Hoa", "Ngày sinh": "23/06/2004", "Tên lớp": "2022CN3", "TBCHT": 3.25, "TBC Hệ 10": 8.08, "Điểm RL": 80, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 2, "Mã sinh viên": "2255010001", "Họ và tên": "Phạm Bình An", "Ngày sinh": "30/08/2004", "Tên lớp": "2022CN1", "TBCHT": 3.24, "TBC Hệ 10": 8.03, "Điểm RL": 81, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 67, "Mã sinh viên": "2255010117", "Họ và tên": "Nguyễn Đăng Khoa", "Ngày sinh": "13/01/2004", "Tên lớp": "2022CN2", "TBCHT": 3.23, "TBC Hệ 10": 7.99, "Điểm RL": 78, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 3, "Mã sinh viên": "2255010006", "Họ và tên": "Nguyễn Lan Anh", "Ngày sinh": "2004-10-01 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 3.23, "TBC Hệ 10": 7.88, "Điểm RL": 93, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 95, "Mã sinh viên": "2255010008", "Họ và tên": "Nguyễn Việt Anh", "Ngày sinh": "2004-05-09 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 3.22, "TBC Hệ 10": 8.08, "Điểm RL": 76, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 223, "Mã sinh viên": "2255010250", "Họ và tên": "Nguyễn Hùng Vĩ", "Ngày sinh": "20/08/2004", "Tên lớp": "2022CN5", "TBCHT": 3.22, "TBC Hệ 10": 8.07, "Điểm RL": 84, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 131, "Mã sinh viên": "2255010208", "Họ và tên": "Nguyễn Duy Tuấn", "Ngày sinh": "24/05/2004", "Tên lớp": "2022CN3", "TBCHT": 3.22, "TBC Hệ 10": 8.01, "Điểm RL": 88, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 181, "Mã sinh viên": "2255010005", "Họ và tên": "Nguyễn Hoàng Anh", "Ngày sinh": "26/11/2004", "Tên lớp": "2022CN5", "TBCHT": 3.2, "TBC Hệ 10": 8.02, "Điểm RL": 83, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 76, "Mã sinh viên": "2255010162", "Họ và tên": "Đặng Quỳnh Như", "Ngày sinh": "2004-11-06 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 3.2, "TBC Hệ 10": 7.98, "Điểm RL": 78, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 152, "Mã sinh viên": "2255010074", "Họ và tên": "Nguyễn Thị Hiền", "Ngày sinh": "27/11/2004", "Tên lớp": "2022CN4", "TBCHT": 3.19, "TBC Hệ 10": 7.98, "Điểm RL": 86, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 71, "Mã sinh viên": "2255010137", "Họ và tên": "Nguyễn Huy Bảo Minh", "Ngày sinh": "13/04/2004", "Tên lớp": "2022CN2", "TBCHT": 3.19, "TBC Hệ 10": 7.97, "Điểm RL": 74, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 24, "Mã sinh viên": "2255010126", "Họ và tên": "Trịnh Thùy Linh", "Ngày sinh": "27/06/2004", "Tên lớp": "2022CN1", "TBCHT": 3.19, "TBC Hệ 10": 7.96, "Điểm RL": 90, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 75, "Mã sinh viên": "2255010157", "Họ và tên": "Nguyễn Thị Nguyệt", "Ngày sinh": "2004-09-11 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 3.18, "TBC Hệ 10": 7.99, "Điểm RL": 76, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 155, "Mã sinh viên": "2255010099", "Họ và tên": "Đỗ Văn Huy", "Ngày sinh": "16/09/2004", "Tên lớp": "2022CN4", "TBCHT": 3.18, "TBC Hệ 10": 7.99, "Điểm RL": 86, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 166, "Mã sinh viên": "2255010179", "Họ và tên": "Lê Văn Quyền", "Ngày sinh": "22/12/2004", "Tên lớp": "2022CN4", "TBCHT": 3.18, "TBC Hệ 10": 7.99, "Điểm RL": 82, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 123, "Mã sinh viên": "2255010168", "Họ và tên": "Đặng Minh Quang", "Ngày sinh": "23/09/2004", "Tên lớp": "2022CN3", "TBCHT": 3.18, "TBC Hệ 10": 7.91, "Điểm RL": 75, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 160, "Mã sinh viên": "2255010144", "Họ và tên": "Trần Phương Nam", "Ngày sinh": "18/08/2004", "Tên lớp": "2022CN4", "TBCHT": 3.18, "TBC Hệ 10": 7.87, "Điểm RL": 72, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 215, "Mã sinh viên": "2255010205", "Họ và tên": "Nguyễn Anh Tú", "Ngày sinh": "22/04/2004", "Tên lớp": "2022CN5", "TBCHT": 3.17, "TBC Hệ 10": 7.96, "Điểm RL": 69, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 209, "Mã sinh viên": "2255010170", "Họ và tên": "Nguyễn Như Quang", "Ngày sinh": "2004-05-08 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 3.16, "TBC Hệ 10": 7.99, "Điểm RL": 82, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 189, "Mã sinh viên": "2255010050", "Họ và tên": "Bùi Kim Đạt", "Ngày sinh": "27/05/2004", "Tên lớp": "2022CN5", "TBCHT": 3.16, "TBC Hệ 10": 7.92, "Điểm RL": 89, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 199, "Mã sinh viên": "2255010110", "Họ và tên": "Bùi Quang Khải", "Ngày sinh": "17/03/2004", "Tên lớp": "2022CN5", "TBCHT": 3.16, "TBC Hệ 10": 7.92, "Điểm RL": 77, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 23, "Mã sinh viên": "2255010121", "Họ và tên": "Nguyễn Ngọc Lâm", "Ngày sinh": "15/04/2004", "Tên lớp": "2022CN1", "TBCHT": 3.16, "TBC Hệ 10": 7.88, "Điểm RL": 83, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 180, "Mã sinh viên": "2255010259", "Họ và tên": "Nguyễn Đức Vượng", "Ngày sinh": "25/12/2003", "Tên lớp": "2022CN4", "TBCHT": 3.14, "TBC Hệ 10": 7.94, "Điểm RL": 87, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 47, "Mã sinh viên": "2255010002", "Họ và tên": "Đặng Phương Anh", "Ngày sinh": "28/11/2004", "Tên lớp": "2022CN2", "TBCHT": 3.14, "TBC Hệ 10": 7.75, "Điểm RL": 84, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 148, "Mã sinh viên": "2255010049", "Họ và tên": "Lê Linh Đan", "Ngày sinh": "2003-02-10 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 3.13, "TBC Hệ 10": 7.8, "Điểm RL": 79, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 104, "Mã sinh viên": "2255010068", "Họ và tên": "Cao Ngọc Hà", "Ngày sinh": "2004-01-07 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 3.12, "TBC Hệ 10": 7.89, "Điểm RL": 88, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 83, "Mã sinh viên": "2255010207", "Họ và tên": "Chu Quốc Tuấn", "Ngày sinh": "28/07/2004", "Tên lớp": "2022CN2", "TBCHT": 3.12, "TBC Hệ 10": 7.87, "Điểm RL": 78, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 27, "Mã sinh viên": "2255010146", "Họ và tên": "Trần Thúy Nga", "Ngày sinh": "19/02/2004", "Tên lớp": "2022CN1", "TBCHT": 3.12, "TBC Hệ 10": 7.79, "Điểm RL": 85, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 130, "Mã sinh viên": "2255010203", "Họ và tên": "Lương Vi Tôn", "Ngày sinh": "2004-10-02 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 3.11, "TBC Hệ 10": 7.93, "Điểm RL": 70, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 48, "Mã sinh viên": "2255010012", "Họ và tên": "Chu Thị Hồng Ánh", "Ngày sinh": "21/03/2004", "Tên lớp": "2022CN2", "TBCHT": 3.11, "TBC Hệ 10": 7.91, "Điểm RL": 74, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 169, "Mã sinh viên": "2255010199", "Họ và tên": "Trần Văn Tiền", "Ngày sinh": "20/01/2004", "Tên lớp": "2022CN4", "TBCHT": 3.11, "TBC Hệ 10": 7.87, "Điểm RL": 83, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 78, "Mã sinh viên": "2255010172", "Họ và tên": "Phan Thanh Quảng", "Ngày sinh": "2004-02-01 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 3.11, "TBC Hệ 10": 7.83, "Điểm RL": 79, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 144, "Mã sinh viên": "2255010019", "Họ và tên": "Trần Quốc Bảo", "Ngày sinh": "2004-08-08 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 3.11, "TBC Hệ 10": 7.79, "Điểm RL": 86, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 151, "Mã sinh viên": "2255010069", "Họ và tên": "Phan Thị Ngọc Hải", "Ngày sinh": "31/01/2004", "Tên lớp": "2022CN4", "TBCHT": 3.1, "TBC Hệ 10": 7.91, "Điểm RL": 82, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 126, "Mã sinh viên": "2255010183", "Họ và tên": "Phạm Thị Diễm Quỳnh", "Ngày sinh": "30/10/2004", "Tên lớp": "2022CN3", "TBCHT": 3.1, "TBC Hệ 10": 7.86, "Điểm RL": 80, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 150, "Mã sinh viên": "2255010064", "Họ và tên": "Lộc Hương Giang", "Ngày sinh": "2004-04-05 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 3.1, "TBC Hệ 10": 7.85, "Điểm RL": 81, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 222, "Mã sinh viên": "2255010240", "Họ và tên": "Nguyễn Huy Trung", "Ngày sinh": "30/05/2004", "Tên lớp": "2022CN5", "TBCHT": 3.1, "TBC Hệ 10": 7.84, "Điểm RL": 89, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 41, "Mã sinh viên": "2255010236", "Họ và tên": "Nguyễn Hữu Triệu", "Ngày sinh": "2004-04-05 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 3.1, "TBC Hệ 10": 7.83, "Điểm RL": 90, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 77, "Mã sinh viên": "2255010167", "Họ và tên": "Nguyễn Lâm Phương", "Ngày sinh": "13/11/2004", "Tên lớp": "2022CN2", "TBCHT": 3.1, "TBC Hệ 10": 7.8, "Điểm RL": 77, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 96, "Mã sinh viên": "2255010013", "Họ và tên": "Ngô Minh Ánh", "Ngày sinh": "17/09/2004", "Tên lớp": "2022CN3", "TBCHT": 3.1, "TBC Hệ 10": 7.78, "Điểm RL": 73, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 213, "Mã sinh viên": "2255010195", "Họ và tên": "Trịnh Duy Tân", "Ngày sinh": "18/10/2004", "Tên lớp": "2022CN5", "TBCHT": 3.09, "TBC Hệ 10": 7.82, "Điểm RL": 75, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 85, "Mã sinh viên": "2255010217", "Họ và tên": "Lê Việt Thành", "Ngày sinh": "2004-10-07 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 3.09, "TBC Hệ 10": 7.78, "Điểm RL": 75, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 33, "Mã sinh viên": "2255010181", "Họ và tên": "Đặng Thị Ngọc Quỳnh", "Ngày sinh": "2003-05-06 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 3.09, "TBC Hệ 10": 7.75, "Điểm RL": 71, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 49, "Mã sinh viên": "2255010017", "Họ và tên": "Đinh Quốc Bảo", "Ngày sinh": "13/01/2004", "Tên lớp": "2022CN2", "TBCHT": 3.09, "TBC Hệ 10": 7.73, "Điểm RL": 77, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 207, "Mã sinh viên": "2255010155", "Họ và tên": "Nguyễn Phương Nguyên", "Ngày sinh": "2004-10-01 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 3.07, "TBC Hệ 10": 7.81, "Điểm RL": 74, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 200, "Mã sinh viên": "2255010115", "Họ và tên": "Nguyễn Đức Khánh", "Ngày sinh": "2004-11-12 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 3.07, "TBC Hệ 10": 7.79, "Điểm RL": 78, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 183, "Mã sinh viên": "2255010020", "Họ và tên": "Trần Văn Bảo", "Ngày sinh": "2004-08-06 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 3.07, "TBC Hệ 10": 7.77, "Điểm RL": 81, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 21, "Mã sinh viên": "2255010111", "Họ và tên": "Trần Văn Khải", "Ngày sinh": "2004-03-11 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 3.07, "TBC Hệ 10": 7.75, "Điểm RL": 74, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 133, "Mã sinh viên": "2255010223", "Họ và tên": "Vũ Đức Thắng", "Ngày sinh": "27/10/2004", "Tên lớp": "2022CN3", "TBCHT": 3.07, "TBC Hệ 10": 7.71, "Điểm RL": 70, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 26, "Mã sinh viên": "2255010136", "Họ và tên": "Nguyễn Anh Minh", "Ngày sinh": "2004-06-01 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 3.07, "TBC Hệ 10": 7.7, "Điểm RL": 90, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 60, "Mã sinh viên": "2255010077", "Họ và tên": "Bùi Văn Hiếu", "Ngày sinh": "16/01/2004", "Tên lớp": "2022CN2", "TBCHT": 3.06, "TBC Hệ 10": 7.78, "Điểm RL": 72, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 138, "Mã sinh viên": "2255010248", "Họ và tên": "Lê Minh Trưởng", "Ngày sinh": "2004-11-09 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 3.05, "TBC Hệ 10": 7.84, "Điểm RL": 85, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 68, "Mã sinh viên": "2255010122", "Họ và tên": "Hoàng Công Lập", "Ngày sinh": "2004-10-06 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 3.04, "TBC Hệ 10": 7.8, "Điểm RL": 82, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 120, "Mã sinh viên": "2255010153", "Họ và tên": "Hoàng Trường Nguyên", "Ngày sinh": "18/07/2004", "Tên lớp": "2022CN3", "TBCHT": 3.04, "TBC Hệ 10": 7.72, "Điểm RL": 87, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 173, "Mã sinh viên": "2255010219", "Họ và tên": "Lò Thị Phương Thảo", "Ngày sinh": "19/03/2004", "Tên lớp": "2022CN4", "TBCHT": 3.04, "TBC Hệ 10": 7.71, "Điểm RL": 69, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 116, "Mã sinh viên": "2255010128", "Họ và tên": "Nguyễn Văn Long", "Ngày sinh": "18/07/2004", "Tên lớp": "2022CN3", "TBCHT": 3.03, "TBC Hệ 10": 7.76, "Điểm RL": 82, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 73, "Mã sinh viên": "2255010147", "Họ và tên": "Vũ Hồng Ngân", "Ngày sinh": "17/06/2004", "Tên lớp": "2022CN2", "TBCHT": 3.03, "TBC Hệ 10": 7.65, "Điểm RL": 83, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 135, "Mã sinh viên": "2255010233", "Họ và tên": "Nguyễn Thị Thu Trang", "Ngày sinh": "13/08/2004", "Tên lớp": "2022CN3", "TBCHT": 3.03, "TBC Hệ 10": 7.59, "Điểm RL": 93, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 46, "Mã sinh viên": "2255010261", "Họ và tên": "Nguyễn Đức Khánh Dương", "Ngày sinh": "14/06/2004", "Tên lớp": "2022CN1", "TBCHT": 3.02, "TBC Hệ 10": 7.63, "Điểm RL": 77, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 127, "Mã sinh viên": "2255010188", "Họ và tên": "Ngô Hoàng Sơn", "Ngày sinh": "27/10/2004", "Tên lớp": "2022CN3", "TBCHT": 3.02, "TBC Hệ 10": 7.6, "Điểm RL": 72, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 132, "Mã sinh viên": "2255010213", "Họ và tên": "Vũ Ngọc Tuyền", "Ngày sinh": "24/08/2004", "Tên lớp": "2022CN3", "TBCHT": 3.01, "TBC Hệ 10": 7.73, "Điểm RL": 80, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 192, "Mã sinh viên": "2255010070", "Họ và tên": "Vũ Đức Hải", "Ngày sinh": "26/04/2004", "Tên lớp": "2022CN5", "TBCHT": 3.01, "TBC Hệ 10": 7.72, "Điểm RL": 74, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 45, "Mã sinh viên": "2255010256", "Họ và tên": "Hà Thanh Vũ", "Ngày sinh": "2003-07-06 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 3.01, "TBC Hệ 10": 7.7, "Điểm RL": 67, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 175, "Mã sinh viên": "2255010234", "Họ và tên": "Nguyễn Thu Trang", "Ngày sinh": "23/12/2004", "Tên lớp": "2022CN4", "TBCHT": 3.01, "TBC Hệ 10": 7.66, "Điểm RL": 78, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 178, "Mã sinh viên": "2255010249", "Họ và tên": "Đỗ Thị Vi", "Ngày sinh": "15/08/2003", "Tên lớp": "2022CN4", "TBCHT": 3.01, "TBC Hệ 10": 7.65, "Điểm RL": 84, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 6, "Mã sinh viên": "2255010021", "Họ và tên": "Nguyễn Đình Đức Biên", "Ngày sinh": "21/05/2004", "Tên lớp": "2022CN1", "TBCHT": 3.0, "TBC Hệ 10": 7.83, "Điểm RL": 85, "Số môn nợ": 3, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào Nhóm tự chọn 6 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 122, "Mã sinh viên": "2255010163", "Họ và tên": "Phạm Quang Phong", "Ngày sinh": "2004-12-06 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 2.99, "TBC Hệ 10": 7.81, "Điểm RL": 83, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 115, "Mã sinh viên": "2255010123", "Họ và tên": "Lê Lam Linh", "Ngày sinh": "15/07/2004", "Tên lớp": "2022CN3", "TBCHT": 2.99, "TBC Hệ 10": 7.79, "Điểm RL": 77, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 154, "Mã sinh viên": "2255010084", "Họ và tên": "Nguyễn Thị Hoa", "Ngày sinh": "17/09/2004", "Tên lớp": "2022CN4", "TBCHT": 2.99, "TBC Hệ 10": 7.71, "Điểm RL": 76, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 101, "Mã sinh viên": "2255010048", "Họ và tên": "Trần Phúc Đại", "Ngày sinh": "2004-03-11 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 2.99, "TBC Hệ 10": 7.63, "Điểm RL": 86, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 103, "Mã sinh viên": "2255010063", "Họ và tên": "Nguyễn Quang Đức", "Ngày sinh": "27/06/2004", "Tên lớp": "2022CN3", "TBCHT": 2.99, "TBC Hệ 10": 7.61, "Điểm RL": 70, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 184, "Mã sinh viên": "2255010025", "Họ và tên": "Đinh Khắc Cương", "Ngày sinh": "13/08/2004", "Tên lớp": "2022CN5", "TBCHT": 2.99, "TBC Hệ 10": 7.6, "Điểm RL": 76, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 117, "Mã sinh viên": "2255010138", "Họ và tên": "Phạm Bình Minh", "Ngày sinh": "25/12/2004", "Tên lớp": "2022CN3", "TBCHT": 2.98, "TBC Hệ 10": 7.68, "Điểm RL": 88, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 58, "Mã sinh viên": "2255010067", "Họ và tên": "Nguyễn Văn Giáp", "Ngày sinh": "24/11/2004", "Tên lớp": "2022CN2", "TBCHT": 2.98, "TBC Hệ 10": 7.64, "Điểm RL": 68, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 221, "Mã sinh viên": "2255010235", "Họ và tên": "Trần Vân Trang", "Ngày sinh": "13/01/2004", "Tên lớp": "2022CN5", "TBCHT": 2.97, "TBC Hệ 10": 7.87, "Điểm RL": 74, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 187, "Mã sinh viên": "2255010040", "Họ và tên": "Đặng Thái Duy", "Ngày sinh": "2004-10-09 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 2.97, "TBC Hệ 10": 7.8, "Điểm RL": 80, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 162, "Mã sinh viên": "2255010154", "Họ và tên": "Khuất Văn Nguyên", "Ngày sinh": "19/03/2003", "Tên lớp": "2022CN4", "TBCHT": 2.97, "TBC Hệ 10": 7.67, "Điểm RL": 71, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 100, "Mã sinh viên": "2255010038", "Họ và tên": "Nguyễn Văn Dũng", "Ngày sinh": "19/04/2004", "Tên lớp": "2022CN3", "TBCHT": 2.96, "TBC Hệ 10": 7.68, "Điểm RL": 69, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 141, "Mã sinh viên": "2255010004", "Họ và tên": "Nguyễn Bá Anh", "Ngày sinh": "15/03/2004", "Tên lớp": "2022CN4", "TBCHT": 2.96, "TBC Hệ 10": 7.66, "Điểm RL": 89, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 171, "Mã sinh viên": "2255010209", "Họ và tên": "Nguyễn Thanh Tuấn", "Ngày sinh": "2004-09-04 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 2.96, "TBC Hệ 10": 7.66, "Điểm RL": 77, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 35, "Mã sinh viên": "2255010196", "Họ và tên": "Dương Quốc Tần", "Ngày sinh": "2004-07-03 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 2.96, "TBC Hệ 10": 7.64, "Điểm RL": 71, "Số môn nợ": 3, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào Nhóm tự chọn 6 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 146, "Mã sinh viên": "2255010039", "Họ và tên": "Trịnh Việt Dũng", "Ngày sinh": "1997-02-09 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 2.96, "TBC Hệ 10": 7.62, "Điểm RL": 77, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 16, "Mã sinh viên": "2255010086", "Họ và tên": "Vũ Minh Hòa", "Ngày sinh": "2004-06-02 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 2.96, "TBC Hệ 10": 7.48, "Điểm RL": 74, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 9, "Mã sinh viên": "2255010036", "Họ và tên": "Nguyễn Đồng Tài Dũng", "Ngày sinh": "30/10/2004", "Tên lớp": "2022CN1", "TBCHT": 2.95, "TBC Hệ 10": 7.66, "Điểm RL": 72, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 143, "Mã sinh viên": "2255010014", "Họ và tên": "Nguyễn Minh Bách", "Ngày sinh": "24/10/2004", "Tên lớp": "2022CN4", "TBCHT": 2.95, "TBC Hệ 10": 7.61, "Điểm RL": 72, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 63, "Mã sinh viên": "2255010092", "Họ và tên": "Trần Trung Hoàng", "Ngày sinh": "2004-01-01 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 2.94, "TBC Hệ 10": 7.61, "Điểm RL": 72, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 80, "Mã sinh viên": "2255010187", "Họ và tên": "Lê Trung Sơn", "Ngày sinh": "23/08/2004", "Tên lớp": "2022CN2", "TBCHT": 2.94, "TBC Hệ 10": 7.53, "Điểm RL": 68, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 128, "Mã sinh viên": "2255010193", "Họ và tên": "Nguyễn Văn Tâm", "Ngày sinh": "28/12/2003", "Tên lớp": "2022CN3", "TBCHT": 2.94, "TBC Hệ 10": 7.52, "Điểm RL": 77, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 156, "Mã sinh viên": "2255010104", "Họ và tên": "Nguyễn Thị Huyền", "Ngày sinh": "2004-02-12 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 2.93, "TBC Hệ 10": 7.6, "Điểm RL": 76, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 14, "Mã sinh viên": "2255010071", "Họ và tên": "Khổng Văn Hào", "Ngày sinh": "2004-01-09 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 2.93, "TBC Hệ 10": 7.57, "Điểm RL": 74, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 25, "Mã sinh viên": "2255010131", "Họ và tên": "Nguyễn Khánh Luân", "Ngày sinh": "2003-12-07 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 2.93, "TBC Hệ 10": 7.57, "Điểm RL": 75, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : CT3901.1 - Triết học Mác - LêNin(F)", "Sai sót": ""}, {"STT": 134, "Mã sinh viên": "2255010228", "Họ và tên": "Nguyễn Xuân Thuận", "Ngày sinh": "15/09/2004", "Tên lớp": "2022CN3", "TBCHT": 2.93, "TBC Hệ 10": 7.55, "Điểm RL": 82, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 36, "Mã sinh viên": "2255010201", "Họ và tên": "Nguyễn Khánh Toàn", "Ngày sinh": "13/05/2004", "Tên lớp": "2022CN1", "TBCHT": 2.92, "TBC Hệ 10": 7.62, "Điểm RL": 68, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 11, "Mã sinh viên": "2255010051", "Họ và tên": "Bùi Văn Đạt", "Ngày sinh": "19/11/2003", "Tên lớp": "2022CN1", "TBCHT": 2.92, "TBC Hệ 10": 7.58, "Điểm RL": 72, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 29, "Mã sinh viên": "2255010156", "Họ và tên": "Nguyễn Trường Nguyên", "Ngày sinh": "2004-06-08 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 2.9, "TBC Hệ 10": 7.61, "Điểm RL": 83, "Số môn nợ": 3, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào Nhóm tự chọn 6 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 172, "Mã sinh viên": "2255010214", "Họ và tên": "Bùi Thị Ngọc Tuyết", "Ngày sinh": "2004-06-07 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 2.9, "TBC Hệ 10": 7.49, "Điểm RL": 71, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 217, "Mã sinh viên": "2255010215", "Họ và tên": "Tống Văn Thái", "Ngày sinh": "22/07/2004", "Tên lớp": "2022CN5", "TBCHT": 2.9, "TBC Hệ 10": 7.44, "Điểm RL": 69, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 59, "Mã sinh viên": "2255010072", "Họ và tên": "Hoàng Hữu Hậu", "Ngày sinh": "15/06/2004", "Tên lớp": "2022CN2", "TBCHT": 2.9, "TBC Hệ 10": 7.4, "Điểm RL": 73, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : TH5224 - Kỹ năng thuyết trình(F)", "Sai sót": ""}, {"STT": 210, "Mã sinh viên": "2255010175", "Họ và tên": "Nguyễn Đăng Hồng Quân", "Ngày sinh": "2004-07-11 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 2.89, "TBC Hệ 10": 7.52, "Điểm RL": 69, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 54, "Mã sinh viên": "2255010042", "Họ và tên": "Mai Xuân Duy", "Ngày sinh": "23/08/2004", "Tên lớp": "2022CN2", "TBCHT": 2.89, "TBC Hệ 10": 7.48, "Điểm RL": 70, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 15, "Mã sinh viên": "2255010076", "Họ và tên": "Lê Thiện Hiệp", "Ngày sinh": "28/01/2004", "Tên lớp": "2022CN1", "TBCHT": 2.89, "TBC Hệ 10": 7.41, "Điểm RL": 68, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 91, "Mã sinh viên": "2255010247", "Họ và tên": "Vũ Đức Trường", "Ngày sinh": "2004-06-10 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 2.88, "TBC Hệ 10": 7.47, "Điểm RL": 78, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 197, "Mã sinh viên": "2255010100", "Họ và tên": "Nguyễn Tuấn Huy", "Ngày sinh": "22/03/2004", "Tên lớp": "2022CN5", "TBCHT": 2.87, "TBC Hệ 10": 7.62, "Điểm RL": 69, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 22, "Mã sinh viên": "2255010116", "Họ và tên": "Phạm Quốc Khánh", "Ngày sinh": "2004-03-07 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 2.87, "TBC Hệ 10": 7.53, "Điểm RL": 68, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 106, "Mã sinh viên": "2255010078", "Họ và tên": "Nguyễn Minh Hiếu", "Ngày sinh": "2004-04-08 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 2.87, "TBC Hệ 10": 7.48, "Điểm RL": 68, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 121, "Mã sinh viên": "2255010158", "Họ và tên": "Trần Thị Ánh Nguyệt", "Ngày sinh": "2004-07-10 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 2.87, "TBC Hệ 10": 7.46, "Điểm RL": 72, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 57, "Mã sinh viên": "2255010062", "Họ và tên": "Hoàng Minh Đức", "Ngày sinh": "13/07/2004", "Tên lớp": "2022CN2", "TBCHT": 2.87, "TBC Hệ 10": 7.41, "Điểm RL": 80, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 147, "Mã sinh viên": "2255010044", "Họ và tên": "Trịnh Khánh Duy", "Ngày sinh": "2004-11-11 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 2.85, "TBC Hệ 10": 7.45, "Điểm RL": 69, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 119, "Mã sinh viên": "2255010148", "Họ và tên": "Bùi Quang Nghị", "Ngày sinh": "13/03/2004", "Tên lớp": "2022CN3", "TBCHT": 2.85, "TBC Hệ 10": 7.44, "Điểm RL": 76, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 62, "Mã sinh viên": "2255010087", "Họ và tên": "Dương Huy Hoàng", "Ngày sinh": "29/01/2004", "Tên lớp": "2022CN2", "TBCHT": 2.84, "TBC Hệ 10": 7.47, "Điểm RL": 70, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 34, "Mã sinh viên": "2255010186", "Họ và tên": "Đỗ Duy Sáng", "Ngày sinh": "15/03/2004", "Tên lớp": "2022CN1", "TBCHT": 2.84, "TBC Hệ 10": 7.45, "Điểm RL": 69, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 89, "Mã sinh viên": "2255010237", "Họ và tên": "Lê Trọng Trinh", "Ngày sinh": "2004-07-04 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 2.84, "TBC Hệ 10": 7.45, "Điểm RL": 68, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 142, "Mã sinh viên": "2255010009", "Họ và tên": "Phạm Thế Anh", "Ngày sinh": "2004-07-06 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 2.84, "TBC Hệ 10": 7.44, "Điểm RL": 79, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 129, "Mã sinh viên": "2255010198", "Họ và tên": "Nguyễn Khắc Tiền", "Ngày sinh": "2004-12-08 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 2.84, "TBC Hệ 10": 7.43, "Điểm RL": 70, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 72, "Mã sinh viên": "2255010142", "Họ và tên": "Nguyễn Đỗ Hải Nam", "Ngày sinh": "22/08/2004", "Tên lớp": "2022CN2", "TBCHT": 2.83, "TBC Hệ 10": 7.46, "Điểm RL": 78, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 55, "Mã sinh viên": "2255010052", "Họ và tên": "Đinh Tiến Đạt", "Ngày sinh": "17/06/2004", "Tên lớp": "2022CN2", "TBCHT": 2.83, "TBC Hệ 10": 7.45, "Điểm RL": 67, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 64, "Mã sinh viên": "2255010097", "Họ và tên": "Phạm Văn Hùng", "Ngày sinh": "2004-10-12 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 2.82, "TBC Hệ 10": 7.46, "Điểm RL": 79, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 140, "Mã sinh viên": "2255010258", "Họ và tên": "Trần Đình Vũ", "Ngày sinh": "2004-02-05 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 2.82, "TBC Hệ 10": 7.39, "Điểm RL": 72, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 186, "Mã sinh viên": "2255010035", "Họ và tên": "Đoàn Tiến Dũng", "Ngày sinh": "2004-03-08 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 2.81, "TBC Hệ 10": 7.5, "Điểm RL": 70, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 8, "Mã sinh viên": "2255010031", "Họ và tên": "Trần Nhật Chung", "Ngày sinh": "2004-05-10 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 2.81, "TBC Hệ 10": 7.45, "Điểm RL": 84, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 219, "Mã sinh viên": "2255010225", "Họ và tên": "Lù Ngọc Thịnh", "Ngày sinh": "2004-05-12 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 2.81, "TBC Hệ 10": 7.32, "Điểm RL": 78, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 99, "Mã sinh viên": "2255010033", "Họ và tên": "Nguyễn Thị Diên", "Ngày sinh": "2004-07-02 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 2.8, "TBC Hệ 10": 7.5, "Điểm RL": 81, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 153, "Mã sinh viên": "2255010079", "Họ và tên": "Nguyễn Minh Hiếu", "Ngày sinh": "14/01/2003", "Tên lớp": "2022CN4", "TBCHT": 2.8, "TBC Hệ 10": 7.26, "Điểm RL": 74, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : TC2611 - Toán Đại số(F)", "Sai sót": ""}, {"STT": 214, "Mã sinh viên": "2255010200", "Họ và tên": "Nguyễn Minh Tiến", "Ngày sinh": "16/03/2003", "Tên lớp": "2022CN5", "TBCHT": 2.79, "TBC Hệ 10": 7.43, "Điểm RL": 74, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 211, "Mã sinh viên": "2255010185", "Họ và tên": "Phan Hoàng Sang", "Ngày sinh": "2004-08-06 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 2.79, "TBC Hệ 10": 7.42, "Điểm RL": 70, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 212, "Mã sinh viên": "2255010190", "Họ và tên": "Trịnh Trung Sơn", "Ngày sinh": "2004-03-06 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 2.79, "TBC Hệ 10": 7.4, "Điểm RL": 80, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 201, "Mã sinh viên": "2255010120", "Họ và tên": "Nguyễn Hoàng Lâm", "Ngày sinh": "2004-12-01 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 2.79, "TBC Hệ 10": 7.3, "Điểm RL": 70, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : CT3902.1 - Kinh tế chính trị Mác - Lênin(F)", "Sai sót": ""}, {"STT": 168, "Mã sinh viên": "2255010189", "Họ và tên": "Nguyễn Minh Sơn", "Ngày sinh": "30/09/2004", "Tên lớp": "2022CN4", "TBCHT": 2.76, "TBC Hệ 10": 7.35, "Điểm RL": 73, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 165, "Mã sinh viên": "2255010174", "Họ và tên": "Hoàng Minh Quân", "Ngày sinh": "29/05/2004", "Tên lớp": "2022CN4", "TBCHT": 2.76, "TBC Hệ 10": 7.33, "Điểm RL": 70, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 40, "Mã sinh viên": "2255010221", "Họ và tên": "Nguyễn Phương Thảo", "Ngày sinh": "21/10/2004", "Tên lớp": "2022CN1", "TBCHT": 2.76, "TBC Hệ 10": 7.29, "Điểm RL": 73, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 196, "Mã sinh viên": "2255010095", "Họ và tên": "Lý Mạnh Hùng", "Ngày sinh": "16/11/2004", "Tên lớp": "2022CN5", "TBCHT": 2.76, "TBC Hệ 10": 7.25, "Điểm RL": 70, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 84, "Mã sinh viên": "2255010212", "Họ và tên": "Nguyễn Thanh Tùng", "Ngày sinh": "31/03/2004", "Tên lớp": "2022CN2", "TBCHT": 2.75, "TBC Hệ 10": 7.39, "Điểm RL": 66, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 190, "Mã sinh viên": "2255010060", "Họ và tên": "Vũ Văn Đoàn", "Ngày sinh": "18/04/2004", "Tên lớp": "2022CN5", "TBCHT": 2.75, "TBC Hệ 10": 7.29, "Điểm RL": 67, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 108, "Mã sinh viên": "2255010088", "Họ và tên": "Đinh Việt Hoàng", "Ngày sinh": "28/06/2004", "Tên lớp": "2022CN3", "TBCHT": 2.75, "TBC Hệ 10": 7.25, "Điểm RL": 69, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 69, "Mã sinh viên": "2255010127", "Họ và tên": "Hoàng Nguyễn Hải Long", "Ngày sinh": "2001-01-08 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 2.73, "TBC Hệ 10": 7.37, "Điểm RL": 74, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 88, "Mã sinh viên": "2255010232", "Họ và tên": "Mai Kiều Trang", "Ngày sinh": "18/11/2004", "Tên lớp": "2022CN2", "TBCHT": 2.73, "TBC Hệ 10": 7.27, "Điểm RL": 88, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : TH4302 - Toán rời rạc(F)", "Sai sót": ""}, {"STT": 136, "Mã sinh viên": "2255010238", "Họ và tên": "Trịnh Quốc Nam", "Ngày sinh": "30/08/2004", "Tên lớp": "2022CN3", "TBCHT": 2.73, "TBC Hệ 10": 7.15, "Điểm RL": 67, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 37, "Mã sinh viên": "2255010206", "Họ và tên": "Vũ Kim Tú", "Ngày sinh": "2004-01-02 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 2.72, "TBC Hệ 10": 7.33, "Điểm RL": 70, "Số môn nợ": 3, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào Nhóm tự chọn 6 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 90, "Mã sinh viên": "2255010242", "Họ và tên": "Phan Hải Bá Trung", "Ngày sinh": "2004-11-12 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 2.72, "TBC Hệ 10": 7.28, "Điểm RL": 65, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 191, "Mã sinh viên": "2255010065", "Họ và tên": "Nguyễn Danh Trường Giang", "Ngày sinh": "30/09/2004", "Tên lớp": "2022CN5", "TBCHT": 2.72, "TBC Hệ 10": 7.26, "Điểm RL": 70, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 66, "Mã sinh viên": "2255010107", "Họ và tên": "Nguyễn Thu Hường", "Ngày sinh": "19/04/2004", "Tên lớp": "2022CN2", "TBCHT": 2.72, "TBC Hệ 10": 7.24, "Điểm RL": 66, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 112, "Mã sinh viên": "2255010108", "Họ và tên": "Nguyễn Doãn Hưởng", "Ngày sinh": "2004-10-12 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 2.72, "TBC Hệ 10": 7.17, "Điểm RL": 72, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 159, "Mã sinh viên": "2255010139", "Họ và tên": "Bùi Hải Nam", "Ngày sinh": "16/10/2004", "Tên lớp": "2022CN4", "TBCHT": 2.71, "TBC Hệ 10": 7.24, "Điểm RL": 71, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : TC2702 - Vật lý P2(F)", "Sai sót": ""}, {"STT": 94, "Mã sinh viên": "2255010003", "Họ và tên": "Đinh Phan Anh", "Ngày sinh": "13/12/2004", "Tên lớp": "2022CN3", "TBCHT": 2.7, "TBC Hệ 10": 7.38, "Điểm RL": 70, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 7, "Mã sinh viên": "2255010026", "Họ và tên": "Trần Thái Cương", "Ngày sinh": "16/07/2004", "Tên lớp": "2022CN1", "TBCHT": 2.7, "TBC Hệ 10": 7.2, "Điểm RL": 73, "Số môn nợ": 3, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào Nhóm tự chọn 6 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 98, "Mã sinh viên": "2255010023", "Họ và tên": "Vũ Đình Bình", "Ngày sinh": "2004-08-10 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 2.7, "TBC Hệ 10": 7.04, "Điểm RL": 67, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : TH4320 - Trí tuệ nhân tạo(F)", "Sai sót": ""}, {"STT": 118, "Mã sinh viên": "2255010143", "Họ và tên": "Nguyễn Hải Nam", "Ngày sinh": "2004-07-07 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 2.69, "TBC Hệ 10": 7.19, "Điểm RL": 83, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 65, "Mã sinh viên": "2255010102", "Họ và tên": "Trương Gia Huy", "Ngày sinh": "2004-09-12 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 2.69, "TBC Hệ 10": 7.04, "Điểm RL": 66, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : TH5216 - Đồ họa và hiện thực ảo(F)", "Sai sót": ""}, {"STT": 109, "Mã sinh viên": "2255010093", "Họ và tên": "Nguyễn Văn Hợp", "Ngày sinh": "2004-12-06 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 2.67, "TBC Hệ 10": 7.21, "Điểm RL": 72, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 81, "Mã sinh viên": "2255010192", "Họ và tên": "Đặng Thành Tâm", "Ngày sinh": "21/04/2004", "Tên lớp": "2022CN2", "TBCHT": 2.67, "TBC Hệ 10": 7.14, "Điểm RL": 66, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 97, "Mã sinh viên": "2255010018", "Họ và tên": "Phạm Xuân Bảo", "Ngày sinh": "24/02/2004", "Tên lớp": "2022CN3", "TBCHT": 2.67, "TBC Hệ 10": 7.07, "Điểm RL": 67, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : TH4307 - Thực tập chuyên môn I(F)", "Sai sót": ""}, {"STT": 70, "Mã sinh viên": "2255010132", "Họ và tên": "Nguyễn Đình Luyện", "Ngày sinh": "17/09/2004", "Tên lớp": "2022CN2", "TBCHT": 2.64, "TBC Hệ 10": 7.18, "Điểm RL": 67, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 113, "Mã sinh viên": "2255010113", "Họ và tên": "Nguyễn Trần Bảo Khanh", "Ngày sinh": "2004-10-04 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 2.64, "TBC Hệ 10": 7.17, "Điểm RL": 81, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 1, "Mã sinh viên": "2055010023", "Họ và tên": "Trần Công Bách", "Ngày sinh": "24/10/2002", "Tên lớp": "2022CN1", "TBCHT": 2.64, "TBC Hệ 10": 7.08, "Điểm RL": 63, "Số môn nợ": 0, "Ghi chú": "", "Sai sót": ""}, {"STT": 139, "Mã sinh viên": "2255010253", "Họ và tên": "Nguyễn Thế Vinh", "Ngày sinh": "24/04/2004", "Tên lớp": "2022CN3", "TBCHT": 2.64, "TBC Hệ 10": 7.07, "Điểm RL": 72, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 42, "Mã sinh viên": "2255010241", "Họ và tên": "Nguyễn Lương Trung", "Ngày sinh": "19/09/2004", "Tên lớp": "2022CN1", "TBCHT": 2.64, "TBC Hệ 10": 6.98, "Điểm RL": 71, "Số môn nợ": 3, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : TH5216 - Đồ họa và hiện thực ảo(F); Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 163, "Mã sinh viên": "2255010159", "Họ và tên": "Phan Đức Nhân", "Ngày sinh": "24/03/2004", "Tên lớp": "2022CN4", "TBCHT": 2.63, "TBC Hệ 10": 7.11, "Điểm RL": 67, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 31, "Mã sinh viên": "2255010171", "Họ và tên": "Trần Minh Quang", "Ngày sinh": "2004-09-08 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 2.62, "TBC Hệ 10": 7.2, "Điểm RL": 72, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 105, "Mã sinh viên": "2255010073", "Họ và tên": "Lê Thế Hiền", "Ngày sinh": "2004-04-12 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 2.62, "TBC Hệ 10": 7.11, "Điểm RL": 70, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 30, "Mã sinh viên": "2255010166", "Họ và tên": "Nguyễn Đình Phúc", "Ngày sinh": "23/06/2004", "Tên lớp": "2022CN1", "TBCHT": 2.62, "TBC Hệ 10": 7.07, "Điểm RL": 76, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 61, "Mã sinh viên": "2255010082", "Họ và tên": "Đỗ Huy Hiệu", "Ngày sinh": "21/10/2004", "Tên lớp": "2022CN2", "TBCHT": 2.6, "TBC Hệ 10": 7.2, "Điểm RL": 68, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 86, "Mã sinh viên": "2255010222", "Họ và tên": "Lê Quang Thắng", "Ngày sinh": "2004-10-09 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 2.59, "TBC Hệ 10": 7.02, "Điểm RL": 70, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 92, "Mã sinh viên": "2255010252", "Họ và tên": "Nguyễn Đình Vinh", "Ngày sinh": "2004-06-11 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 2.58, "TBC Hệ 10": 6.89, "Điểm RL": 66, "Số môn nợ": 3, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : TH5209 - Xử lý ảnh(F); Nhóm tự chọn 7 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 17, "Mã sinh viên": "2255010091", "Họ và tên": "Nguyễn Việt Hoàng", "Ngày sinh": "28/02/2004", "Tên lớp": "2022CN1", "TBCHT": 2.57, "TBC Hệ 10": 7.0, "Điểm RL": 66, "Số môn nợ": 3, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào Nhóm tự chọn 6 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 19, "Mã sinh viên": "2255010101", "Họ và tên": "Triệu Xuân Huy", "Ngày sinh": "31/05/2004", "Tên lớp": "2022CN1", "TBCHT": 2.55, "TBC Hệ 10": 7.08, "Điểm RL": 66, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 6 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 179, "Mã sinh viên": "2255010254", "Họ và tên": "Đàm Hoàng Vũ", "Ngày sinh": "28/10/2004", "Tên lớp": "2022CN4", "TBCHT": 2.55, "TBC Hệ 10": 6.97, "Điểm RL": 69, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 110, "Mã sinh viên": "2255010098", "Họ và tên": "Vũ Văn Hùng", "Ngày sinh": "18/10/2004", "Tên lớp": "2022CN3", "TBCHT": 2.53, "TBC Hệ 10": 7.01, "Điểm RL": 68, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 185, "Mã sinh viên": "2255010030", "Họ và tên": "Nguyễn Hữu Chiến", "Ngày sinh": "2004-07-06 00:00:00", "Tên lớp": "2022CN5", "TBCHT": 2.53, "TBC Hệ 10": 7.01, "Điểm RL": 81, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 124, "Mã sinh viên": "2255010173", "Họ và tên": "Bùi Hồng Quân", "Ngày sinh": "2004-09-11 00:00:00", "Tên lớp": "2022CN3", "TBCHT": 2.53, "TBC Hệ 10": 6.91, "Điểm RL": 69, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : TH5210 - An toàn và bảo mật hệ thống thông tin(F)", "Sai sót": ""}, {"STT": 161, "Mã sinh viên": "2255010149", "Họ và tên": "Phạm Minh Nghĩa", "Ngày sinh": "21/12/2004", "Tên lớp": "2022CN4", "TBCHT": 2.53, "TBC Hệ 10": 6.85, "Điểm RL": 82, "Số môn nợ": 3, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : CT4002 - Lịch sử Đảng cộng sản Việt Nam(F),CT4101 - Tư tưởng Hồ Chí Minh(F)", "Sai sót": ""}, {"STT": 28, "Mã sinh viên": "2255010151", "Họ và tên": "Phạm Hữu Ngọc", "Ngày sinh": "26/11/2004", "Tên lớp": "2022CN1", "TBCHT": 2.53, "TBC Hệ 10": 6.79, "Điểm RL": 65, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 177, "Mã sinh viên": "2255010244", "Họ và tên": "Trần Ngọc Trung", "Ngày sinh": "2004-02-05 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 2.52, "TBC Hệ 10": 7.05, "Điểm RL": 71, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 53, "Mã sinh viên": "2255010037", "Họ và tên": "Nguyễn Mạnh Dũng", "Ngày sinh": "14/07/2004", "Tên lớp": "2022CN2", "TBCHT": 2.5, "TBC Hệ 10": 6.83, "Điểm RL": 64, "Số môn nợ": 3, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : TH4303 - Cấu trúc dữ liệu và giải thuật(F); Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 39, "Mã sinh viên": "2255010216", "Họ và tên": "Lại Tuấn Thành", "Ngày sinh": "2004-10-07 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 2.48, "TBC Hệ 10": 6.96, "Điểm RL": 66, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 32, "Mã sinh viên": "2255010176", "Họ và tên": "Phí Minh Quân", "Ngày sinh": "2004-11-03 00:00:00", "Tên lớp": "2022CN1", "TBCHT": 2.48, "TBC Hệ 10": 6.84, "Điểm RL": 76, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 12, "Mã sinh viên": "2255010061", "Họ và tên": "Đinh Văn Nhân Đức", "Ngày sinh": "27/05/2004", "Tên lớp": "2022CN1", "TBCHT": 2.45, "TBC Hệ 10": 6.9, "Điểm RL": 66, "Số môn nợ": 3, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 3 có số HP phải học là 1, bạn chưa học HP nào; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 87, "Mã sinh viên": "2255010227", "Họ và tên": "Nguyễn Công Thông", "Ngày sinh": "31/05/2004", "Tên lớp": "2022CN2", "TBCHT": 2.41, "TBC Hệ 10": 6.89, "Điểm RL": 64, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 52, "Mã sinh viên": "2255010032", "Họ và tên": "Phạm Đức Chuyên", "Ngày sinh": "2004-12-12 00:00:00", "Tên lớp": "2022CN2", "TBCHT": 2.41, "TBC Hệ 10": 6.84, "Điểm RL": 68, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 10, "Mã sinh viên": "2255010041", "Họ và tên": "Lê Phương Duy", "Ngày sinh": "15/09/2004", "Tên lớp": "2022CN1", "TBCHT": 2.41, "TBC Hệ 10": 6.78, "Điểm RL": 70, "Số môn nợ": 3, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : TH5211 - Hệ điều hành Linux(F); Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 137, "Mã sinh viên": "2255010243", "Họ và tên": "Thiều Quang Trung", "Ngày sinh": "18/10/2004", "Tên lớp": "2022CN3", "TBCHT": 2.41, "TBC Hệ 10": 6.73, "Điểm RL": 68, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 79, "Mã sinh viên": "2255010177", "Họ và tên": "Tạ Minh Quân", "Ngày sinh": "27/06/2004", "Tên lớp": "2022CN2", "TBCHT": 2.4, "TBC Hệ 10": 6.89, "Điểm RL": 67, "Số môn nợ": 1, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp", "Sai sót": ""}, {"STT": 170, "Mã sinh viên": "2255010204", "Họ và tên": "Nghiêm Xuân Tú", "Ngày sinh": "2004-06-09 00:00:00", "Tên lớp": "2022CN4", "TBCHT": 2.34, "TBC Hệ 10": 6.71, "Điểm RL": 68, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Nhóm tự chọn 4 có số HP phải học là 1, bạn chưa học HP nào", "Sai sót": ""}, {"STT": 182, "Mã sinh viên": "2255010010", "Họ và tên": "Trịnh Ngọc Anh", "Ngày sinh": "15/09/2004", "Tên lớp": "2022CN5", "TBCHT": 2.27, "TBC Hệ 10": 6.51, "Điểm RL": 70, "Số môn nợ": 2, "Ghi chú": "Môn chưa đạt: TH5301-Thực tập tốt nghiệp; Chưa đạt môn bắt buộc : TH4320 - Trí tuệ nhân tạo(F)", "Sai sót": ""}];
-const classes = ["2022CN1", "2022CN2", "2022CN3", "2022CN4", "2022CN5"];
+let DATA = [];
+let classes = [];
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -590,6 +670,12 @@ const gradeOf = g => g >= 3.6 ? 'excellent' : g >= 3.2 ? 'good' : g >= 2.5 ? 'fa
 const gradeLabel = g => tr(({excellent:'Xuất sắc',good:'Giỏi',fair:'Khá',average:'Trung bình',weak:'Yếu'})[gradeOf(g)]);
 const avg = a => a.length ? a.reduce((x,y)=>x+y,0)/a.length : 0;
 const fmt = (n,d=2) => Number(n||0).toFixed(d);
+const creditOf = value => {
+  if(value===null || value===undefined || value==='') return 0;
+  const match=String(value).replace(',','.').match(/-?\d+(?:\.\d+)?/);
+  const n=match ? Number(match[0]) : 0;
+  return Number.isFinite(n) ? n : 0;
+};
 const corr = (xs,ys) => {
   if(xs.length<2) return 0;
   const mx=avg(xs), my=avg(ys);
@@ -600,47 +686,150 @@ const corr = (xs,ys) => {
 
 classes.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;$('classFilter').appendChild(o)});
 
+function formatExcelDate(value){
+  if(value === null || value === undefined || value === '') return '';
+  if(typeof value === 'number' && window.XLSX){
+    try{return XLSX.SSF.format('dd/mm/yyyy', value);}catch(e){}
+  }
+  const text=String(value).trim();
+  const iso=text.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  return iso ? `${iso[3]}/${iso[2]}/${iso[1]}` : text;
+}
+
+function normalizeExcelRow(row,index){
+  const toNumber=value=>{
+    if(value===null || value===undefined || value==='') return 0;
+    const n=Number(String(value).replace(',','.').trim());
+    return Number.isFinite(n) ? n : 0;
+  };
+  return {
+    'STT':toNumber(row['STT']) || index+1,
+    'Mã sinh viên':String(row['Mã sinh viên'] ?? '').trim(),
+    'Họ và tên':String(row['Họ tên'] ?? '').trim(),
+    'Ngày sinh':formatExcelDate(row['Ngày sinh']),
+    'Tên lớp':String(row['Lớp'] ?? '').trim(),
+    'TBCHT':toNumber(row['TBCHT']),
+    'TBC Hệ 10':toNumber(row['TBCHT10']),
+    'Số tín chỉ':creditOf(row['Số tín chỉ']),
+    'Số môn nợ':toNumber(row['Số môn nợ']),
+    'Điểm RL':toNumber(row['Điểm RL']),
+    'Ghi chú':String(row['Ghi chú'] ?? '').trim(),
+    'Sai sót':''
+  };
+}
+
+async function loadExcelData(){
+  try{
+    if(!window.XLSX) throw new Error('Không tải được thư viện đọc Excel.');
+    const response=await fetch('data/data_student.xlsx',{cache:'no-store'});
+    if(!response.ok) throw new Error(`Không thể tải Data_Student.xlsx (HTTP ${response.status}).`);
+    const buffer=await response.arrayBuffer();
+    const workbook=XLSX.read(buffer,{type:'array',cellDates:false});
+    const sheetName=workbook.SheetNames.includes('Tổng hợp')?'Tổng hợp':workbook.SheetNames[0];
+    if(!sheetName) throw new Error('data/data_student.xlsx không có worksheet nào.');
+    const sheet=workbook.Sheets[sheetName];
+    const rows=XLSX.utils.sheet_to_json(sheet,{defval:'',raw:true,range:2});
+    DATA=rows
+      .filter(row=>String(row['Mã sinh viên'] ?? '').trim() || String(row['Họ tên'] ?? '').trim())
+      .map(normalizeExcelRow);
+    classes=Array.from(new Set(DATA.map(s=>s['Tên lớp']).filter(Boolean))).sort((a,b)=>a.localeCompare(b,'vi'));
+    const classFilter=$('classFilter');
+    classFilter.innerHTML=`<option value="">${tr('Tất cả lớp')}</option>`;
+    classes.forEach(c=>{
+      const option=document.createElement('option');
+      option.value=c;
+      option.textContent=c;
+      classFilter.appendChild(option);
+    });
+    render();
+    applyLanguage(currentLang);
+  }catch(error){
+    console.error(error);
+    DATA=[];
+    $('kpis').innerHTML=`<div class="card section" style="grid-column:1/-1"><div class="section-title">${esc(error.message || 'Không thể tải dữ liệu Excel.')}</div><div class="section-sub">Đặt file <strong>data/data_student.xlsx</strong> cùng thư mục với index.html rồi tải lại trang.</div></div>`;
+  }
+}
+
 function normalizeNameText(value){
   return String(value ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g,'')
     .toLowerCase()
+    .replace(/đ/g,'d')
     .replace(/\s+/g,' ')
     .trim();
 }
 
-function nameMatches(name, query){
-  const nameNorm=normalizeNameText(name);
-  const queryNorm=normalizeNameText(query);
-  if(!queryNorm) return true;
+function normalizeNameExact(value){
+  return String(value ?? '')
+    .toLocaleLowerCase('vi-VN')
+    .replace(/đ/g,'đ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
 
-  if(queryNorm.includes(' ')){
-    return nameNorm.includes(queryNorm);
+function hasVietnameseDiacritics(value){
+  return /[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ]/i.test(String(value ?? ''));
+}
+
+function nameMatches(name, query){
+  const rawName=normalizeNameExact(name);
+  const rawQuery=normalizeNameExact(query);
+  if(!rawQuery) return true;
+
+  const nameTokensExact=rawName.split(' ').filter(Boolean);
+  const queryTokensExact=rawQuery.split(' ').filter(Boolean);
+  if(!nameTokensExact.length || !queryTokensExact.length) return false;
+
+  if(queryTokensExact.length===1){
+    if(hasVietnameseDiacritics(queryTokensExact[0])){
+      return nameTokensExact[nameTokensExact.length-1]===queryTokensExact[0];
+    }
+
+    const nameNorm=normalizeNameText(name);
+    const queryNorm=normalizeNameText(query);
+    const nameTokens=nameNorm.split(' ').filter(Boolean);
+    const queryTokens=queryNorm.split(' ').filter(Boolean);
+    return nameTokens[nameTokens.length-1]===queryTokens[0];
   }
 
-  const nameTokens=nameNorm.split(' ');
-  const lastName=nameTokens[nameTokens.length-1] || '';
-  return lastName === queryNorm;
+  if(hasVietnameseDiacritics(rawQuery)){
+    return rawName===rawQuery;
+  }
+
+  return normalizeNameText(name)===normalizeNameText(query);
 }
 
 function filtered(){
   const q=$('search').value.trim(), qNorm=normalizeNameText(q), cls=$('classFilter').value, debt=$('debtFilter').value, gf=$('gradeFilter').value;
   const min=parseFloat($('minGpa').value), max=parseFloat($('maxGpa').value);
+
+  const seenStudentIds=new Set();
   return DATA.filter(s=>{
+    const studentId=String(s['Mã sinh viên'] ?? '').trim();
+
     const nameHit=nameMatches(s['Họ và tên'],q);
-    const idHit=String(s['Mã sinh viên'] ?? '').toLowerCase().includes(qNorm);
+    const idHit=!!qNorm && /^\d+$/.test(qNorm) && studentId.includes(qNorm);
     if(q && !(nameHit||idHit)) return false;
+
     if(cls && s['Tên lớp']!==cls) return false;
     if(debt==='yes' && s['Số môn nợ']<=0) return false;
     if(debt==='no' && s['Số môn nợ']>0) return false;
     if(gf && gradeOf(s.TBCHT)!==gf) return false;
     if(Number.isFinite(min) && s.TBCHT<min) return false;
     if(Number.isFinite(max) && s.TBCHT>max) return false;
+
+    if(studentId){
+      if(seenStudentIds.has(studentId)) return false;
+      seenStudentIds.add(studentId);
+    }
     return true;
   });
 }
 
 function render(){
   const d=filtered();
-  renderKpis(d); renderGrades(d); renderHist(d); renderClasses(d); renderScatter(d); renderTop(d); renderDebt(d); renderInsights(d); renderQuality();
+  renderKpis(d); renderGrades(d); renderHist(d); renderCredits(d); renderClasses(d); renderScatter(d); renderTop(d); renderDebt(d); renderInsights(d); renderQuality();
 
 }
 
@@ -672,14 +861,73 @@ function renderHist(d){
   $('histChart').innerHTML=`<div class="hist">${vals.map((n,i)=>`<div class="hist-col"><div class="hist-n">${n}</div><div class="hist-bar" style="height:${n/mx*175}px"></div><div class="hist-label">${bins[i][0]}</div></div>`).join('')}</div>`;
 }
 
+function programOf(student){
+  const cls=normalizeNameText(student['Tên lớp']);
+  return cls.includes('cdp') ? 'CDP' : 'CNTT';
+}
+
+function programLabel(program){
+  return tr(program==='CDP' ? 'CDP' : 'CNTT');
+}
+
+function studentCountLabel(count){
+  return `${count} ${tr('sinh viên')}`;
+}
+
+function creditTarget(program){
+  return program==='CDP' ? 148 : 145;
+}
+
+function renderCredits(d){
+  const groups={CNTT:d.filter(s=>programOf(s)==='CNTT'),CDP:d.filter(s=>programOf(s)==='CDP')};
+  const allCredits=d.map(s=>creditOf(s['Số tín chỉ'])).filter(Number.isFinite);
+  const overallAvg=avg(allCredits);
+  $('creditRange').textContent=allCredits.length?`${fmt(overallAvg,1)} ${tr('tín chỉ trung bình')}`:'—';
+
+  const cards=Object.entries(groups)
+    .filter(([,students])=>students.length)
+    .map(([program,students])=>{
+      const target=creditTarget(program);
+      const credits=students.map(s=>creditOf(s['Số tín chỉ'])).filter(Number.isFinite);
+      const completed=avg(credits);
+      const percent=Math.min(100,Math.max(0,(completed/target)*100));
+      const remaining=Math.max(0,target-completed);
+      const classesInGroup=Array.from(new Set(students.map(s=>s['Tên lớp']).filter(Boolean))).join(', ');
+      return `<div class="credit-progress-card">
+        <div class="credit-progress-head">
+          <div>
+            <div class="credit-program">${esc(programLabel(program))}</div>
+            <div class="small">${esc(classesInGroup || tr('Chương trình'))} · ${studentCountLabel(students.length)}</div>
+          </div>
+          <div class="credit-progress-value">${fmt(completed,1)} / ${target} ${tr('tín chỉ')}</div>
+        </div>
+        <div class="credit-donut-wrap">
+          <div class="credit-donut" style="--progress:${percent.toFixed(2)}" role="img" aria-label="${esc(tr(program))} ${tr('Tiến độ tích lũy')} ${fmt(percent,1)}%">
+            <div class="credit-donut-center"><div class="credit-donut-percent">${fmt(percent,1)}%</div><div class="credit-donut-label">${tr('đã hoàn thành')}</div></div>
+          </div>
+          <div class="credit-legend">
+            <div class="credit-legend-row"><span><i class="credit-dot"></i>${tr('đã hoàn thành')}</span><strong>${fmt(completed,1)} ${tr('tín chỉ')}</strong></div>
+            <div class="credit-legend-row"><span><i class="credit-dot remaining"></i>${tr('tín chỉ còn lại')}</span><strong>${fmt(remaining,1)} ${tr('tín chỉ')}</strong></div>
+            <div class="credit-legend-row"><span>${tr('Tổng cần học')}</span><strong>${target} ${tr('tín chỉ')}</strong></div>
+          </div>
+        </div>
+        <div class="credit-progress-meta">
+          <span>${studentCountLabel(students.length)}</span>
+          <span>${tr('Chương trình')} ${esc(programLabel(program))}</span>
+        </div>
+      </div>`;
+    }).join('');
+
+  $('creditProgress').innerHTML=cards || `<div class="empty">${tr('Không có dữ liệu')}</div>`;
+}
 function renderClasses(d){
   const map={};
   d.forEach(s=>{const c=s['Tên lớp'];(map[c]??=[]).push(s)});
-  const rows=Object.entries(map).map(([c,a])=>({c,n:a.length,g:avg(a.map(s=>s.TBCHT)),g10:avg(a.map(s=>s['TBC Hệ 10'])),rl:avg(a.map(s=>s['Điểm RL'])),debt:a.filter(s=>s['Số môn nợ']>0).length})).sort((a,b)=>b.g-a.g);
+  const rows=Object.entries(map).map(([c,a])=>({c,n:a.length,g:avg(a.map(s=>s.TBCHT)),g10:avg(a.map(s=>s['TBC Hệ 10'])),rl:avg(a.map(s=>s['Điểm RL'])),credits:avg(a.map(s=>creditOf(s['Số tín chỉ']))),debt:a.filter(s=>s['Số môn nợ']>0).length})).sort((a,b)=>b.g-a.g);
   const mx=Math.max(1,...rows.map(r=>r.g));
   $('classChart').innerHTML=`<div class="bars">${rows.map(r=>`<div class="bar-row" style="grid-template-columns:70px 1fr 45px" data-class="${esc(r.c)}"><div class="bar-label">${esc(r.c)}</div><div class="bar-track"><div class="bar-fill" style="width:${r.g/mx*100}%"></div></div><div class="bar-value">${fmt(r.g)}</div></div>`).join('')}</div>`;
   $('classChart').querySelectorAll('.bar-row').forEach(el=>el.onclick=()=>{$('classFilter').value=el.dataset.class;render()});
-  $('classTable').innerHTML=rows.map(r=>`<tr><td class="name">${esc(r.c)}</td><td>${r.n}</td><td>${fmt(r.g)}</td><td>${fmt(r.g10)}</td><td>${fmt(r.rl,1)}</td><td><span class="tag ${r.debt?'warn':'good'}">${r.debt}</span></td></tr>`).join('');
+  $('classTable').innerHTML=rows.map(r=>`<tr><td class="name">${esc(r.c)}</td><td>${r.n}</td><td>${fmt(r.g)}</td><td>${fmt(r.g10)}</td><td>${fmt(r.rl,1)}</td><td>${fmt(r.credits,1)}</td><td><span class="tag ${r.debt?'warn':'good'}">${r.debt}</span></td></tr>`).join('');
 }
 
 function renderScatter(d){
@@ -689,7 +937,7 @@ function renderScatter(d){
   let out=`<line x1="${refX}" y1="${p.t}" x2="${refX}" y2="${H-p.b}" stroke="var(--line)" stroke-dasharray="4 4"/><line x1="${p.l}" y1="${refY}" x2="${W-p.r}" y2="${refY}" stroke="var(--line)" stroke-dasharray="4 4"/>`;
   [0,1,2,3,4].forEach(v=>out+=`<text x="${x(v)}" y="${H-12}" text-anchor="middle" class="axis-label">${v}</text>`);
   [0,20,40,60,80,100].forEach(v=>out+=`<text x="6" y="${y(v)+4}" class="axis-label">${v}</text>`);
-  d.forEach((s,i)=>out+=`<circle class="dot" cx="${x(s.TBCHT)}" cy="${y(s['Điểm RL'])}" r="4.2" fill="var(--accent)" data-i="${i}"><title>${esc(s['Họ và tên'])} · TBCHT ${fmt(s.TBCHT)} · RL ${s['Điểm RL']}</title></circle>`);
+  d.forEach((s,i)=>out+=`<circle class="dot" cx="${x(s.TBCHT)}" cy="${y(s['Điểm RL'])}" r="4.2" fill="var(--chart-cyan)" data-i="${i}"><title>${esc(s['Họ và tên'])} · TBCHT ${fmt(s.TBCHT)} · RL ${s['Điểm RL']}</title></circle>`);
   svg.innerHTML=out;
   svg.querySelectorAll('.dot').forEach(el=>el.onclick=()=>openStudent(d[+el.dataset.i]));
   $('corr').textContent=`r = ${fmt(corr(d.map(s=>s.TBCHT),d.map(s=>s['Điểm RL'])),2)}`;
@@ -727,31 +975,32 @@ function renderInsights(d){
 function renderQuality(){
   const d=DATA;
   const dup=d.length-new Set(d.map(s=>s['Mã sinh viên'])).size;
-  const missing=d.filter(s=>['Mã sinh viên','Họ và tên','Tên lớp','TBCHT','TBC Hệ 10','Điểm RL','Số môn nợ'].some(k=>s[k]===''||s[k]==null)).length;
+  const missing=d.filter(s=>['Mã sinh viên','Họ và tên','Tên lớp','TBCHT','TBC Hệ 10','Số tín chỉ','Điểm RL','Số môn nợ'].some(k=>s[k]===''||s[k]==null)).length;
   const invalid=d.filter(s=>s.TBCHT<0||s.TBCHT>4||s['TBC Hệ 10']<0||s['TBC Hệ 10']>10||s['Điểm RL']<0||s['Điểm RL']>100).length;
   const noteErrors=d.filter(s=>s['Sai sót']&&String(s['Sai sót']).trim()).length;
   const q=[[tr('Tổng bản ghi'),d.length],[tr('Mã SV trùng'),dup],[tr('Thiếu trường chính'),missing],[tr('Sai sót được ghi nhận'),noteErrors+invalid]];
   $('quality').innerHTML=q.map(x=>`<div class="q"><div class="small">${esc(x[0])}</div><div class="v">${x[1]}</div></div>`).join('');
 }
 
+let activeStudent=null;
 function openStudentById(id){const s=DATA.find(x=>String(x['Mã sinh viên'])===String(id));if(s)openStudent(s)}
 function openStudent(s){
+  activeStudent=s;
   $('mName').textContent=s['Họ và tên'];
   $('mMeta').textContent=`${s['Mã sinh viên']} · ${s['Tên lớp']} · ${s['Ngày sinh']}`;
-  const p=[[tr('TBCHT'),fmt(s.TBCHT)],[tr('TBC Hệ 10'),fmt(s['TBC Hệ 10'])],[tr('Điểm RL'),s['Điểm RL']],[tr('Số môn nợ'),s['Số môn nợ']],[tr('Xếp loại'),gradeLabel(s.TBCHT)],[tr('STT'),s.STT]];
+  const target=creditTarget(programOf(s)); const completed=creditOf(s['Số tín chỉ']); const progress=Math.min(100,Math.max(0,(completed/target)*100)); const p=[[tr('TBCHT'),fmt(s.TBCHT)],[tr('TBC Hệ 10'),fmt(s['TBC Hệ 10'])],[tr('Điểm RL'),s['Điểm RL']],[tr('Số tín chỉ'),`${fmt(completed,0)} / ${target}`],[tr('Tiến độ tích lũy'),`${fmt(progress,1)}%`],[tr('Số môn nợ'),s['Số môn nợ']],[tr('Xếp loại'),gradeLabel(s.TBCHT)]];
   $('profile').innerHTML=p.map(x=>`<div class="p"><div class="lab">${esc(x[0])}</div><div class="val">${esc(x[1])}</div></div>`).join('');
   $('mNote').innerHTML=`<strong>${tr('Ghi chú')}</strong><br>${esc(s['Ghi chú']||tr('Không có'))} ${s['Sai sót']?`<br><br><strong>${tr('Sai sót')}</strong><br>${esc(s['Sai sót'])}`:''}`;
   $('modal').classList.add('show');
 }
 $('close').onclick=()=>$('modal').classList.remove('show');
 
-/* ===== Multilingual UI: Vietnamese / English / Japanese / French ===== */
 const LANGS = {
   vi:{code:'VI',html:'vi'}, en:{code:'EN',html:'en'}, ja:{code:'JA',html:'ja'}, fr:{code:'FR',html:'fr'}
 };
 const I18N = {
   vi:{
-    'Language':'Ngôn ngữ','Faculty of Information Technology · Hanoi Architectural University':'Khoa Công nghệ thông tin · Trường Đại học Kiến trúc Hà Nội','Cohort 2022':'Khóa 2022','Tổng sinh viên':'Tổng sinh viên','Sau khi áp dụng bộ lọc':'Sau khi áp dụng bộ lọc','Hệ 4':'Hệ 4','TBC Hệ 10':'TBC Hệ 10','Điểm RL trung bình':'Điểm RL trung bình','Xuất sắc + Giỏi':'Xuất sắc + Giỏi','Sinh viên còn môn nợ':'Sinh viên còn môn nợ','SV nợ':'SV nợ','STT':'STT','Số môn nợ':'Số môn nợ',
+    'Language':'Ngôn ngữ','TBCHT':'TBCHT','RL':'RL','CNTT':'Công nghệ thông tin','CDP':'Công nghệ Đa phương tiện','Faculty of Information Technology · Hanoi Architectural University':'Khoa Công nghệ thông tin · Trường Đại học Kiến trúc Hà Nội','Cohort 2022':'Khóa 2022','Tổng sinh viên':'Tổng sinh viên','Sau khi áp dụng bộ lọc':'Sau khi áp dụng bộ lọc','Hệ 4':'Hệ 4','TBC Hệ 10':'TBC Hệ 10','Điểm RL trung bình':'Điểm RL trung bình','Xuất sắc + Giỏi':'Xuất sắc + Giỏi','Sinh viên còn môn nợ':'Sinh viên còn môn nợ','SV nợ':'SV nợ','STT':'STT','Số tín chỉ':'Số tín chỉ','Tín chỉ TB':'Tín chỉ TB','Tổng tín chỉ':'Tổng tín chỉ','Tín chỉ trung bình':'Tín chỉ trung bình','Tín chỉ thấp nhất':'Tín chỉ thấp nhất','Tín chỉ cao nhất':'Tín chỉ cao nhất','Theo dõi tiến độ tích lũy':'Theo dõi tiến độ tích lũy','Theo dõi số tín chỉ đã hoàn thành so với tổng số tín chỉ cần học của từng chương trình':'Theo dõi số tín chỉ đã hoàn thành so với tổng số tín chỉ cần học của từng chương trình','đã hoàn thành':'đã hoàn thành','tín chỉ còn lại':'tín chỉ còn lại','tín chỉ trung bình':'tín chỉ trung bình','Tiến độ tích lũy':'Tiến độ tích lũy','Chương trình':'Chương trình','Tổng số tín chỉ của bộ lọc':'Tổng số tín chỉ của bộ lọc','Trung bình trên mỗi sinh viên':'Trung bình trên mỗi sinh viên','Trong bộ lọc hiện tại':'Trong bộ lọc hiện tại','Dưới 100':'Dưới 100','100–119':'100–119','120–139':'120–139','140–159':'140–159','160 trở lên':'160 trở lên','tín chỉ':'tín chỉ','Số môn nợ':'Số môn nợ','Tổng cần học':'Tổng cần học','2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5':'2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5',
     'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.':'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.',
     'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình':'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình',
     'Switch to light mode':'Chuyển sang chế độ sáng','Switch to dark mode':'Chuyển sang chế độ tối',
@@ -770,7 +1019,7 @@ const I18N = {
     'Các sinh viên có số môn nợ > 0, sắp xếp theo số môn nợ':'Các sinh viên có số môn nợ > 0, sắp xếp theo số môn nợ',
     'Key Insights':'Phân tích nổi bật','Tự động tính từ dữ liệu đang được lọc':'Tự động tính từ dữ liệu đang được lọc',
     'Data Quality':'Chất lượng dữ liệu','Kiểm tra dữ liệu nền từ file Excel':'Kiểm tra dữ liệu nền từ file Excel',
-    'Nguồn: Book1.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'Nguồn: Book1.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model',
+    'Nguồn: data/data_student.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'Nguồn: data/data_student.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model',
     'Student Detail':'Chi tiết sinh viên','Ghi chú':'Ghi chú','Sai sót':'Sai sót','Không có':'Không có','Không có dữ liệu':'Không có dữ liệu',
     'Không có dữ liệu phù hợp với bộ lọc.':'Không có dữ liệu phù hợp với bộ lọc.','Không có sinh viên nợ môn trong bộ lọc hiện tại':'Không có sinh viên nợ môn trong bộ lọc hiện tại',
     'Tổng bản ghi':'Tổng bản ghi','Mã SV trùng':'Mã SV trùng','Thiếu trường chính':'Thiếu trường chính','Sai sót được ghi nhận':'Sai sót được ghi nhận',
@@ -779,7 +1028,7 @@ const I18N = {
     'Lấy từ trường Ghi chú; không suy diễn nếu thiếu thông tin.':'Lấy từ trường Ghi chú; không suy diễn nếu thiếu thông tin.',
     'Tương quan mạnh theo dữ liệu hiện tại.':'Tương quan mạnh theo dữ liệu hiện tại.','Tương quan mức vừa.':'Tương quan mức vừa.','Tương quan yếu.':'Tương quan yếu.',
     'Sinh viên có TBCHT ≥ 3.20 nhưng vẫn còn môn nợ.':'Sinh viên có TBCHT ≥ 3.20 nhưng vẫn còn môn nợ.',
-    'SV':'SV','Môn nợ':'Môn nợ','TBC10':'TBC10','RL TB':'RL TB','Điểm RL':'Điểm RL','Xếp loại':'Xếp loại','Sinh viên':'Sinh viên','Mã SV':'Mã SV',
+    'SV':'SV','Môn nợ':'Môn nợ','TBC10':'TBC(10)','RL TB':'RL TB','Điểm RL':'Điểm RL','Xếp loại':'Xếp loại','Sinh viên':'Sinh viên','sinh viên':'sinh viên','Mã SV':'Mã SV',
     'TBCHT trung bình':'TBCHT trung bình','Thang 100':'Thang 100','tập dữ liệu':'tập dữ liệu','Môn chưa đạt':'Môn chưa đạt',
     'Không tự tạo lỗi; chỉ hiển thị các bất thường có thể kiểm tra từ các trường hiện có.':'Không tự tạo lỗi; chỉ hiển thị các bất thường có thể kiểm tra từ các trường hiện có.',
     'All':'Tất cả',
@@ -799,7 +1048,7 @@ const I18N = {
 
   },
   en:{
-    'Language':'Language','Faculty of Information Technology · Hanoi Architectural University':'Faculty of Information Technology · Hanoi Architectural University','Cohort 2022':'Cohort 2022','Tổng sinh viên':'Total students','Sau khi áp dụng bộ lọc':'After applying filters','Hệ 4':'4-point scale','TBC Hệ 10':'10-point GPA','Điểm RL trung bình':'Average conduct','Xuất sắc + Giỏi':'Excellent + Good','Sinh viên còn môn nợ':'Students with outstanding courses','SV nợ':'Students with outstanding courses','STT':'No.','Số môn nợ':'Outstanding courses',
+    'Language':'Language','TBCHT':'GPA','RL':'Conduct','CNTT':'Information Technology','CDP':'Multimedia Technology','Faculty of Information Technology · Hanoi Architectural University':'Faculty of Information Technology · Hanoi Architectural University','Cohort 2022':'Cohort 2022','Tổng sinh viên':'Total students','Sau khi áp dụng bộ lọc':'After applying filters','Hệ 4':'4-point scale','TBC Hệ 10':'10-point GPA','Điểm RL trung bình':'Average conduct','Xuất sắc + Giỏi':'Excellent + Good','Sinh viên còn môn nợ':'Students with outstanding courses','SV nợ':'Students with outstanding courses','STT':'No.','Số tín chỉ':'Credits','Tín chỉ TB':'Avg. credits','Tổng tín chỉ':'Total credits','Tín chỉ trung bình':'Average credits','Tín chỉ thấp nhất':'Minimum credits','Tín chỉ cao nhất':'Maximum credits','Theo dõi tiến độ tích lũy':'Credit accumulation progress','Theo dõi số tín chỉ đã hoàn thành so với tổng số tín chỉ cần học của từng chương trình':'Track completed credits against the total credits required for each program','đã hoàn thành':'completed','tín chỉ còn lại':'credits remaining','tín chỉ trung bình':'average credits','Tiến độ tích lũy':'Credit accumulation progress','Chương trình':'Program','Tổng số tín chỉ của bộ lọc':'Total credits in current filter','Trung bình trên mỗi sinh viên':'Average per student','Trong bộ lọc hiện tại':'In the current filter','Dưới 100':'Under 100','100–119':'100–119','120–139':'120–139','140–159':'140–159','160 trở lên':'160+','tín chỉ':'credits','Số môn nợ':'Outstanding courses','Tổng cần học':'Total required','2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5':'2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5',
     'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.':'Dashboard for searching and analyzing academic performance of Cohort 22 students in the Faculty of Information Technology, Hanoi Architectural University. The system provides an overview of academic GPA, conduct scores, classifications, outstanding courses, and results by class.',
     'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình':'Thresholds: ≥3.60 Excellent · ≥3.20 Good · ≥2.50 Fair · ≥2.00 Average',
     'Switch to light mode':'Switch to light mode','Switch to dark mode':'Switch to dark mode',
@@ -814,7 +1063,7 @@ const I18N = {
     'Điểm sinh viên':'Student points','Đường tham chiếu: TBCHT 2.50 · RL 80':'Reference lines: GPA 2.50 · Conduct 80','Top 10 sinh viên':'Top 10 students','Xếp theo TBCHT giảm dần':'Sorted by descending GPA',
     'Sinh viên cần lưu ý':'Students requiring attention','Các sinh viên có số môn nợ > 0, sắp xếp theo số môn nợ':'Students with outstanding courses, sorted by count',
     'Key Insights':'Key Insights','Tự động tính từ dữ liệu đang được lọc':'Automatically calculated from filtered data','Data Quality':'Data Quality','Kiểm tra dữ liệu nền từ file Excel':'Checks based on the Excel data',
-    'Nguồn: Book1.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'Source: Book1.xlsx · Responsive dashboard · Shared semantic/data model across desktop and mobile',
+    'Nguồn: data/data_student.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'Source: data/data_student.xlsx · Responsive dashboard · Shared semantic/data model across desktop and mobile',
     'Student Detail':'Student Detail','Ghi chú':'Notes','Sai sót':'Errors','Không có':'None','Không có dữ liệu':'No data',
     'Không có dữ liệu phù hợp với bộ lọc.':'No data matches the current filters.','Không có sinh viên nợ môn trong bộ lọc hiện tại':'No students with outstanding courses in the current filter',
     'Tổng bản ghi':'Total records','Mã SV trùng':'Duplicate student IDs','Thiếu trường chính':'Missing key fields','Sai sót được ghi nhận':'Recorded issues',
@@ -823,7 +1072,7 @@ const I18N = {
     'Lấy từ trường Ghi chú; không suy diễn nếu thiếu thông tin.':'Taken from the Notes field; no inference is made when information is missing.',
     'Tương quan mạnh theo dữ liệu hiện tại.':'Strong correlation in the current data.','Tương quan mức vừa.':'Moderate correlation.','Tương quan yếu.':'Weak correlation.',
     'Sinh viên có TBCHT ≥ 3.20 nhưng vẫn còn môn nợ.':'Students with GPA ≥ 3.20 who still have outstanding courses.',
-    'SV':'students','Môn nợ':'Outstanding','TBC10':'10-point GPA','RL TB':'Avg. conduct','Điểm RL':'Conduct','Xếp loại':'Classification','Sinh viên':'Student','Mã SV':'Student ID',
+    'SV':'students','Môn nợ':'Outstanding','TBC10':'10-point GPA','RL TB':'Avg. conduct','Điểm RL':'Conduct','Xếp loại':'Classification','Sinh viên':'Student','sinh viên':'students','Mã SV':'Student ID',
     'TBCHT trung bình':'Average GPA','Thang 100':'Out of 100','tập dữ liệu':'of dataset','Môn chưa đạt':'Unpassed course',
     'Không tự tạo lỗi; chỉ hiển thị các bất thường có thể kiểm tra từ các trường hiện có.':'No errors are created; only detectable anomalies from existing fields are shown.',
     'All':'All',
@@ -843,7 +1092,7 @@ const I18N = {
 
   },
   ja:{
-    'Language':'言語','Faculty of Information Technology · Hanoi Architectural University':'情報技術学部 · ハノイ建築大学','Cohort 2022':'2022年度入学','Tổng sinh viên':'総学生数','Sau khi áp dụng bộ lọc':'フィルター適用後','Hệ 4':'4段階','TBC Hệ 10':'10点GPA','Điểm RL trung bình':'行動評価平均','Xuất sắc + Giỏi':'優秀 + 良好','Sinh viên còn môn nợ':'未修得科目がある学生','SV nợ':'未修得科目あり','STT':'番号','Số môn nợ':'未修得科目数',
+    'Language':'言語','TBCHT':'学業成績平均','RL':'行動評価','CNTT':'情報技術','CDP':'マルチメディア技術','Faculty of Information Technology · Hanoi Architectural University':'情報技術学部 · ハノイ建築大学','Cohort 2022':'2022年度入学','Tổng sinh viên':'総学生数','Sau khi áp dụng bộ lọc':'フィルター適用後','Hệ 4':'4段階','TBC Hệ 10':'10点GPA','Điểm RL trung bình':'行動評価平均','Xuất sắc + Giỏi':'優秀 + 良好','Sinh viên còn môn nợ':'未修得科目がある学生','SV nợ':'未修得科目あり','STT':'番号','Số tín chỉ':'単位数','Tín chỉ TB':'平均単位数','Tổng tín chỉ':'総単位数','Tín chỉ trung bình':'平均単位数','Tín chỉ thấp nhất':'最小単位数','Tín chỉ cao nhất':'最大単位数','Theo dõi tiến độ tích lũy':'履修単位の進捗','Theo dõi số tín chỉ đã hoàn thành so với tổng số tín chỉ cần học của từng chương trình':'各プログラムの必要単位数に対する修得単位数を確認','đã hoàn thành':'修得済み','tín chỉ còn lại':'残り単位','tín chỉ trung bình':'平均単位','Tiến độ tích lũy':'履修進捗','Chương trình':'プログラム','Tổng số tín chỉ của bộ lọc':'現在の条件の総単位数','Trung bình trên mỗi sinh viên':'学生1人あたりの平均','Trong bộ lọc hiện tại':'現在の条件','Dưới 100':'100未満','100–119':'100–119','120–139':'120–139','140–159':'140–159','160 trở lên':'160以上','tín chỉ':'単位','Số môn nợ':'未修得科目数','Tổng cần học':'必要単位数','2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5':'2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5',
     'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.':'ハノイ建築大学情報技術学部・2022年度学生の学業成績を検索・分析するダッシュボードです。GPA、行動評価、成績区分、未修得科目、クラス別の結果を確認できます。',
     'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình':'基準: ≥3.60 優秀 · ≥3.20 良好 · ≥2.50 普通 · ≥2.00 平均',
     'Switch to light mode':'ライトモードに切替','Switch to dark mode':'ダークモードに切替',
@@ -857,14 +1106,14 @@ const I18N = {
     'Điểm sinh viên':'学生データ','Đường tham chiếu: TBCHT 2.50 · RL 80':'基準線: GPA 2.50 · 行動評価 80','Top 10 sinh viên':'上位10名','Xếp theo TBCHT giảm dần':'GPAの降順',
     'Sinh viên cần lưu ý':'注意が必要な学生','Các sinh viên có số môn nợ > 0, sắp xếp theo số môn nợ':'未修得科目がある学生を科目数順に表示',
     'Key Insights':'主な分析','Tự động tính từ dữ liệu đang được lọc':'現在のフィルターから自動計算','Data Quality':'データ品質','Kiểm tra dữ liệu nền từ file Excel':'Excelデータの品質チェック',
-    'Nguồn: Book1.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'出典: Book1.xlsx · レスポンシブダッシュボード · PCとモバイルで共通のデータモデル',
+    'Nguồn: data/data_student.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'出典: data/data_student.xlsx · レスポンシブダッシュボード · PCとモバイルで共通のデータモデル',
     'Student Detail':'学生詳細','Ghi chú':'備考','Sai sót':'エラー','Không có':'なし','Không có dữ liệu':'データなし',
     'Không có dữ liệu phù hợp với bộ lọc.':'条件に一致するデータがありません。','Không có sinh viên nợ môn trong bộ lọc hiện tại':'現在の条件に未修得科目の学生はいません',
     'Tổng bản ghi':'総レコード','Mã SV trùng':'重複学生ID','Thiếu trường chính':'必須項目不足','Sai sót được ghi nhận':'記録された問題',
     'Lớp dẫn đầu':'上位クラス','Môn nợ nổi bật':'主な未修得科目','Tương quan TBCHT ↔ RL':'GPAと行動評価の相関','Trường hợp cần lưu ý':'注意が必要なケース',
     'So sánh theo TBCHT trung bình trong bộ lọc.':'現在の条件で平均GPAを比較。','Chưa đủ dữ liệu để tách môn':'科目を特定するデータが不足しています',
     'Lấy từ trường Ghi chú; không suy diễn nếu thiếu thông tin.':'備考欄から取得。情報がない場合は推測しません。','Tương quan mạnh theo dữ liệu hiện tại.':'現在のデータでは強い相関があります。','Tương quan mức vừa.':'中程度の相関です。','Tương quan yếu.':'弱い相関です。',
-    'Sinh viên có TBCHT ≥ 3.20 nhưng vẫn còn môn nợ.':'GPAが3.20以上でも未修得科目がある学生。','SV':'名','Môn nợ':'未修得','TBC10':'10点GPA','RL TB':'行動評価平均','Điểm RL':'行動評価','Sinh viên':'学生','Mã SV':'学生ID',
+    'Sinh viên có TBCHT ≥ 3.20 nhưng vẫn còn môn nợ.':'GPAが3.20以上でも未修得科目がある学生。','SV':'名','Môn nợ':'未修得','TBC10':'10点GPA','RL TB':'行動評価平均','Điểm RL':'行動評価','Sinh viên':'学生','sinh viên':'学生','Mã SV':'学生ID',
     'TBCHT trung bình':'平均GPA','Thang 100':'100点満点','tập dữ liệu':'データセット','Môn chưa đạt':'未修得科目',
     'Không tự tạo lỗi; chỉ hiển thị các bất thường có thể kiểm tra từ các trường hiện có.':'エラーを作成せず、既存項目から確認できる異常のみ表示します。',
     'All':'すべて',
@@ -884,7 +1133,7 @@ const I18N = {
 
   },
   fr:{
-    'Language':'Langue','Faculty of Information Technology · Hanoi Architectural University':'Faculté des technologies de l’information · Université d’architecture de Hanoï','Cohort 2022':'Promotion 2022','Tổng sinh viên':'Total des étudiants','Sau khi áp dụng bộ lọc':'Après application des filtres','Hệ 4':'Échelle sur 4','TBC Hệ 10':'GPA sur 10','Điểm RL trung bình':'Conduite moyenne','Xuất sắc + Giỏi':'Excellent + Bien','Sinh viên còn môn nợ':'Étudiants avec cours non validés','SV nợ':'Cours non validés','STT':'N°','Số môn nợ':'Cours non validés',
+    'Language':'Langue','TBCHT':'Moyenne académique','RL':'Conduite','CNTT':'Technologies de l’Information','CDP':'Technologies Multimédias','Faculty of Information Technology · Hanoi Architectural University':'Faculté des technologies de l’information · Université d’architecture de Hanoï','Cohort 2022':'Promotion 2022','Tổng sinh viên':'Total des étudiants','Sau khi áp dụng bộ lọc':'Après application des filtres','Hệ 4':'Échelle sur 4','TBC Hệ 10':'GPA sur 10','Điểm RL trung bình':'Conduite moyenne','Xuất sắc + Giỏi':'Excellent + Bien','Sinh viên còn môn nợ':'Étudiants avec cours non validés','SV nợ':'Cours non validés','STT':'N°','Số tín chỉ':'Crédits','Tín chỉ TB':'Crédits moy.','Tổng tín chỉ':'Total de crédits','Tín chỉ trung bình':'Crédits moyens','Tín chỉ thấp nhất':'Crédits minimum','Tín chỉ cao nhất':'Crédits maximum','Theo dõi tiến độ tích lũy':'Suivi de l’accumulation des crédits','Theo dõi số tín chỉ đã hoàn thành so với tổng số tín chỉ cần học của từng chương trình':'Suivi des crédits obtenus par rapport au total requis pour chaque programme','đã hoàn thành':'terminés','tín chỉ còn lại':'crédits restants','tín chỉ trung bình':'crédits moyens','Tiến độ tích lũy':'Progression des crédits','Chương trình':'Programme','Tổng số tín chỉ của bộ lọc':'Total des crédits du filtre','Trung bình trên mỗi sinh viên':'Moyenne par étudiant','Trong bộ lọc hiện tại':'Dans le filtre actuel','Dưới 100':'Moins de 100','100–119':'100–119','120–139':'120–139','140–159':'140–159','160 trở lên':'160 et plus','tín chỉ':'crédits','Số môn nợ':'Cours non validés','Tổng cần học':'Total requis','2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5':'2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5',
     'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.':'Tableau de bord de recherche et d’analyse des résultats académiques des étudiants de la promotion 2022 de la Faculté des technologies de l’information de l’Université d’architecture de Hanoï. Il présente les GPA, les scores de conduite, les classements, les cours non validés et les résultats par classe.',
     'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình':'Seuils : ≥3,60 Excellent · ≥3,20 Bien · ≥2,50 Assez bien · ≥2,00 Moyen',
     'Switch to light mode':'Passer au mode clair','Switch to dark mode':'Passer au mode sombre',
@@ -898,7 +1147,7 @@ const I18N = {
     'Điểm sinh viên':'Points étudiants','Đường tham chiếu: TBCHT 2.50 · RL 80':'Repères : GPA 2,50 · conduite 80','Top 10 sinh viên':'Top 10 étudiants','Xếp theo TBCHT giảm dần':'Trié par GPA décroissant',
     'Sinh viên cần lưu ý':'Étudiants à surveiller','Các sinh viên có số môn nợ > 0, sắp xếp theo số môn nợ':'Étudiants avec cours non validés, triés par nombre',
     'Key Insights':'Analyses clés','Tự động tính từ dữ liệu đang được lọc':'Calculé automatiquement à partir des données filtrées','Data Quality':'Qualité des données','Kiểm tra dữ liệu nền từ file Excel':'Contrôles sur les données Excel',
-    'Nguồn: Book1.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'Source : Book1.xlsx · Tableau de bord responsive · Modèle de données commun sur ordinateur et mobile',
+    'Nguồn: data/data_student.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'Source : data/data_student.xlsx · Tableau de bord responsive · Modèle de données commun sur ordinateur et mobile',
     'Student Detail':'Détail de l’étudiant','Ghi chú':'Notes','Sai sót':'Erreurs','Không có':'Aucun','Không có dữ liệu':'Aucune donnée',
     'Không có dữ liệu phù hợp với bộ lọc.':'Aucune donnée ne correspond aux filtres actuels.','Không có sinh viên nợ môn trong bộ lọc hiện tại':'Aucun étudiant avec cours non validés dans le filtre actuel',
     'Tổng bản ghi':'Total des enregistrements','Mã SV trùng':'IDs étudiants en double','Thiếu trường chính':'Champs principaux manquants','Sai sót được ghi nhận':'Problèmes signalés',
@@ -906,7 +1155,7 @@ const I18N = {
     'So sánh theo TBCHT trung bình trong bộ lọc.':'Comparaison selon le GPA moyen du filtre actuel.','Chưa đủ dữ liệu để tách môn':'Données insuffisantes pour identifier un cours',
     'Lấy từ trường Ghi chú; không suy diễn nếu thiếu thông tin.':'Extrait du champ Notes ; aucune déduction si l’information manque.','Tương quan mạnh theo dữ liệu hiện tại.':'Forte corrélation dans les données actuelles.','Tương quan mức vừa.':'Corrélation modérée.','Tương quan yếu.':'Faible corrélation.',
     'Sinh viên có TBCHT ≥ 3.20 nhưng vẫn còn môn nợ.':'Étudiants avec un GPA ≥ 3,20 ayant encore des cours non validés.',
-    'SV':'étudiants','Môn nợ':'Non validés','TBC10':'GPA /10','RL TB':'Conduite moy.','Điểm RL':'Conduite','Sinh viên':'Étudiant','Mã SV':'ID étudiant',
+    'SV':'étudiants','Môn nợ':'Non validés','TBC10':'GPA /10','RL TB':'Conduite moy.','Điểm RL':'Conduite','Sinh viên':'Étudiant','sinh viên':'étudiants','Mã SV':'ID étudiant',
     'TBCHT trung bình':'GPA moyen','Thang 100':'Sur 100','tập dữ liệu':'du jeu de données','Môn chưa đạt':'Cours non validé',
     'Không tự tạo lỗi; chỉ hiển thị các bất thường có thể kiểm tra từ các trường hiện có.':'Aucune erreur n’est créée ; seuls les écarts vérifiables dans les champs existants sont affichés.',
     'All':'Tous',
@@ -993,20 +1242,17 @@ function applyLanguage(lang){
   const exportBtn=$('export'); if(exportBtn) exportBtn.textContent=tr('Export CSV');
   const apply=$('apply'); if(apply) apply.textContent=tr('Áp dụng');
 
-  // Render first so every dynamic chart/table/KPI is present,
-  // then translate both static and generated text in one pass.
   if(typeof render==='function') render();
   translateTextNodes(document.body);
 
-  // The SEO introduction is a multi-line paragraph in the HTML, so it must
-  // be translated as one complete phrase instead of translating split text nodes.
+  if(activeStudent && $('modal')?.classList.contains('show')) openStudent(activeStudent);
+
   const seoIntro=$('.seo-intro');
   if(seoIntro){
     const seoKey=seoIntro.dataset.i18nKey;
     if(seoKey) seoIntro.textContent=tr(seoKey);
   }
 
-  // Keep form placeholders/options synchronized with the selected language.
   if(input) input.placeholder=tr('Nhập tên hoặc mã sinh viên');
   const selects=[
     ['classFilter',['Tất cả lớp']],
@@ -1023,7 +1269,6 @@ function applyLanguage(lang){
     });
   });
 
-  // Browser tab title follows the selected language.
   const titles={
     vi:'Kết quả học tập sinh viên Khóa 22 CNTT - Đại học Kiến trúc Hà Nội',
     en:'Student Academic Performance - Cohort 2022 IT',
@@ -1079,12 +1324,12 @@ $('modal').onclick=e=>{if(e.target===$('modal'))$('modal').classList.remove('sho
 $('apply').onclick=render;
 $('reset').onclick=()=>{['search','minGpa','maxGpa'].forEach(id=>$(id).value='');$('classFilter').value='';$('debtFilter').value='';$('gradeFilter').value='';render()};
 $('export').onclick=()=>{
-  const d=filtered(), cols=['STT','Mã sinh viên','Họ và tên','Ngày sinh','Tên lớp','TBCHT','TBC Hệ 10','Điểm RL','Số môn nợ','Ghi chú','Sai sót'];
+  const d=filtered(), cols=['Mã sinh viên','Họ và tên','Ngày sinh','Tên lớp','TBCHT','TBC Hệ 10','Số tín chỉ','Điểm RL','Số môn nợ','Ghi chú','Sai sót'];
   const csv=[cols.join(','),...d.map(s=>cols.map(c=>`"${String(s[c]??'').replace(/"/g,'""')}"`).join(','))].join('\n');
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='student_dashboard_filtered.csv';a.click();URL.revokeObjectURL(a.href);
 };
-render();
 applyLanguage(currentLang);
+loadExcelData();
 </script>
 </body>
 </html>
