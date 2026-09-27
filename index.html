@@ -718,35 +718,78 @@ function normalizeExcelRow(row,index){
   };
 }
 
-async function loadExcelData(){
+const GOOGLE_SHEET_ID='1u6cuIeOO4jOPjPQWEvtcxxemkVHZMZv-oeKJbvznfpk';
+const GOOGLE_SHEET_GID='2092990797';
+const GOOGLE_SHEET_CSV_URL=`https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/export?format=csv&gid=${GOOGLE_SHEET_GID}`;
+
+async function loadGoogleSheetsData(){
   try{
-    if(!window.XLSX) throw new Error('Không tải được thư viện đọc Excel.');
-    const response=await fetch('data/data_student.xlsx',{cache:'no-store'});
-    if(!response.ok) throw new Error(`Không thể tải Data_Student.xlsx (HTTP ${response.status}).`);
-    const buffer=await response.arrayBuffer();
-    const workbook=XLSX.read(buffer,{type:'array',cellDates:false});
-    const sheetName=workbook.SheetNames.includes('Tổng hợp')?'Tổng hợp':workbook.SheetNames[0];
-    if(!sheetName) throw new Error('data/data_student.xlsx không có worksheet nào.');
+    if(!window.XLSX) throw new Error('Không tải được thư viện xử lý dữ liệu.');
+
+    const response=await fetch(GOOGLE_SHEET_CSV_URL,{cache:'no-store'});
+    if(!response.ok){
+      throw new Error(`Không thể tải dữ liệu từ Google Sheets (HTTP ${response.status}).`);
+    }
+
+    const csv=await response.text();
+    if(!csv.trim()) throw new Error('Google Sheets không trả về dữ liệu.');
+
+    const workbook=XLSX.read(csv,{
+      type:'string',
+      cellDates:false
+    });
+
+    const sheetName=workbook.SheetNames[0];
+    if(!sheetName) throw new Error('Google Sheets không có worksheet nào.');
+
     const sheet=workbook.Sheets[sheetName];
-    const rows=XLSX.utils.sheet_to_json(sheet,{defval:'',raw:true,range:2});
+
+    const rows=XLSX.utils.sheet_to_json(sheet,{
+      defval:'',
+      raw:true
+    });
+
     DATA=rows
-      .filter(row=>String(row['Mã sinh viên'] ?? '').trim() || String(row['Họ tên'] ?? '').trim())
+      .filter(row=>
+        String(row['Mã sinh viên'] ?? '').trim() ||
+        String(row['Họ tên'] ?? '').trim()
+      )
       .map(normalizeExcelRow);
-    classes=Array.from(new Set(DATA.map(s=>s['Tên lớp']).filter(Boolean))).sort((a,b)=>a.localeCompare(b,'vi'));
+
+    classes=Array.from(
+      new Set(DATA.map(s=>s['Tên lớp']).filter(Boolean))
+    ).sort((a,b)=>a.localeCompare(b,'vi'));
+
     const classFilter=$('classFilter');
+
     classFilter.innerHTML=`<option value="">${tr('Tất cả lớp')}</option>`;
+
     classes.forEach(c=>{
       const option=document.createElement('option');
       option.value=c;
       option.textContent=c;
       classFilter.appendChild(option);
     });
+
     render();
     applyLanguage(currentLang);
+
   }catch(error){
     console.error(error);
+
     DATA=[];
-    $('kpis').innerHTML=`<div class="card section" style="grid-column:1/-1"><div class="section-title">${esc(error.message || 'Không thể tải dữ liệu Excel.')}</div><div class="section-sub">Đặt file <strong>data/data_student.xlsx</strong> cùng thư mục với index.html rồi tải lại trang.</div></div>`;
+
+    $('kpis').innerHTML=`
+      <div class="card section" style="grid-column:1/-1">
+        <div class="section-title">
+          ${esc(error.message || 'Không thể tải dữ liệu từ Google Sheets.')}
+        </div>
+        <div class="section-sub">
+          Kiểm tra quyền truy cập Google Sheets và bảo đảm bảng tính
+          cho phép người có liên kết xem dữ liệu.
+        </div>
+      </div>
+    `;
   }
 }
 
@@ -1062,7 +1105,7 @@ const I18N = {
     'TBCHT ↔ Điểm rèn luyện':'GPA ↔ Conduct score','Mỗi điểm là một sinh viên · click điểm để xem chi tiết':'Each point is a student · click a point for details',
     'Điểm sinh viên':'Student points','Đường tham chiếu: TBCHT 2.50 · RL 80':'Reference lines: GPA 2.50 · Conduct 80','Top 10 sinh viên':'Top 10 students','Xếp theo TBCHT giảm dần':'Sorted by descending GPA',
     'Sinh viên cần lưu ý':'Students requiring attention','Các sinh viên có số môn nợ > 0, sắp xếp theo số môn nợ':'Students with outstanding courses, sorted by count',
-    'Key Insights':'Key Insights','Tự động tính từ dữ liệu đang được lọc':'Automatically calculated from filtered data','Data Quality':'Data Quality','Kiểm tra dữ liệu nền từ file Excel':'Checks based on the Excel data',
+    'Key Insights':'Key Insights','Tự động tính từ dữ liệu đang được lọc':'Automatically calculated from filtered data','Data Quality':'Data Quality','Kiểm tra dữ liệu nền từ file Excel':'Checks based on Google Sheets data',
     'Nguồn: data/data_student.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'Source: data/data_student.xlsx · Responsive dashboard · Shared semantic/data model across desktop and mobile',
     'Student Detail':'Student Detail','Ghi chú':'Notes','Sai sót':'Errors','Không có':'None','Không có dữ liệu':'No data',
     'Không có dữ liệu phù hợp với bộ lọc.':'No data matches the current filters.','Không có sinh viên nợ môn trong bộ lọc hiện tại':'No students with outstanding courses in the current filter',
@@ -1105,7 +1148,7 @@ const I18N = {
     'TBCHT ↔ Điểm rèn luyện':'GPA ↔ 行動評価','Mỗi điểm là một sinh viên · click điểm để xem chi tiết':'各点は1人の学生 · 点をクリックして詳細を表示',
     'Điểm sinh viên':'学生データ','Đường tham chiếu: TBCHT 2.50 · RL 80':'基準線: GPA 2.50 · 行動評価 80','Top 10 sinh viên':'上位10名','Xếp theo TBCHT giảm dần':'GPAの降順',
     'Sinh viên cần lưu ý':'注意が必要な学生','Các sinh viên có số môn nợ > 0, sắp xếp theo số môn nợ':'未修得科目がある学生を科目数順に表示',
-    'Key Insights':'主な分析','Tự động tính từ dữ liệu đang được lọc':'現在のフィルターから自動計算','Data Quality':'データ品質','Kiểm tra dữ liệu nền từ file Excel':'Excelデータの品質チェック',
+    'Key Insights':'主な分析','Tự động tính từ dữ liệu đang được lọc':'現在のフィルターから自動計算','Data Quality':'データ品質','Kiểm tra dữ liệu nền từ file Excel':'Google Sheetsデータの品質チェック',
     'Nguồn: data/data_student.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'出典: data/data_student.xlsx · レスポンシブダッシュボード · PCとモバイルで共通のデータモデル',
     'Student Detail':'学生詳細','Ghi chú':'備考','Sai sót':'エラー','Không có':'なし','Không có dữ liệu':'データなし',
     'Không có dữ liệu phù hợp với bộ lọc.':'条件に一致するデータがありません。','Không có sinh viên nợ môn trong bộ lọc hiện tại':'現在の条件に未修得科目の学生はいません',
@@ -1146,7 +1189,7 @@ const I18N = {
     'TBCHT ↔ Điểm rèn luyện':'GPA ↔ score de conduite','Mỗi điểm là một sinh viên · click điểm để xem chi tiết':'Chaque point représente un étudiant · cliquez pour voir les détails',
     'Điểm sinh viên':'Points étudiants','Đường tham chiếu: TBCHT 2.50 · RL 80':'Repères : GPA 2,50 · conduite 80','Top 10 sinh viên':'Top 10 étudiants','Xếp theo TBCHT giảm dần':'Trié par GPA décroissant',
     'Sinh viên cần lưu ý':'Étudiants à surveiller','Các sinh viên có số môn nợ > 0, sắp xếp theo số môn nợ':'Étudiants avec cours non validés, triés par nombre',
-    'Key Insights':'Analyses clés','Tự động tính từ dữ liệu đang được lọc':'Calculé automatiquement à partir des données filtrées','Data Quality':'Qualité des données','Kiểm tra dữ liệu nền từ file Excel':'Contrôles sur les données Excel',
+    'Key Insights':'Analyses clés','Tự động tính từ dữ liệu đang được lọc':'Calculé automatiquement à partir des données filtrées','Data Quality':'Qualité des données','Kiểm tra dữ liệu nền từ file Excel':'Contrôles sur les données Google Sheets',
     'Nguồn: data/data_student.xlsx · Dashboard responsive · Large-screen và mobile dùng chung semantic/data model':'Source : data/data_student.xlsx · Tableau de bord responsive · Modèle de données commun sur ordinateur et mobile',
     'Student Detail':'Détail de l’étudiant','Ghi chú':'Notes','Sai sót':'Erreurs','Không có':'Aucun','Không có dữ liệu':'Aucune donnée',
     'Không có dữ liệu phù hợp với bộ lọc.':'Aucune donnée ne correspond aux filtres actuels.','Không có sinh viên nợ môn trong bộ lọc hiện tại':'Aucun étudiant avec cours non validés dans le filtre actuel',
@@ -1329,7 +1372,7 @@ $('export').onclick=()=>{
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='student_dashboard_filtered.csv';a.click();URL.revokeObjectURL(a.href);
 };
 applyLanguage(currentLang);
-loadExcelData();
+loadGoogleSheetsData();
 </script>
 </body>
 </html>
