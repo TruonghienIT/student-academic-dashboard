@@ -992,17 +992,12 @@ function formatVietnamPhone(value){
   if(!raw) return '';
   const digits=raw.replace(/\D/g,'');
   if(!digits) return raw;
-  // Google Sheets CSV can convert a phone number such as 0918685987 to 918685987.
-  // Restore the domestic leading zero when the value is a 9-digit Vietnamese number.
   if(digits.length===9) return `0${digits}`;
   if(digits.length===10 && digits.startsWith('0')) return digits;
   return raw;
 }
 
 function normalizeThesisRow(row,index,carry={}){
-  // Read the thesis-title column robustly from Google Sheets CSV.
-  // The visible header is "Tên đề tài DATN", but CSV exports can contain
-  // leading/trailing spaces or a BOM in the header name.
   const getThesisField=(source,names)=>{
     const keys=Object.keys(source||{});
     const normalizeKey=value=>String(value??'').replace(/^\uFEFF/,'').trim().replace(/\s+/g,' ').toLowerCase();
@@ -1198,8 +1193,6 @@ async function loadGoogleSheetsData(){
     const thesisSheetName=thesisWorkbook.SheetNames[0];
     if(!thesisSheetName) throw new Error('Google Sheets không có worksheet dữ liệu đề tài tốt nghiệp.');
 
-    // Read the thesis sheet as a 2D matrix instead of relying only on object keys.
-    // This is important because the sheet contains merged cells in the thesis/advisor columns.
     const thesisMatrix=XLSX.utils.sheet_to_json(thesisWorkbook.Sheets[thesisSheetName],{
       header:1,
       defval:'',
@@ -2079,7 +2072,6 @@ $('themeToggle').onclick=()=>{
   updateThemeButton();
 };
 updateThemeButton();
-
 
 $('modal').onclick=e=>{if(e.target===$('modal')){$('modal').classList.remove('show');activeStudent=null;activeThesisStudent=null;}};
 ['search','classFilter','debtFilter','gradeFilter','minGpa','maxGpa'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',()=>{debtVisibleCount=12;render()}));
