@@ -224,6 +224,7 @@ h1{
   display:grid;
   grid-template-columns:repeat(6,minmax(0,1fr));
   gap:10px;
+  align-items:stretch;
   background:var(--surface);
   padding:clamp(11px,1.4vw,14px);
   border:1px solid var(--line);
@@ -442,6 +443,14 @@ tr:last-child td{border-bottom:0}
 #themeToggle{display:inline-flex;align-items:center;justify-content:center;gap:7px}
 html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
  .full-btn{width:100%}
+.thesis-filters > #thesisReset{
+  align-self:end;
+  width:100%;
+  min-height:42px;
+  height:42px;
+  padding:9px 13px;
+  box-sizing:border-box;
+}
 .section-spaced{margin-bottom:16px}
 .grid-wide-tight{margin-bottom:0}
 .legend-dot{background:var(--chart-cyan)}
@@ -457,6 +466,163 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
 .footer a:hover {
   color: #818cf8;
   text-decoration: underline;
+}
+
+
+.navbar{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  margin:0 0 16px;
+  padding:5px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+}
+.nav-tab{
+  flex:0 1 auto;
+  min-width:180px;
+  min-height:42px;
+  padding:9px 18px;
+  border:0;
+  border-radius:10px;
+  background:transparent;
+  color:var(--muted);
+  font-weight:800;
+  cursor:pointer;
+  transition:background .18s ease,color .18s ease,transform .18s ease;
+}
+.nav-tab:hover{background:var(--soft);color:var(--ink)}
+.nav-tab.active{background:var(--accent);color:#fff;box-shadow:0 5px 16px rgba(49,94,251,.20)}
+.nav-tab:active{transform:translateY(1px)}
+.page-view{display:none}
+.page-view.active{display:block}
+.thesis-filters{
+  display:grid;
+  grid-template-columns:minmax(0,1.5fr) minmax(160px,.8fr) minmax(0,1fr) minmax(0,.55fr);
+  gap:10px;
+  background:var(--surface);
+  padding:clamp(11px,1.4vw,14px);
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+  margin-bottom:16px;
+}
+.thesis-summary{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:16px;
+}
+.thesis-table-wrap{min-width:0}
+.load-more-wrap{display:flex;justify-content:center;margin-top:14px}
+.load-more-btn{min-width:190px;height:42px;padding:9px 16px}
+.thesis-title{font-weight:700;line-height:1.5;min-width:320px}
+.thesis-advisor{font-weight:700}
+.thesis-phone{white-space:nowrap;font-variant-numeric:tabular-nums}
+.thesis-bars{display:flex;flex-direction:column;gap:11px;padding:7px 0}
+.thesis-bar-row{
+  display:grid;
+  grid-template-columns:minmax(130px,220px) minmax(0,1fr) 55px;
+  gap:10px;
+  align-items:center;
+}
+.thesis-bar-label{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.thesis-bar-value{text-align:right;font-size:12px;font-weight:800}
+.thesis-column-chart{
+  margin-top:20px;
+  display:flex;
+  align-items:flex-end;
+  gap:clamp(12px,2vw,24px);
+  min-height:285px;
+  height:285px;
+  padding:16px 10px 42px;
+  border-bottom:1px solid var(--line);
+  overflow-x:auto;
+  overflow-y:hidden;
+}
+.thesis-column-item{
+  flex:1 0 72px;
+  min-width:72px;
+  height:auto;
+  align-self:stretch;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  gap:7px;
+}
+.thesis-column-stack{
+  width:100%;
+  height:205px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  gap:5px;
+}
+.thesis-column-value{font-size:11px;font-weight:850;color:var(--ink);line-height:1}
+.thesis-column-bar{
+  width:min(52px,72%);
+  min-height:3px;
+  border-radius:8px 8px 3px 3px;
+  background:linear-gradient(180deg,var(--chart-blue),var(--chart-cyan));
+  box-shadow:0 4px 12px rgba(49,94,251,.12);
+}
+.thesis-column-label{
+  width:100%;
+  min-height:14px;
+  text-align:center;
+  font-size:10px;
+  font-weight:750;
+  color:var(--muted);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.thesis-class-insights{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-top:14px;
+}
+.thesis-class-insight{
+  min-width:0;
+  padding:12px 13px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--soft);
+}
+.thesis-class-insight.label{
+  font-size:11px;
+  font-weight:700;
+  color:var(--muted);
+  margin-bottom:5px;
+}
+.thesis-class-insight.value{
+  font-size:15px;
+  font-weight:850;
+  color:var(--ink);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+@media (max-width:760px){
+ .thesis-class-insights{grid-template-columns:1fr;}
+}
+@media (max-width:900px){
+  .navbar{justify-content:stretch}
+  .nav-tab{flex:1 1 0;min-width:0}
+  .thesis-filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .thesis-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:600px){
+  .navbar{width:100%;padding:4px}
+  .nav-tab{padding:9px 10px;font-size:12px}
+  .thesis-filters{grid-template-columns:1fr}
+  .thesis-summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 }
 
 @media (max-width:1200px){
@@ -480,6 +646,10 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
 }
 
 @media (max-width:600px){
+  .thesis-column-chart{height:260px;min-height:260px;gap:10px;padding:12px 4px 34px}
+  .thesis-column-item{flex-basis:58px;min-width:58px}
+  .thesis-column-stack{height:180px}
+  .thesis-column-bar{width:42px}
   .app{padding:12px}
   h1{font-size:clamp(22px,7vw,26px)}
   .actions{width:100%;align-items:stretch}
@@ -540,8 +710,8 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
       </div>
       <h1>Báo cáo phân tích kết quả học tập sinh viên</h1>
       <div class="subtitle">Công nghệ thông tin · Đại học Kiến trúc Hà Nội</div>
-      <p class="seo-intro" data-i18n-key="Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.">
-        Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.
+      <p class="seo-intro" data-i18n-key="Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ, kết quả theo từng lớp và thông tin đăng ký đồ án tốt nghiệp của sinh viên.">
+        Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ, kết quả theo từng lớp và thông tin đăng ký đồ án tốt nghiệp của sinh viên.
       </p>
     </div>
     <div class="actions">
@@ -560,6 +730,12 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
     </div>
   </header>
 
+  <nav class="navbar" aria-label="Dashboard navigation">
+    <button class="nav-tab active" id="navAcademic" type="button" data-page="academic">Kết quả học tập</button>
+    <button class="nav-tab" id="navThesis" type="button" data-page="thesis">Đề tài tốt nghiệp</button>
+  </nav>
+
+  <main id="academicPage" class="page-view active">
   <section class="filters">
     <div class="control"><label>Tìm sinh viên / mã SV</label><input id="search" placeholder="Nhập tên hoặc mã sinh viên"></div>
     <div class="control"><label>Lớp</label><select id="classFilter"><option value="">Tất cả lớp</option></select></div>
@@ -613,6 +789,7 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
   <section class="card section section-spaced">
     <div class="section-head"><div><div class="section-title">⚠ Sinh viên cần lưu ý</div><div class="section-sub">Các sinh viên có số môn nợ &gt; 0, sắp xếp theo số môn nợ</div></div><div class="metric-pill" id="debtCount"></div></div>
     <div class="table-wrap"><table><thead><tr><th>Sinh viên</th><th>Mã SV</th><th>Lớp</th><th>TBCHT</th><th>TBC10</th><th>Môn nợ</th><th>Ghi chú</th></tr></thead><tbody id="debtTable"></tbody></table></div>
+    <div class="load-more-wrap" id="debtLoadMoreWrap"><button class="btn load-more-btn" id="debtLoadMore" type="button"></button></div>
   </section>
 
   <section class="grid2">
@@ -626,6 +803,86 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
       <div class="small">Không tự tạo lỗi; chỉ hiển thị các bất thường có thể kiểm tra từ các trường hiện có.</div>
     </div>
   </section>
+
+
+  </main>
+
+  <main id="thesisPage" class="page-view">
+    <section class="thesis-filters">
+      <div class="control">
+        <label>Tìm sinh viên / đề tài</label>
+        <input id="thesisSearch" placeholder="Nhập tên, mã SV hoặc tên đề tài">
+      </div>
+      <div class="control">
+        <label>Lớp</label>
+        <select id="thesisClassFilter">
+          <option value="">Tất cả lớp</option>
+        </select>
+      </div>
+      <div class="control">
+        <label>Giảng viên hướng dẫn</label>
+        <select id="thesisAdvisorFilter">
+          <option value="">Tất cả giảng viên</option>
+        </select>
+      </div>
+      <button class="btn full-btn" id="thesisReset" type="button">Đặt lại</button>
+    </section>
+
+    <section class="thesis-summary" id="thesisSummary"></section>
+
+    <section class="grid2">
+      <div class="card section">
+        <div class="section-head">
+          <div>
+            <div class="section-title">Phân bố đề tài theo lớp</div>
+            <div class="section-sub">Số sinh viên đăng ký đề tài theo từng lớp</div>
+          </div>
+          <div class="metric-pill" id="thesisClassTotal"></div>
+        </div>
+        <div id="thesisClassChart"></div>
+        <div class="thesis-class-insights" id="thesisClassInsights"></div>
+      </div>
+
+      <div class="card section">
+        <div class="section-head">
+          <div>
+            <div class="section-title">Phân bố theo giảng viên</div>
+            <div class="section-sub">Số sinh viên được phân công theo giảng viên hướng dẫn</div>
+          </div>
+          <div class="metric-pill" id="thesisAdvisorTotal"></div>
+        </div>
+        <div id="thesisAdvisorChart"></div>
+      </div>
+    </section>
+
+    <section class="card section section-spaced">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Danh sách đề tài tốt nghiệp</div>
+          <div class="section-sub">Click vào sinh viên để xem thông tin đăng ký đề tài</div>
+        </div>
+        <div class="metric-pill" id="thesisTableTotal"></div>
+      </div>
+      <div class="table-wrap thesis-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Sinh viên</th>
+              <th>Mã SV</th>
+              <th>Lớp</th>
+              <th>Số điện thoại</th>
+              <th>Tên đề tài</th>
+              <th>Giảng viên hướng dẫn</th>
+              <th>SĐT giảng viên</th>
+            </tr>
+          </thead>
+          <tbody id="thesisTable"></tbody>
+        </table>
+      </div>
+      <div class="load-more-wrap" id="thesisLoadMoreWrap"><button class="btn load-more-btn" id="thesisLoadMore" type="button"></button></div>
+    </section>
+  </main>
 
   <div class="footer">
   <span>Nguồn:</span>
@@ -718,52 +975,218 @@ function normalizeExcelRow(row,index){
   };
 }
 
+
 const GOOGLE_SHEET_ID='1u6cuIeOO4jOPjPQWEvtcxxemkVHZMZv-oeKJbvznfpk';
 const GOOGLE_SHEET_GID='2092990797';
 const GOOGLE_SHEET_CSV_URL=`https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/export?format=csv&gid=${GOOGLE_SHEET_GID}`;
+
+let THESIS_DATA = [];
+let thesisClasses = [];
+let thesisAdvisors = [];
+
+const THESIS_SHEET_GID='1013625186';
+const THESIS_GOOGLE_SHEET_CSV_URL=`https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/export?format=csv&gid=${THESIS_SHEET_GID}`;
+
+function formatVietnamPhone(value){
+  const raw=String(value ?? '').trim();
+  if(!raw) return '';
+  const digits=raw.replace(/\D/g,'');
+  if(!digits) return raw;
+  // Google Sheets CSV can convert a phone number such as 0918685987 to 918685987.
+  // Restore the domestic leading zero when the value is a 9-digit Vietnamese number.
+  if(digits.length===9) return `0${digits}`;
+  if(digits.length===10 && digits.startsWith('0')) return digits;
+  return raw;
+}
+
+function normalizeThesisRow(row,index,carry={}){
+  // Read the thesis-title column robustly from Google Sheets CSV.
+  // The visible header is "Tên đề tài DATN", but CSV exports can contain
+  // leading/trailing spaces or a BOM in the header name.
+  const getThesisField=(source,names)=>{
+    const keys=Object.keys(source||{});
+    const normalizeKey=value=>String(value??'').replace(/^\uFEFF/,'').trim().replace(/\s+/g,' ').toLowerCase();
+    const normalizedKeys=new Map(keys.map(key=>[normalizeKey(key),key]));
+    for(const name of names){
+      const key=normalizedKeys.get(normalizeKey(name));
+      if(key!==undefined) return source[key];
+    }
+    return '';
+  };
+  const topic=String(getThesisField(row,['Tên đề tài DATN','Tên đề tài','Tên đề tài đồ án tốt nghiệp']) ?? '').trim();
+  const supervisor=String(getThesisField(row,['Giảng viên hướng dẫn']) ?? '').trim();
+  const advisorPhone=String(getThesisField(row,['SĐT','SĐT giảng viên']) ?? '').trim();
+  return {
+    'STT': String(row['STT'] ?? '').trim() || String(index+1),
+    'Họ và tên sinh viên': String(row['Họ và tên sinh viên'] ?? '').trim(),
+    'Mã sinh viên': String(row['Mã sinh viên'] ?? '').trim(),
+    'Lớp': String(row['Lớp'] ?? '').trim(),
+    'Số điện thoại': formatVietnamPhone(row['Số điện thoại']),
+    'Tên đề tài DATN': topic || carry.topic || '',
+    'Giảng viên hướng dẫn': supervisor || carry.supervisor || '',
+    'SĐT': formatVietnamPhone(advisorPhone || carry.advisorPhone || '')
+  };
+}
+
+function thesisSearchMatch(student,query){
+  const q=normalizeNameText(query);
+  if(!q) return true;
+  const hay=[
+    student['Họ và tên sinh viên'],
+    student['Mã sinh viên'],
+    student['Tên đề tài DATN'],
+    student['Giảng viên hướng dẫn']
+  ].map(normalizeNameText).join(' ');
+  return hay.includes(q);
+}
+
+function filteredThesis(){
+  const q=$('thesisSearch')?.value.trim() || '';
+  const cls=$('thesisClassFilter')?.value || '';
+  const advisor=$('thesisAdvisorFilter')?.value || '';
+  return THESIS_DATA.filter(s=>{
+    if(q && !thesisSearchMatch(s,q)) return false;
+    if(cls && s['Lớp']!==cls) return false;
+    if(advisor && s['Giảng viên hướng dẫn']!==advisor) return false;
+    return true;
+  });
+}
+
+function renderThesis(){
+  if(!$('thesisPage')) return;
+  const d=filteredThesis();
+
+  const students=new Set(d.map(s=>s['Mã sinh viên']).filter(Boolean));
+  const classesSet=new Set(d.map(s=>s['Lớp']).filter(Boolean));
+  const advisorsSet=new Set(d.map(s=>s['Giảng viên hướng dẫn']).filter(Boolean));
+
+  $('thesisSummary').innerHTML=[
+    [tr('Sinh viên đăng ký'),students.size,tr('Theo dữ liệu đề tài tốt nghiệp')],
+    [tr('Đề tài'),d.filter(s=>s['Tên đề tài DATN']).length,tr('Có tên đề tài')],
+    [tr('Lớp tham gia'),classesSet.size,tr('Có sinh viên đăng ký')],
+    [tr('Giảng viên hướng dẫn'),advisorsSet.size,tr('Có phân công hướng dẫn')]
+  ].map(x=>`<div class="card kpi"><div class="kpi-label">${esc(x[0])}</div><div class="kpi-value">${x[1]}</div><div class="kpi-note">${esc(x[2])}</div></div>`).join('');
+
+  $('thesisClassTotal').textContent=`${classesSet.size} ${tr('lớp')}`;
+  $('thesisAdvisorTotal').textContent=`${advisorsSet.size} ${tr('giảng viên')}`;
+  $('thesisTableTotal').textContent=`${d.length} ${tr('sinh viên')}`;
+
+  const classMap={};
+  d.forEach(s=>{if(s['Lớp']) (classMap[s['Lớp']]??=[]).push(s)});
+  const classRows=Object.entries(classMap).map(([name,a])=>[name,a.length]).sort((a,b)=>b[1]-a[1]);
+  const classMax=Math.max(1,...classRows.map(x=>x[1]));
+  $('thesisClassChart').innerHTML=classRows.length
+    ? `<div class="thesis-column-chart">${classRows.map(([name,n])=>`<div class="thesis-column-item" title="${esc(name)}: ${n}"><div class="thesis-column-stack"><div class="thesis-column-value">${n}</div><div class="thesis-column-bar" style="height:${Math.max(3,n/classMax*175)}px"></div></div><div class="thesis-column-label">${esc(name)}</div></div>`).join('')}</div>`
+    : `<div class="empty">${tr('Không có dữ liệu')}</div>`;
+
+  if($('thesisClassInsights')){
+    if(classRows.length){
+      const totalClassStudents=classRows.reduce((sum,x)=>sum+x[1],0);
+      const topClass=classRows[0];
+      const avgPerClass=totalClassStudents/classRows.length;
+      const topShare=totalClassStudents ? topClass[1]/totalClassStudents*100 : 0;
+      $('thesisClassInsights').innerHTML=`
+        <div class="thesis-class-insight"><div class="label">${esc(tr('Tổng sinh viên đăng ký'))}</div><div class="value">${totalClassStudents} ${esc(tr('sinh viên'))}</div></div>
+        <div class="thesis-class-insight"><div class="label">${esc(tr('Lớp có nhiều đăng ký nhất'))}</div><div class="value">${esc(topClass[0])} · ${topClass[1]} ${esc(tr('sinh viên'))}</div></div>
+        <div class="thesis-class-insight"><div class="label">${esc(tr('Tỷ trọng lớp cao nhất'))}</div><div class="value">${topShare.toFixed(1)}% · ${esc(tr('TB'))} ${avgPerClass.toFixed(1)} ${esc(tr('sinh viên/lớp'))}</div></div>`;
+    }else{
+      $('thesisClassInsights').innerHTML='';
+    }
+  }
+
+  const advisorMap={};
+  d.forEach(s=>{
+    const name=s['Giảng viên hướng dẫn'] || tr('Chưa phân công');
+    (advisorMap[name]??=[]).push(s);
+  });
+  const advisorRows=Object.entries(advisorMap).map(([name,a])=>[name,a.length]).sort((a,b)=>b[1]-a[1]).slice(0,15);
+  const advisorMax=Math.max(1,...advisorRows.map(x=>x[1]));
+  $('thesisAdvisorChart').innerHTML=advisorRows.length
+    ? `<div class="thesis-bars">${advisorRows.map(([name,n])=>`<div class="thesis-bar-row"><div class="thesis-bar-label" title="${esc(name)}">${esc(name)}</div><div class="bar-track"><div class="bar-fill" style="width:${n/advisorMax*100}%;background:linear-gradient(90deg,var(--chart-violet),var(--chart-indigo))"></div></div><div class="thesis-bar-value">${n}</div></div>`).join('')}</div>`
+    : `<div class="empty">${tr('Không có dữ liệu')}</div>`;
+
+  const thesisVisible=d.slice(0,thesisVisibleCount);
+  $('thesisTable').innerHTML=d.length
+    ? thesisVisible.map((s,i)=>`<tr class="thesis-row" data-student-id="${esc(s['Mã sinh viên'])}">
+        <td class="num">${i+1}</td>
+        <td class="name">${esc(s['Họ và tên sinh viên'])}</td>
+        <td class="num">${esc(s['Mã sinh viên'])}</td>
+        <td>${esc(s['Lớp'])}</td>
+        <td class="thesis-phone">${esc(s['Số điện thoại'])}</td>
+        <td class="thesis-title">${esc(s['Tên đề tài DATN'] || '—')}</td>
+        <td class="thesis-advisor">${esc(s['Giảng viên hướng dẫn'] || '—')}</td>
+        <td class="thesis-phone">${esc(s['SĐT'] || '—')}</td>
+      </tr>`).join('')
+    : `<tr><td colspan="8" class="empty">${tr('Không có dữ liệu phù hợp với bộ lọc.')}</td></tr>`;
+
+  $('thesisTable').querySelectorAll('.thesis-row').forEach(row=>{
+    row.onclick=()=>openThesisStudent(row.dataset.studentId);
+  });
+  const thesisWrap=$('thesisLoadMoreWrap'), thesisBtn=$('thesisLoadMore');
+  if(thesisWrap&&thesisBtn){
+    const remaining=d.length-thesisVisible.length;
+    thesisWrap.style.display=remaining>0?'flex':'none';
+    thesisBtn.textContent=tr('Hiển thị thêm');
+    thesisBtn.disabled=remaining<=0;
+  }
+}
+
+function openThesisStudent(id){
+  const s=THESIS_DATA.find(x=>String(x['Mã sinh viên'])===String(id));
+  if(!s) return;
+  activeStudent=null;
+  activeThesisStudent=s;
+  $('mName').textContent=s['Họ và tên sinh viên'];
+  $('mMeta').textContent=`${s['Mã sinh viên']} · ${s['Lớp']} · ${s['Số điện thoại']||tr('Không có')}`;
+  const p=[
+    [tr('Giảng viên hướng dẫn'),s['Giảng viên hướng dẫn']||tr('Chưa phân công')],
+    [tr('SĐT giảng viên'),s['SĐT']||tr('Không có')]
+  ];
+  $('profile').innerHTML=p.map(x=>`<div class="p"><div class="lab">${esc(x[0])}</div><div class="val">${esc(x[1])}</div></div>`).join('');
+  $('mNote').innerHTML=`<strong>${tr('Đề tài tốt nghiệp')}</strong><br>${esc(s['Tên đề tài DATN']||tr('Chưa có đề tài'))}`;
+  $('modal').classList.add('show');
+}
+
+function setActivePage(page){
+  const academic=page==='academic';
+  $('academicPage')?.classList.toggle('active',academic);
+  $('thesisPage')?.classList.toggle('active',!academic);
+  $('navAcademic')?.classList.toggle('active',academic);
+  $('navThesis')?.classList.toggle('active',!academic);
+  localStorage.setItem('academic-dashboard-page',page);
+  if(!academic) renderThesis();
+}
 
 async function loadGoogleSheetsData(){
   try{
     if(!window.XLSX) throw new Error('Không tải được thư viện xử lý dữ liệu.');
 
-    const response=await fetch(GOOGLE_SHEET_CSV_URL,{cache:'no-store'});
-    if(!response.ok){
-      throw new Error(`Không thể tải dữ liệu từ Google Sheets (HTTP ${response.status}).`);
-    }
+    const [academicResponse, thesisResponse]=await Promise.all([
+      fetch(GOOGLE_SHEET_CSV_URL,{cache:'no-store'}),
+      fetch(THESIS_GOOGLE_SHEET_CSV_URL,{cache:'no-store'})
+    ]);
 
-    const csv=await response.text();
-    if(!csv.trim()) throw new Error('Google Sheets không trả về dữ liệu.');
+    if(!academicResponse.ok) throw new Error(`Không thể tải dữ liệu học tập từ Google Sheets (HTTP ${academicResponse.status}).`);
+    if(!thesisResponse.ok) throw new Error(`Không thể tải dữ liệu đề tài tốt nghiệp từ Google Sheets (HTTP ${thesisResponse.status}).`);
 
-    const workbook=XLSX.read(csv,{
-      type:'string',
-      cellDates:false
-    });
+    const academicCsv=await academicResponse.text();
+    const thesisCsv=await thesisResponse.text();
+    if(!academicCsv.trim()) throw new Error('Google Sheets không trả về dữ liệu học tập.');
+    if(!thesisCsv.trim()) throw new Error('Google Sheets không trả về dữ liệu đề tài tốt nghiệp.');
 
-    const sheetName=workbook.SheetNames[0];
-    if(!sheetName) throw new Error('Google Sheets không có worksheet nào.');
+    const academicWorkbook=XLSX.read(academicCsv,{type:'string',cellDates:false});
+    const academicSheetName=academicWorkbook.SheetNames[0];
+    if(!academicSheetName) throw new Error('Google Sheets không có worksheet dữ liệu học tập.');
+    const academicRows=XLSX.utils.sheet_to_json(academicWorkbook.Sheets[academicSheetName],{defval:'',raw:true});
 
-    const sheet=workbook.Sheets[sheetName];
-
-    const rows=XLSX.utils.sheet_to_json(sheet,{
-      defval:'',
-      raw:true
-    });
-
-    DATA=rows
-      .filter(row=>
-        String(row['Mã sinh viên'] ?? '').trim() ||
-        String(row['Họ tên'] ?? '').trim()
-      )
+    DATA=academicRows
+      .filter(row=>String(row['Mã sinh viên'] ?? '').trim() || String(row['Họ tên'] ?? '').trim())
       .map(normalizeExcelRow);
 
-    classes=Array.from(
-      new Set(DATA.map(s=>s['Tên lớp']).filter(Boolean))
-    ).sort((a,b)=>a.localeCompare(b,'vi'));
+    classes=Array.from(new Set(DATA.map(s=>s['Tên lớp']).filter(Boolean))).sort((a,b)=>a.localeCompare(b,'vi'));
 
     const classFilter=$('classFilter');
-
-    classFilter.innerHTML=`<option value="">${tr('Tất cả lớp')}</option>`;
-
+    classFilter.innerHTML=`<option value="">Tất cả lớp</option>`;
     classes.forEach(c=>{
       const option=document.createElement('option');
       option.value=c;
@@ -771,25 +1194,121 @@ async function loadGoogleSheetsData(){
       classFilter.appendChild(option);
     });
 
-    render();
-    applyLanguage(currentLang);
+    const thesisWorkbook=XLSX.read(thesisCsv,{type:'string',cellDates:false});
+    const thesisSheetName=thesisWorkbook.SheetNames[0];
+    if(!thesisSheetName) throw new Error('Google Sheets không có worksheet dữ liệu đề tài tốt nghiệp.');
 
+    // Read the thesis sheet as a 2D matrix instead of relying only on object keys.
+    // This is important because the sheet contains merged cells in the thesis/advisor columns.
+    const thesisMatrix=XLSX.utils.sheet_to_json(thesisWorkbook.Sheets[thesisSheetName],{
+      header:1,
+      defval:'',
+      raw:true
+    });
+    const normalizeHeader=value=>String(value??'')
+      .replace(/^\uFEFF/,'')
+      .trim()
+      .replace(/\s+/g,' ')
+      .toLowerCase();
+
+    const headerAliases={
+      'STT':['STT'],
+      'Họ và tên sinh viên':['Họ và tên sinh viên','Họ tên sinh viên','Họ và tên'],
+      'Mã sinh viên':['Mã sinh viên','Mã SV'],
+      'Lớp':['Lớp','Lớp học'],
+      'Số điện thoại':['Số điện thoại','SĐT sinh viên','SĐT'],
+      'Tên đề tài DATN':['Tên đề tài DATN','Tên đề tài','Tên đề tài đồ án tốt nghiệp','Tên đề tài ĐATN'],
+      'Giảng viên hướng dẫn':['Giảng viên hướng dẫn','Giảng viên HD','GV hướng dẫn'],
+      'SĐT':['SĐT','SĐT giảng viên','Số điện thoại giảng viên']
+    };
+
+    let headerRowIndex=-1;
+    let headerIndexes={};
+    for(let r=0;r<thesisMatrix.length;r++){
+      const row=Array.isArray(thesisMatrix[r])?thesisMatrix[r]:[];
+      const indexes={};
+      row.forEach((cell,i)=>indexes[normalizeHeader(cell)]=i);
+      const hasName=headerAliases['Họ và tên sinh viên'].some(a=>indexes[normalizeHeader(a)]!==undefined);
+      const hasId=headerAliases['Mã sinh viên'].some(a=>indexes[normalizeHeader(a)]!==undefined);
+      if(hasName && hasId){
+        headerRowIndex=r;
+        headerIndexes=indexes;
+        break;
+      }
+    }
+    if(headerRowIndex<0) throw new Error('Không tìm thấy hàng tiêu đề của dữ liệu đề tài tốt nghiệp.');
+
+    const findColumn=(aliases)=>{
+      for(const alias of aliases){
+        const index=headerIndexes[normalizeHeader(alias)];
+        if(index!==undefined) return index;
+      }
+      return -1;
+    };
+
+    const col={};
+    Object.entries(headerAliases).forEach(([key,aliases])=>{ col[key]=findColumn(aliases); });
+
+    const getCell=(row,index)=>index>=0 ? String(row[index]??'').trim() : '';
+    const carry={topic:'',supervisor:'',advisorPhone:''};
+
+    THESIS_DATA=thesisMatrix
+      .slice(headerRowIndex+1)
+      .map((row,index)=>{
+        const topic=getCell(row,col['Tên đề tài DATN']);
+        const supervisor=getCell(row,col['Giảng viên hướng dẫn']);
+        const advisorPhone=getCell(row,col['SĐT']);
+        if(topic) carry.topic=topic;
+        if(supervisor) carry.supervisor=supervisor;
+        if(advisorPhone) carry.advisorPhone=advisorPhone;
+
+        return {
+          'STT':getCell(row,col['STT']) || String(index+1),
+          'Họ và tên sinh viên':getCell(row,col['Họ và tên sinh viên']),
+          'Mã sinh viên':getCell(row,col['Mã sinh viên']),
+          'Lớp':getCell(row,col['Lớp']),
+          'Số điện thoại':formatVietnamPhone(getCell(row,col['Số điện thoại'])),
+          'Tên đề tài DATN':topic || carry.topic,
+          'Giảng viên hướng dẫn':supervisor || carry.supervisor,
+          'SĐT':formatVietnamPhone(advisorPhone || carry.advisorPhone)
+        };
+      })
+      .filter(row=>row['Mã sinh viên'] || row['Họ và tên sinh viên']);
+
+    thesisClasses=Array.from(new Set(THESIS_DATA.map(s=>s['Lớp']).filter(Boolean))).sort((a,b)=>a.localeCompare(b,'vi'));
+    thesisAdvisors=Array.from(new Set(THESIS_DATA.map(s=>s['Giảng viên hướng dẫn']).filter(Boolean))).sort((a,b)=>a.localeCompare(b,'vi'));
+
+    const thesisClassFilter=$('thesisClassFilter');
+    thesisClassFilter.innerHTML=`<option value="">Tất cả lớp</option>`;
+    thesisClasses.forEach(c=>{
+      const option=document.createElement('option');
+      option.value=c;
+      option.textContent=c;
+      thesisClassFilter.appendChild(option);
+    });
+
+    const thesisAdvisorFilter=$('thesisAdvisorFilter');
+    thesisAdvisorFilter.innerHTML=`<option value="">Tất cả giảng viên</option>`;
+    thesisAdvisors.forEach(a=>{
+      const option=document.createElement('option');
+      option.value=a;
+      option.textContent=a;
+      thesisAdvisorFilter.appendChild(option);
+    });
+
+    render();
+    renderThesis();
+    applyLanguage(currentLang);
   }catch(error){
     console.error(error);
-
     DATA=[];
-
+    THESIS_DATA=[];
     $('kpis').innerHTML=`
       <div class="card section" style="grid-column:1/-1">
-        <div class="section-title">
-          ${esc(error.message || 'Không thể tải dữ liệu từ Google Sheets.')}
-        </div>
-        <div class="section-sub">
-          Kiểm tra quyền truy cập Google Sheets và bảo đảm bảng tính
-          cho phép người có liên kết xem dữ liệu.
-        </div>
-      </div>
-    `;
+        <div class="section-title">${esc(error.message || 'Không thể tải dữ liệu từ Google Sheets.')}</div>
+        <div class="section-sub">${tr('Kiểm tra quyền truy cập Google Sheets và bảo đảm bảng tính cho phép người có liên kết xem dữ liệu.')}</div>
+      </div>`;
+    renderThesis();
   }
 }
 
@@ -991,10 +1510,21 @@ function renderTop(d){
   $('topTable').innerHTML=top.length?top.map((s,i)=>`<tr onclick='openStudentById(${JSON.stringify(s["Mã sinh viên"])})' style="cursor:pointer"><td class="rank">${i+1}</td><td class="name">${esc(s['Họ và tên'])}</td><td>${esc(s['Tên lớp'])}</td><td class="num">${fmt(s.TBCHT)}</td><td class="num">${s['Điểm RL']}</td></tr>`).join(''):`<tr><td colspan="5" class="empty">${tr('Không có dữ liệu')}</td></tr>`;
 }
 
+let debtVisibleCount=12;
+let thesisVisibleCount=12;
+
 function renderDebt(d){
   const debt=[...d].filter(s=>s['Số môn nợ']>0).sort((a,b)=>b['Số môn nợ']-a['Số môn nợ']||b.TBCHT-a.TBCHT);
   $('debtCount').textContent=`${debt.length} ${tr('SV')}`;
-  $('debtTable').innerHTML=debt.length?debt.slice(0,80).map(s=>`<tr onclick='openStudentById(${JSON.stringify(s["Mã sinh viên"])})' style="cursor:pointer"><td class="name">${esc(s['Họ và tên'])}</td><td>${esc(s['Mã sinh viên'])}</td><td>${esc(s['Tên lớp'])}</td><td>${fmt(s.TBCHT)}</td><td>${fmt(s['TBC Hệ 10'])}</td><td><span class="tag warn">${s['Số môn nợ']}</span></td><td title="${esc(s['Ghi chú'])}">${esc(s['Ghi chú']).slice(0,90)}${String(s['Ghi chú']).length>90?'…':''}</td></tr>`).join(''):`<tr><td colspan="7" class="empty">${tr('Không có sinh viên nợ môn trong bộ lọc hiện tại')}</td></tr>`;
+  const visible=debt.slice(0,debtVisibleCount);
+  $('debtTable').innerHTML=debt.length?visible.map(s=>`<tr onclick='openStudentById(${JSON.stringify(s["Mã sinh viên"])})' style="cursor:pointer"><td class="name">${esc(s['Họ và tên'])}</td><td>${esc(s['Mã sinh viên'])}</td><td>${esc(s['Tên lớp'])}</td><td>${fmt(s.TBCHT)}</td><td>${fmt(s['TBC Hệ 10'])}</td><td><span class="tag warn">${s['Số môn nợ']}</span></td><td title="${esc(s['Ghi chú'])}">${esc(s['Ghi chú']).slice(0,90)}${String(s['Ghi chú']).length>90?'…':''}</td></tr>`).join(''):`<tr><td colspan="7" class="empty">${tr('Không có sinh viên nợ môn trong bộ lọc hiện tại')}</td></tr>`;
+  const wrap=$('debtLoadMoreWrap'), btn=$('debtLoadMore');
+  if(wrap&&btn){
+    const remaining=debt.length-visible.length;
+    wrap.style.display=remaining>0?'flex':'none';
+    btn.textContent=tr('Hiển thị thêm');
+    btn.disabled=remaining<=0;
+  }
 }
 
 function renderInsights(d){
@@ -1026,8 +1556,10 @@ function renderQuality(){
 }
 
 let activeStudent=null;
+let activeThesisStudent=null;
 function openStudentById(id){const s=DATA.find(x=>String(x['Mã sinh viên'])===String(id));if(s)openStudent(s)}
 function openStudent(s){
+  activeThesisStudent=null;
   activeStudent=s;
   $('mName').textContent=s['Họ và tên'];
   $('mMeta').textContent=`${s['Mã sinh viên']} · ${s['Tên lớp']} · ${s['Ngày sinh']}`;
@@ -1036,7 +1568,7 @@ function openStudent(s){
   $('mNote').innerHTML=`<strong>${tr('Ghi chú')}</strong><br>${esc(s['Ghi chú']||tr('Không có'))} ${s['Sai sót']?`<br><br><strong>${tr('Sai sót')}</strong><br>${esc(s['Sai sót'])}`:''}`;
   $('modal').classList.add('show');
 }
-$('close').onclick=()=>$('modal').classList.remove('show');
+$('close').onclick=()=>{$('modal').classList.remove('show');activeStudent=null;activeThesisStudent=null;};
 
 const LANGS = {
   vi:{code:'VI',html:'vi'}, en:{code:'EN',html:'en'}, ja:{code:'JA',html:'ja'}, fr:{code:'FR',html:'fr'}
@@ -1044,7 +1576,7 @@ const LANGS = {
 const I18N = {
   vi:{
     'Language':'Ngôn ngữ','TBCHT':'TBCHT','RL':'RL','CNTT':'Công nghệ thông tin','CDP':'Công nghệ Đa phương tiện','Faculty of Information Technology · Hanoi Architectural University':'Khoa Công nghệ thông tin · Trường Đại học Kiến trúc Hà Nội','Cohort 2022':'Khóa 2022','Tổng sinh viên':'Tổng sinh viên','Sau khi áp dụng bộ lọc':'Sau khi áp dụng bộ lọc','Hệ 4':'Hệ 4','TBC Hệ 10':'TBC Hệ 10','Điểm RL trung bình':'Điểm RL trung bình','Xuất sắc + Giỏi':'Xuất sắc + Giỏi','Sinh viên còn môn nợ':'Sinh viên còn môn nợ','SV nợ':'SV nợ','STT':'STT','Số tín chỉ':'Số tín chỉ','Tín chỉ TB':'Tín chỉ TB','Tổng tín chỉ':'Tổng tín chỉ','Tín chỉ trung bình':'Tín chỉ trung bình','Tín chỉ thấp nhất':'Tín chỉ thấp nhất','Tín chỉ cao nhất':'Tín chỉ cao nhất','Theo dõi tiến độ tích lũy':'Theo dõi tiến độ tích lũy','Theo dõi số tín chỉ đã hoàn thành so với tổng số tín chỉ cần học của từng chương trình':'Theo dõi số tín chỉ đã hoàn thành so với tổng số tín chỉ cần học của từng chương trình','đã hoàn thành':'đã hoàn thành','tín chỉ còn lại':'tín chỉ còn lại','tín chỉ trung bình':'tín chỉ trung bình','Tiến độ tích lũy':'Tiến độ tích lũy','Chương trình':'Chương trình','Tổng số tín chỉ của bộ lọc':'Tổng số tín chỉ của bộ lọc','Trung bình trên mỗi sinh viên':'Trung bình trên mỗi sinh viên','Trong bộ lọc hiện tại':'Trong bộ lọc hiện tại','Dưới 100':'Dưới 100','100–119':'100–119','120–139':'120–139','140–159':'140–159','160 trở lên':'160 trở lên','tín chỉ':'tín chỉ','Số môn nợ':'Số môn nợ','Tổng cần học':'Tổng cần học','2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5':'2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5',
-    'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.':'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.',
+    'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ, kết quả theo từng lớp và thông tin đăng ký đồ án tốt nghiệp của sinh viên.':'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ, kết quả theo từng lớp và thông tin đăng ký đồ án tốt nghiệp của sinh viên.',
     'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình':'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình',
     'Switch to light mode':'Chuyển sang chế độ sáng','Switch to dark mode':'Chuyển sang chế độ tối',
     'Choose language':'Chọn ngôn ngữ','Reset filter':'Đặt lại bộ lọc','Export CSV':'Xuất CSV','Dark':'Tối','Light':'Sáng',
@@ -1092,7 +1624,7 @@ const I18N = {
   },
   en:{
     'Language':'Language','TBCHT':'GPA','RL':'Conduct','CNTT':'Information Technology','CDP':'Multimedia Technology','Faculty of Information Technology · Hanoi Architectural University':'Faculty of Information Technology · Hanoi Architectural University','Cohort 2022':'Cohort 2022','Tổng sinh viên':'Total students','Sau khi áp dụng bộ lọc':'After applying filters','Hệ 4':'4-point scale','TBC Hệ 10':'10-point GPA','Điểm RL trung bình':'Average conduct','Xuất sắc + Giỏi':'Excellent + Good','Sinh viên còn môn nợ':'Students with outstanding courses','SV nợ':'Students with outstanding courses','STT':'No.','Số tín chỉ':'Credits','Tín chỉ TB':'Avg. credits','Tổng tín chỉ':'Total credits','Tín chỉ trung bình':'Average credits','Tín chỉ thấp nhất':'Minimum credits','Tín chỉ cao nhất':'Maximum credits','Theo dõi tiến độ tích lũy':'Credit accumulation progress','Theo dõi số tín chỉ đã hoàn thành so với tổng số tín chỉ cần học của từng chương trình':'Track completed credits against the total credits required for each program','đã hoàn thành':'completed','tín chỉ còn lại':'credits remaining','tín chỉ trung bình':'average credits','Tiến độ tích lũy':'Credit accumulation progress','Chương trình':'Program','Tổng số tín chỉ của bộ lọc':'Total credits in current filter','Trung bình trên mỗi sinh viên':'Average per student','Trong bộ lọc hiện tại':'In the current filter','Dưới 100':'Under 100','100–119':'100–119','120–139':'120–139','140–159':'140–159','160 trở lên':'160+','tín chỉ':'credits','Số môn nợ':'Outstanding courses','Tổng cần học':'Total required','2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5':'2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5',
-    'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.':'Dashboard for searching and analyzing academic performance of Cohort 22 students in the Faculty of Information Technology, Hanoi Architectural University. The system provides an overview of academic GPA, conduct scores, classifications, outstanding courses, and results by class.',
+    'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ, kết quả theo từng lớp và thông tin đăng ký đồ án tốt nghiệp của sinh viên.':'Dashboard for searching and analyzing the academic performance and graduation thesis information of Cohort 22 students in the Faculty of Information Technology, Hanoi Architectural University. The system provides an overview of academic GPA, conduct scores, classifications, outstanding courses, results by class, and students’ graduation thesis registration information.',
     'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình':'Thresholds: ≥3.60 Excellent · ≥3.20 Good · ≥2.50 Fair · ≥2.00 Average',
     'Switch to light mode':'Switch to light mode','Switch to dark mode':'Switch to dark mode',
     'Choose language':'Choose language','Reset filter':'Reset filters','Export CSV':'Export CSV','Dark':'Dark','Light':'Light',
@@ -1136,7 +1668,7 @@ const I18N = {
   },
   ja:{
     'Language':'言語','TBCHT':'学業成績平均','RL':'行動評価','CNTT':'情報技術','CDP':'マルチメディア技術','Faculty of Information Technology · Hanoi Architectural University':'情報技術学部 · ハノイ建築大学','Cohort 2022':'2022年度入学','Tổng sinh viên':'総学生数','Sau khi áp dụng bộ lọc':'フィルター適用後','Hệ 4':'4段階','TBC Hệ 10':'10点GPA','Điểm RL trung bình':'行動評価平均','Xuất sắc + Giỏi':'優秀 + 良好','Sinh viên còn môn nợ':'未修得科目がある学生','SV nợ':'未修得科目あり','STT':'番号','Số tín chỉ':'単位数','Tín chỉ TB':'平均単位数','Tổng tín chỉ':'総単位数','Tín chỉ trung bình':'平均単位数','Tín chỉ thấp nhất':'最小単位数','Tín chỉ cao nhất':'最大単位数','Theo dõi tiến độ tích lũy':'履修単位の進捗','Theo dõi số tín chỉ đã hoàn thành so với tổng số tín chỉ cần học của từng chương trình':'各プログラムの必要単位数に対する修得単位数を確認','đã hoàn thành':'修得済み','tín chỉ còn lại':'残り単位','tín chỉ trung bình':'平均単位','Tiến độ tích lũy':'履修進捗','Chương trình':'プログラム','Tổng số tín chỉ của bộ lọc':'現在の条件の総単位数','Trung bình trên mỗi sinh viên':'学生1人あたりの平均','Trong bộ lọc hiện tại':'現在の条件','Dưới 100':'100未満','100–119':'100–119','120–139':'120–139','140–159':'140–159','160 trở lên':'160以上','tín chỉ':'単位','Số môn nợ':'未修得科目数','Tổng cần học':'必要単位数','2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5':'2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5',
-    'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.':'ハノイ建築大学情報技術学部・2022年度学生の学業成績を検索・分析するダッシュボードです。GPA、行動評価、成績区分、未修得科目、クラス別の結果を確認できます。',
+    'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ, kết quả theo từng lớp và thông tin đăng ký đồ án tốt nghiệp của sinh viên.':'ハノイ建築大学情報技術学部・2022年度学生の学業成績と卒業論文情報を検索・分析するダッシュボードです。GPA、行動評価、成績区分、未修得科目、クラス別の結果、卒業論文の登録情報を確認できます。',
     'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình':'基準: ≥3.60 優秀 · ≥3.20 良好 · ≥2.50 普通 · ≥2.00 平均',
     'Switch to light mode':'ライトモードに切替','Switch to dark mode':'ダークモードに切替',
     'Choose language':'言語を選択','Reset filter':'フィルターをリセット','Export CSV':'CSVを出力','Dark':'ダーク','Light':'ライト',
@@ -1177,7 +1709,7 @@ const I18N = {
   },
   fr:{
     'Language':'Langue','TBCHT':'Moyenne académique','RL':'Conduite','CNTT':'Technologies de l’Information','CDP':'Technologies Multimédias','Faculty of Information Technology · Hanoi Architectural University':'Faculté des technologies de l’information · Université d’architecture de Hanoï','Cohort 2022':'Promotion 2022','Tổng sinh viên':'Total des étudiants','Sau khi áp dụng bộ lọc':'Après application des filtres','Hệ 4':'Échelle sur 4','TBC Hệ 10':'GPA sur 10','Điểm RL trung bình':'Conduite moyenne','Xuất sắc + Giỏi':'Excellent + Bien','Sinh viên còn môn nợ':'Étudiants avec cours non validés','SV nợ':'Cours non validés','STT':'N°','Số tín chỉ':'Crédits','Tín chỉ TB':'Crédits moy.','Tổng tín chỉ':'Total de crédits','Tín chỉ trung bình':'Crédits moyens','Tín chỉ thấp nhất':'Crédits minimum','Tín chỉ cao nhất':'Crédits maximum','Theo dõi tiến độ tích lũy':'Suivi de l’accumulation des crédits','Theo dõi số tín chỉ đã hoàn thành so với tổng số tín chỉ cần học của từng chương trình':'Suivi des crédits obtenus par rapport au total requis pour chaque programme','đã hoàn thành':'terminés','tín chỉ còn lại':'crédits restants','tín chỉ trung bình':'crédits moyens','Tiến độ tích lũy':'Progression des crédits','Chương trình':'Programme','Tổng số tín chỉ của bộ lọc':'Total des crédits du filtre','Trung bình trên mỗi sinh viên':'Moyenne par étudiant','Trong bộ lọc hiện tại':'Dans le filtre actuel','Dưới 100':'Moins de 100','100–119':'100–119','120–139':'120–139','140–159':'140–159','160 trở lên':'160 et plus','tín chỉ':'crédits','Số môn nợ':'Cours non validés','Tổng cần học':'Total requis','2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5':'2022CN1, 2022CN2, 2022CN3, 2022CN4, 2022CN5',
-    'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ và kết quả theo từng lớp.':'Tableau de bord de recherche et d’analyse des résultats académiques des étudiants de la promotion 2022 de la Faculté des technologies de l’information de l’Université d’architecture de Hanoï. Il présente les GPA, les scores de conduite, les classements, les cours non validés et les résultats par classe.',
+    'Dashboard tra cứu và phân tích kết quả học tập sinh viên Khóa 22 Khoa Công nghệ thông tin - Trường Đại học Kiến trúc Hà Nội. Hệ thống cung cấp thông tin tổng quan về điểm trung bình học tập, điểm rèn luyện, xếp loại học tập, tình trạng môn nợ, kết quả theo từng lớp và thông tin đăng ký đồ án tốt nghiệp của sinh viên.':'Tableau de bord de recherche et d’analyse des résultats académiques et des projets de fin d’études des étudiants de la promotion 2022 de la Faculté des technologies de l’information de l’Université d’architecture de Hanoï. Il présente les GPA, les scores de conduite, les classements, les cours non validés, les résultats par classe et les informations d’inscription aux projets de fin d’études.',
     'Ngưỡng cấu hình: ≥3.60 Xuất sắc · ≥3.20 Giỏi · ≥2.50 Khá · ≥2.00 Trung bình':'Seuils : ≥3,60 Excellent · ≥3,20 Bien · ≥2,50 Assez bien · ≥2,00 Moyen',
     'Switch to light mode':'Passer au mode clair','Switch to dark mode':'Passer au mode sombre',
     'Choose language':'Choisir la langue','Reset filter':'Réinitialiser les filtres','Export CSV':'Exporter CSV','Dark':'Sombre','Light':'Clair',
@@ -1218,6 +1750,158 @@ const I18N = {
 
   }
 };
+const THESIS_I18N = {
+  vi:{
+    'Kết quả học tập':'Kết quả học tập',
+    'Đề tài tốt nghiệp':'Đề tài tốt nghiệp',
+    'Tìm sinh viên / đề tài':'Tìm sinh viên / đề tài',
+    'Nhập tên, mã SV hoặc tên đề tài':'Nhập tên, mã SV hoặc tên đề tài',
+    'Tất cả giảng viên':'Tất cả giảng viên',
+    'Đặt lại':'Đặt lại',
+    'Sinh viên đăng ký':'Sinh viên đăng ký',
+    'Theo dữ liệu đề tài tốt nghiệp':'Theo dữ liệu đề tài tốt nghiệp',
+    'Đề tài':'Đề tài',
+    'Có tên đề tài':'Có tên đề tài',
+    'Lớp tham gia':'Lớp tham gia',
+    'Có sinh viên đăng ký':'Có sinh viên đăng ký',
+    'Có phân công hướng dẫn':'Có phân công hướng dẫn',
+    'lớp':'lớp',
+    'giảng viên':'giảng viên',
+    'sinh viên':'sinh viên',
+    'Phân bố đề tài theo lớp':'Phân bố đề tài theo lớp',
+    'Số sinh viên đăng ký đề tài theo từng lớp':'Số sinh viên đăng ký đề tài theo từng lớp',
+    'Phân bố theo giảng viên':'Phân bố theo giảng viên',
+    'Số sinh viên được phân công theo giảng viên hướng dẫn':'Số sinh viên được phân công theo giảng viên hướng dẫn',
+    'Danh sách đề tài tốt nghiệp':'Danh sách đề tài tốt nghiệp',
+    'Click vào sinh viên để xem thông tin đăng ký đề tài':'Click vào sinh viên để xem thông tin đăng ký đề tài',
+    'Số điện thoại':'Số điện thoại',
+    'Tên đề tài':'Tên đề tài',
+    'Giảng viên hướng dẫn':'Giảng viên hướng dẫn',
+    'SĐT giảng viên':'SĐT giảng viên',
+    'Chưa phân công':'Chưa phân công',
+    'Chưa có đề tài':'Chưa có đề tài',
+    'Không có dữ liệu phù hợp với bộ lọc.':'Không có dữ liệu phù hợp với bộ lọc.',
+    'Không có dữ liệu':'Không có dữ liệu',
+    'Tổng sinh viên đăng ký':'Tổng sinh viên đăng ký',
+    'Lớp có nhiều đăng ký nhất':'Lớp có nhiều đăng ký nhất',
+    'Tỷ trọng lớp cao nhất':'Tỷ trọng lớp cao nhất',
+    'TB':'TB',
+    'sinh viên/lớp':'sinh viên/lớp'
+  },
+  en:{
+    'Kết quả học tập':'Academic results',
+    'Đề tài tốt nghiệp':'Graduation thesis',
+    'Tìm sinh viên / đề tài':'Search student / thesis',
+    'Nhập tên, mã SV hoặc tên đề tài':'Enter name, student ID or thesis title',
+    'Tất cả giảng viên':'All advisors',
+    'Đặt lại':'Reset',
+    'Sinh viên đăng ký':'Registered students',
+    'Theo dữ liệu đề tài tốt nghiệp':'Based on thesis registration data',
+    'Đề tài':'Thesis topics',
+    'Có tên đề tài':'With a thesis topic',
+    'Lớp tham gia':'Participating classes',
+    'Có sinh viên đăng ký':'With registered students',
+    'Có phân công hướng dẫn':'With assigned advisors',
+    'lớp':'classes',
+    'giảng viên':'advisors',
+    'sinh viên':'students',
+    'Phân bố đề tài theo lớp':'Thesis distribution by class',
+    'Số sinh viên đăng ký đề tài theo từng lớp':'Students registered for thesis by class',
+    'Phân bố theo giảng viên':'Distribution by advisor',
+    'Số sinh viên được phân công theo giảng viên hướng dẫn':'Students assigned to advisors',
+    'Danh sách đề tài tốt nghiệp':'Graduation thesis list',
+    'Click vào sinh viên để xem thông tin đăng ký đề tài':'Click a student to view thesis registration',
+    'Số điện thoại':'Phone',
+    'Tên đề tài':'Thesis title',
+    'Giảng viên hướng dẫn':'Advisor',
+    'SĐT giảng viên':'Advisor phone',
+    'Chưa phân công':'Not assigned',
+    'Chưa có đề tài':'No thesis topic',
+    'Không có dữ liệu phù hợp với bộ lọc.':'No data matches the current filters.',
+    'Không có dữ liệu':'No data',
+    'Tổng sinh viên đăng ký':'Total registered students',
+    'Lớp có nhiều đăng ký nhất':'Class with most registrations',
+    'Tỷ trọng lớp cao nhất':'Top-class share',
+    'TB':'Avg.',
+    'sinh viên/lớp':'students/class'
+  },
+  ja:{
+    'Kết quả học tập':'学業成績',
+    'Đề tài tốt nghiệp':'卒業研究',
+    'Tìm sinh viên / đề tài':'学生・卒業研究を検索',
+    'Nhập tên, mã SV hoặc tên đề tài':'氏名・学生ID・研究題目を入力',
+    'Tất cả giảng viên':'すべての指導教員',
+    'Đặt lại':'リセット',
+    'Sinh viên đăng ký':'登録学生',
+    'Theo dữ liệu đề tài tốt nghiệp':'卒業研究登録データに基づく',
+    'Đề tài':'研究題目',
+    'Có tên đề tài':'研究題目あり',
+    'Lớp tham gia':'参加クラス',
+    'Có sinh viên đăng ký':'登録学生あり',
+    'Có phân công hướng dẫn':'指導教員割り当てあり',
+    'lớp':'クラス',
+    'giảng viên':'指導教員',
+    'sinh viên':'学生',
+    'Phân bố đề tài theo lớp':'クラス別卒業研究の分布',
+    'Số sinh viên đăng ký đề tài theo từng lớp':'クラス別の卒業研究登録者数',
+    'Phân bố theo giảng viên':'指導教員別の分布',
+    'Số sinh viên được phân công theo giảng viên hướng dẫn':'指導教員別の担当学生数',
+    'Danh sách đề tài tốt nghiệp':'卒業研究一覧',
+    'Click vào sinh viên để xem thông tin đăng ký đề tài':'学生をクリックして卒業研究情報を表示',
+    'Số điện thoại':'電話番号',
+    'Tên đề tài':'研究題目',
+    'Giảng viên hướng dẫn':'指導教員',
+    'SĐT giảng viên':'教員電話番号',
+    'Chưa phân công':'未割り当て',
+    'Chưa có đề tài':'研究題目なし',
+    'Không có dữ liệu phù hợp với bộ lọc.':'条件に一致するデータがありません。',
+    'Không có dữ liệu':'データなし',
+    'Tổng sinh viên đăng ký':'登録学生総数',
+    'Lớp có nhiều đăng ký nhất':'登録者数最多のクラス',
+    'Tỷ trọng lớp cao nhất':'最多クラスの割合',
+    'TB':'平均',
+    'sinh viên/lớp':'学生/クラス'
+  },
+  fr:{
+    'Kết quả học tập':'Résultats académiques',
+    'Đề tài tốt nghiệp':'Mémoire de fin d’études',
+    'Tìm sinh viên / đề tài':'Rechercher étudiant / mémoire',
+    'Nhập tên, mã SV hoặc tên đề tài':'Nom, ID étudiant ou titre du mémoire',
+    'Tất cả giảng viên':'Tous les encadrants',
+    'Đặt lại':'Réinitialiser',
+    'Sinh viên đăng ký':'Étudiants inscrits',
+    'Theo dữ liệu đề tài tốt nghiệp':'Selon les données des mémoires',
+    'Đề tài':'Mémoires',
+    'Có tên đề tài':'Avec un sujet',
+    'Lớp tham gia':'Classes participantes',
+    'Có sinh viên đăng ký':'Avec des étudiants inscrits',
+    'Có phân công hướng dẫn':'Avec encadrant attribué',
+    'lớp':'classes',
+    'giảng viên':'encadrants',
+    'sinh viên':'étudiants',
+    'Phân bố đề tài theo lớp':'Répartition des mémoires par classe',
+    'Số sinh viên đăng ký đề tài theo từng lớp':'Étudiants inscrits par classe',
+    'Phân bố theo giảng viên':'Répartition par encadrant',
+    'Số sinh viên được phân công theo giảng viên hướng dẫn':'Étudiants suivis par encadrant',
+    'Danh sách đề tài tốt nghiệp':'Liste des mémoires de fin d’études',
+    'Click vào sinh viên để xem thông tin đăng ký đề tài':'Cliquer sur un étudiant pour voir son inscription',
+    'Số điện thoại':'Téléphone',
+    'Tên đề tài':'Titre du mémoire',
+    'Giảng viên hướng dẫn':'Encadrant',
+    'SĐT giảng viên':'Téléphone de l’encadrant',
+    'Chưa phân công':'Non attribué',
+    'Chưa có đề tài':'Aucun sujet',
+    'Không có dữ liệu phù hợp với bộ lọc.':'Aucune donnée ne correspond aux filtres actuels.',
+    'Không có dữ liệu':'Aucune donnée',
+    'Tổng sinh viên đăng ký':'Total des étudiants inscrits',
+    'Lớp có nhiều đăng ký nhất':'Classe avec le plus d’inscriptions',
+    'Tỷ trọng lớp cao nhất':'Part de la classe principale',
+    'TB':'Moy.',
+    'sinh viên/lớp':'étudiants/classe'
+  }
+};
+Object.keys(THESIS_I18N).forEach(lang=>Object.assign(I18N[lang],THESIS_I18N[lang]));
+
 const DEFAULT_LANG='vi';
 const LANGUAGE_DEFAULT_VERSION='vi-default-2026-09';
 if(localStorage.getItem('academic-language-default-version')!==LANGUAGE_DEFAULT_VERSION){
@@ -1227,7 +1911,14 @@ if(localStorage.getItem('academic-language-default-version')!==LANGUAGE_DEFAULT_
 const savedLanguage=localStorage.getItem('academic-language');
 let currentLang=LANGS[savedLanguage] ? savedLanguage : DEFAULT_LANG;
 if(savedLanguage!==currentLang) localStorage.setItem('academic-language',currentLang);
-function tr(text){const extra={en:{'Chuyển sang chế độ sáng':'Switch to light mode','Chuyển sang chế độ tối':'Switch to dark mode'},ja:{'Chuyển sang chế độ sáng':'ライトモードに切替','Chuyển sang chế độ tối':'ダークモードに切替'},fr:{'Chuyển sang chế độ sáng':'Passer au mode clair','Chuyển sang chế độ tối':'Passer au mode sombre'}};return (I18N[currentLang]&&I18N[currentLang][text])||((extra[currentLang]||{})[text])||text}
+function tr(text){
+  const extra={
+    en:{'Chuyển sang chế độ sáng':'Switch to light mode','Chuyển sang chế độ tối':'Switch to dark mode','Tìm sinh viên / đề tài':'Search student / thesis','Nhập tên, mã SV hoặc tên đề tài':'Enter name, student ID or thesis title','Tất cả lớp':'All classes','Tất cả giảng viên':'All advisors','Phân bố đề tài theo lớp':'Thesis distribution by class','Số sinh viên đăng ký đề tài theo từng lớp':'Students registered for thesis by class','Phân bố theo giảng viên':'Distribution by advisor','Số sinh viên được phân công theo giảng viên hướng dẫn':'Students assigned to advisors','Danh sách đề tài tốt nghiệp':'Graduation thesis list','Click vào sinh viên để xem thông tin đăng ký đề tài':'Click a student to view thesis registration','Số điện thoại':'Phone','Tên đề tài':'Thesis title','Giảng viên hướng dẫn':'Advisor','SĐT giảng viên':'Advisor phone','Hiển thị thêm':'Show more'},
+    ja:{'Chuyển sang chế độ sáng':'ライトモードに切替','Chuyển sang chế độ tối':'ダークモードに切替','Tìm sinh viên / đề tài':'学生・卒業研究を検索','Nhập tên, mã SV hoặc tên đề tài':'氏名・学生ID・研究題目を入力','Tất cả lớp':'すべてのクラス','Tất cả giảng viên':'すべての指導教員','Phân bố đề tài theo lớp':'クラス別卒業研究の分布','Số sinh viên đăng ký đề tài theo từng lớp':'クラス別の卒業研究登録者数','Phân bố theo giảng viên':'指導教員別の分布','Số sinh viên được phân công theo giảng viên hướng dẫn':'指導教員別の担当学生数','Danh sách đề tài tốt nghiệp':'卒業研究一覧','Click vào sinh viên để xem thông tin đăng ký đề tài':'学生をクリックして卒業研究情報を表示','Số điện thoại':'電話番号','Tên đề tài':'研究題目','Giảng viên hướng dẫn':'指導教員','SĐT giảng viên':'教員電話番号','Hiển thị thêm':'さらに表示'},
+    fr:{'Chuyển sang chế độ sáng':'Passer au mode clair','Chuyển sang chế độ tối':'Passer au mode sombre','Tìm sinh viên / đề tài':'Rechercher étudiant / mémoire','Nhập tên, mã SV hoặc tên đề tài':'Nom, ID étudiant ou titre du mémoire','Tất cả lớp':'Toutes les classes','Tất cả giảng viên':'Tous les encadrants','Phân bố đề tài theo lớp':'Répartition des mémoires par classe','Số sinh viên đăng ký đề tài theo từng lớp':'Étudiants inscrits par classe','Phân bố theo giảng viên':'Répartition par encadrant','Số sinh viên được phân công theo giảng viên hướng dẫn':'Étudiants suivis par encadrant','Danh sách đề tài tốt nghiệp':'Liste des mémoires','Click vào sinh viên để xem thông tin đăng ký đề tài':'Cliquer sur un étudiant pour voir son inscription','Số điện thoại':'Téléphone','Tên đề tài':'Titre du mémoire','Giảng viên hướng dẫn':'Encadrant','SĐT giảng viên':'Téléphone de l’encadrant','Hiển thị thêm':'Afficher plus'}
+  };
+  return (I18N[currentLang]&&I18N[currentLang][text])||((extra[currentLang]||{})[text])||text
+}
 const staticI18nNodes = new WeakMap();
 function translateTextNodes(root){
   const vi=I18N.vi||{};
@@ -1272,6 +1963,14 @@ function applyLanguage(lang){
 
   const input=$('search');
   if(input) input.placeholder=tr('Nhập tên hoặc mã sinh viên');
+  const thesisSearch=$('thesisSearch');
+  if(thesisSearch) thesisSearch.placeholder=tr('Nhập tên, mã SV hoặc tên đề tài');
+  const thesisClass=$('thesisClassFilter');
+  if(thesisClass) [...thesisClass.options].forEach(opt=>{ const base=opt.dataset.i18nBase || opt.textContent; opt.dataset.i18nBase=base; opt.textContent=tr(base); });
+  const thesisAdvisor=$('thesisAdvisorFilter');
+  if(thesisAdvisor) [...thesisAdvisor.options].forEach(opt=>{ const base=opt.dataset.i18nBase || opt.textContent; opt.dataset.i18nBase=base; opt.textContent=tr(base); });
+  const thesisReset=$('thesisReset');
+  if(thesisReset) thesisReset.textContent=tr('Đặt lại');
 
   const theme=$('themeToggle');
   if(theme){
@@ -1284,11 +1983,14 @@ function applyLanguage(lang){
   const reset=$('reset'); if(reset) reset.textContent=tr('Reset filter');
   const exportBtn=$('export'); if(exportBtn) exportBtn.textContent=tr('Export CSV');
   const apply=$('apply'); if(apply) apply.textContent=tr('Áp dụng');
-
   if(typeof render==='function') render();
+  if(typeof renderThesis==='function') renderThesis();
+  if(navAcademic) navAcademic.textContent=tr('Kết quả học tập');
+  if(navThesis) navThesis.textContent=tr('Đề tài tốt nghiệp');
   translateTextNodes(document.body);
 
   if(activeStudent && $('modal')?.classList.contains('show')) openStudent(activeStudent);
+  if(activeThesisStudent && $('modal')?.classList.contains('show')) openThesisStudent(activeThesisStudent['Mã sinh viên']);
 
   const seoIntro=$('.seo-intro');
   if(seoIntro){
@@ -1342,6 +2044,23 @@ if(langToggle&&langMenu){
   });
 }
 
+
+const navAcademic=$('navAcademic'), navThesis=$('navThesis');
+if(navAcademic) navAcademic.onclick=()=>setActivePage('academic');
+if(navThesis) navThesis.onclick=()=>setActivePage('thesis');
+
+['thesisSearch','thesisClassFilter','thesisAdvisorFilter'].forEach(id=>{
+  const el=$(id);
+  if(el) el.addEventListener(id==='thesisSearch'?'input':'change',()=>{thesisVisibleCount=12;renderThesis()});
+});
+$('thesisReset')?.addEventListener('click',()=>{
+  if($('thesisSearch')) $('thesisSearch').value='';
+  if($('thesisClassFilter')) $('thesisClassFilter').value='';
+  if($('thesisAdvisorFilter')) $('thesisAdvisorFilter').value='';
+  thesisVisibleCount=12;
+  renderThesis();
+});
+
 const savedTheme=localStorage.getItem('academic-theme');
 const initialTheme=savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 document.documentElement.dataset.theme=initialTheme;
@@ -1362,16 +2081,19 @@ $('themeToggle').onclick=()=>{
 updateThemeButton();
 
 
-$('modal').onclick=e=>{if(e.target===$('modal'))$('modal').classList.remove('show')};
-['search','classFilter','debtFilter','gradeFilter','minGpa','maxGpa'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',render));
-$('apply').onclick=render;
-$('reset').onclick=()=>{['search','minGpa','maxGpa'].forEach(id=>$(id).value='');$('classFilter').value='';$('debtFilter').value='';$('gradeFilter').value='';render()};
+$('modal').onclick=e=>{if(e.target===$('modal')){$('modal').classList.remove('show');activeStudent=null;activeThesisStudent=null;}};
+['search','classFilter','debtFilter','gradeFilter','minGpa','maxGpa'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',()=>{debtVisibleCount=12;render()}));
+$('apply').onclick=()=>{debtVisibleCount=12;render()};
+$('reset').onclick=()=>{['search','minGpa','maxGpa'].forEach(id=>$(id).value='');$('classFilter').value='';$('debtFilter').value='';$('gradeFilter').value='';debtVisibleCount=12;render()};
+$('debtLoadMore')?.addEventListener('click',()=>{debtVisibleCount+=12;render()});
+$('thesisLoadMore')?.addEventListener('click',()=>{thesisVisibleCount+=12;renderThesis()});
 $('export').onclick=()=>{
   const d=filtered(), cols=['Mã sinh viên','Họ và tên','Ngày sinh','Tên lớp','TBCHT','TBC Hệ 10','Số tín chỉ','Điểm RL','Số môn nợ','Ghi chú','Sai sót'];
   const csv=[cols.join(','),...d.map(s=>cols.map(c=>`"${String(s[c]??'').replace(/"/g,'""')}"`).join(','))].join('\n');
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='student_dashboard_filtered.csv';a.click();URL.revokeObjectURL(a.href);
 };
 applyLanguage(currentLang);
+setActivePage(localStorage.getItem('academic-dashboard-page')==='thesis'?'thesis':'academic');
 loadGoogleSheetsData();
 </script>
 </body>
