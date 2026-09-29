@@ -1054,10 +1054,11 @@ function renderThesis(){
   const students=new Set(d.map(s=>s['Mã sinh viên']).filter(Boolean));
   const classesSet=new Set(d.map(s=>s['Lớp']).filter(Boolean));
   const advisorsSet=new Set(d.map(s=>s['Giảng viên hướng dẫn']).filter(Boolean));
+  const thesisTopics=new Set(d.map(s=>String(s['Tên đề tài DATN'] ?? '').replace(/\s+/g,' ').trim()).filter(Boolean));
 
   $('thesisSummary').innerHTML=[
     [tr('Sinh viên đăng ký'),students.size,tr('Theo dữ liệu đề tài tốt nghiệp')],
-    [tr('Đề tài'),d.filter(s=>s['Tên đề tài DATN']).length,tr('Có tên đề tài')],
+    [tr('Đề tài'),thesisTopics.size,tr('Có tên đề tài')],
     [tr('Lớp tham gia'),classesSet.size,tr('Có sinh viên đăng ký')],
     [tr('Giảng viên hướng dẫn'),advisorsSet.size,tr('Có phân công hướng dẫn')]
   ].map(x=>`<div class="card kpi"><div class="kpi-label">${esc(x[0])}</div><div class="kpi-value">${x[1]}</div><div class="kpi-note">${esc(x[2])}</div></div>`).join('');
@@ -2080,10 +2081,19 @@ $('reset').onclick=()=>{['search','minGpa','maxGpa'].forEach(id=>$(id).value='')
 $('debtLoadMore')?.addEventListener('click',()=>{debtVisibleCount+=12;render()});
 $('thesisLoadMore')?.addEventListener('click',()=>{thesisVisibleCount+=12;renderThesis()});
 $('export').onclick=()=>{
-  const d=filtered(), cols=['Mã sinh viên','Họ và tên','Ngày sinh','Tên lớp','TBCHT','TBC Hệ 10','Số tín chỉ','Điểm RL','Số môn nợ','Ghi chú','Sai sót'];
-  const csv=[cols.join(','),...d.map(s=>cols.map(c=>`"${String(s[c]??'').replace(/"/g,'""')}"`).join(','))].join('\n');
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='student_dashboard_filtered.csv';a.click();URL.revokeObjectURL(a.href);
+  const d=filtered();
+  const academicCols=['Mã sinh viên','Họ và tên','Ngày sinh','Tên lớp','TBCHT','TBC Hệ 10','Số tín chỉ','Điểm RL','Số môn nợ','Ghi chú','Sai sót'];
+  const thesisCols=['Mã sinh viên','Họ và tên sinh viên','Lớp','Số điện thoại','Tên đề tài DATN','Giảng viên hướng dẫn','SĐT'];
+  const academicData=[academicCols,...d.map(s=>academicCols.map(c=>s[c]??''))];
+  const thesisData=[thesisCols,...THESIS_DATA.map(s=>[s['Mã sinh viên']??'',s['Họ và tên sinh viên']??s['Họ và tên']??'',s['Lớp']??'',s['Số điện thoại']??'',s['Tên đề tài DATN']??'',s['Giảng viên hướng dẫn']??'',s['SĐT']??s['SĐT giảng viên']??''])];
+  const wb=XLSX.utils.book_new();
+  const wsAcademic=XLSX.utils.aoa_to_sheet(academicData);
+  const wsThesis=XLSX.utils.aoa_to_sheet(thesisData);
+  XLSX.utils.book_append_sheet(wb,wsAcademic,'Kết quả học tập');
+  XLSX.utils.book_append_sheet(wb,wsThesis,'Đề tài tốt nghiệp');
+  XLSX.writeFile(wb,'student_dashboard.xlsx');
 };
+
 applyLanguage(currentLang);
 setActivePage(localStorage.getItem('academic-dashboard-page')==='thesis'?'thesis':'academic');
 loadGoogleSheetsData();
