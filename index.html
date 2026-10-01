@@ -432,7 +432,7 @@ tr:last-child td{border-bottom:0}
   height:40px;
   font-size:20px;
 }
-.profile{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:15px 0}
+.profile{display:grid;grid-template-columns:1.35fr 1fr;gap:9px;margin:15px 0}
 .profile .p{padding:11px;background:var(--soft);border-radius:11px;min-width:0}
 .p .lab{font-size:10px;color:var(--muted);font-weight:800}
 .p .val{font-weight:850;margin-top:3px;overflow-wrap:anywhere}
@@ -517,11 +517,13 @@ html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
   margin-bottom:16px;
 }
 .thesis-table-wrap{min-width:0}
+.thesis-table-wrap table th:nth-child(7),
+.thesis-table-wrap table td:nth-child(7){min-width:280px;width:20%;}
 .load-more-wrap{display:flex;justify-content:center;margin-top:14px}
 .load-more-btn{min-width:190px;height:42px;padding:9px 16px}
 .thesis-title{font-weight:700;line-height:1.5;min-width:320px}
-.thesis-advisor{font-weight:700}
-.thesis-phone{white-space:nowrap;font-variant-numeric:tabular-nums}
+.thesis-advisor{font-weight:700;white-space:pre-line;}
+.thesis-phone{white-space:pre-line;font-variant-numeric:tabular-nums;}
 .thesis-bars{display:flex;flex-direction:column;gap:11px;padding:7px 0}
 .thesis-bar-row{
   display:grid;
@@ -1138,7 +1140,7 @@ function openThesisStudent(id){
     [tr('Giảng viên hướng dẫn'),s['Giảng viên hướng dẫn']||tr('Chưa phân công')],
     [tr('SĐT giảng viên'),s['SĐT']||tr('Không có')]
   ];
-  $('profile').innerHTML=p.map(x=>`<div class="p"><div class="lab">${esc(x[0])}</div><div class="val">${esc(x[1])}</div></div>`).join('');
+  $('profile').innerHTML=p.map(x=>`<div class="p"><div class="lab">${esc(x[0])}</div><div class="val" style="white-space:pre-line">${esc(x[1])}</div></div>`).join('');
   $('mNote').innerHTML=`<strong>${tr('Đề tài tốt nghiệp')}</strong><br>${esc(s['Tên đề tài DATN']||tr('Chưa có đề tài'))}`;
   $('modal').classList.add('show');
 }
@@ -1250,8 +1252,12 @@ async function loadGoogleSheetsData(){
       .slice(headerRowIndex+1)
       .map((row,index)=>{
         const topic=getCell(row,col['Tên đề tài DATN']);
-        const supervisor=getCell(row,col['Giảng viên hướng dẫn']);
-        const advisorPhone=getCell(row,col['SĐT']);
+        const supervisorRaw=getCell(row,col['Giảng viên hướng dẫn']);
+        const advisors = supervisorRaw.replace(/\r?\n/g, ' ').split(/(?=(?:ThS\.|PGS\.TS\.|PGS\.|GS\.|(?<!PGS\.)TS\.)\s)/i).map(x => x.trim()).filter(Boolean);
+        const supervisor=advisors.join('\n');
+        const advisorPhoneRaw=getCell(row,col['SĐT']);
+        const advisorPhones=(advisorPhoneRaw.match(/0\d{9}/g)||[]).map(formatVietnamPhone);
+        const advisorPhone=advisorPhones.length ? advisorPhones.join('\n') : formatVietnamPhone(advisorPhoneRaw);
         if(topic) carry.topic=topic;
         if(supervisor) carry.supervisor=supervisor;
         if(advisorPhone) carry.advisorPhone=advisorPhone;
